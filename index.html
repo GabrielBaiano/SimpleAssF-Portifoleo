@@ -1,106 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Just a portifoleo</title>
 
-    <style type="text/css">
-      @import url("https://fonts.googleapis.com/css2?family=Jersey+15+Charted&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
-      * {
-        font-family: "Libre Baskerville", serif;
-        font-weight: 400;
-        font-style: normal;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Just a portifoleo</title>
+
+  <style type="text/css">
+    @import url("https://fonts.googleapis.com/css2?family=Jersey+15+Charted&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
+
+    * {
+      font-family: "Libre Baskerville", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    #libre-baskerville-bold {
+      font-family: "Libre Baskerville", serif;
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    #libre-baskerville-regular-italic {
+      font-family: "Libre Baskerville", serif;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+
+    body {
+      margin-left: 40px;
+      max-width: 650px;
+      line-height: 1.6;
+      font-size: 18px;
+      color: #444;
+      padding: 0 10px;
+    }
+
+    a {
+      color: #444;
+    }
+
+    a:hover {
+      opacity: 0.7;
+    }
+
+    p,
+    a {
+      font-size: 16px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #202020;
+        color: #ebecdd;
       }
 
-      #libre-baskerville-bold  {
-        font-family: "Libre Baskerville", serif;
-        font-weight: 700;
-        font-style: normal;
+      h1 {
+        color: #ebecdd;
       }
 
-      #libre-baskerville-regular-italic {
-  font-family: "Libre Baskerville", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-
-      body{
-        margin-left: 40px;
-        max-width: 650px;
-        line-height: 1.6;
-        font-size: 18px;
-        color: #444;
-        padding: 0 10px;
+      h3 {
+        color: #ebecdd;
       }
 
       a {
-        color: #444;
+        color: #ebecdd;
       }
 
-      a:hover {
-        opacity: 0.7;
+      img {
+        filter: brightness(0.9);
+      }
+    }
+
+    .circle {
+      height: 16px;
+      width: 16px;
+      border-radius: 16px;
+      background-color: black;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 99999999;
+    }
+
+    .typing-text {
+      margin-top: 0 !important;
+    }
+
+    .typing-text::after {
+      content: "|";
+      animation: blink ease 1s infinite;
+    }
+
+    .me {
+      margin-bottom: 0 !important;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 0;
       }
 
-      @media (prefers-color-scheme: dark) {
-  body {
-    background-color: #202020;
-    color: #f0ece2;
-  }
+      50% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
 
-  h1 {
-    color: #e8e8f1;
-  }
+<body>
+  <h1 class="me" id="libre-baskerville-bold">Gabriel Nascimento</h1>
+  <h1 class="typing-text">— Front-end Dev.</h1>
 
-  h3 {
-    color: #e8e8f1;
-  }
-  a {
-    color: #e8e8f1;
-  }
-  img {
-    filter: brightness(0.9);
-  }
+  <h2>Links</h2>
 
-}
-    </style>
-  </head>
+  <a href="https://github.com/GabrielBaiano">
+    <p>GitHub</p>
+  </a>
+  <a href="https://www.linkedin.com/in/gabriel-nascimento-gama-5b0b30185/">
+    <p>Linkedin</p>
+  </a>
+  <a href="https://www.instagram.com/gabrielbaiano_/">
+    <p>Instagram</p>
+  </a>
 
-  <body>
-    <h1 id="libre-baskerville-bold">Gabriel Nascimento</h1>
-    <h3 id="libre-baskerville-bold">Front-end Developer</h3>
+  <h2>About</h2>
+  <p>
+    I'm a 22 year old Brazilian with a degree in systems analysis and
+    development, I love building things and solving problems. I like doing
+    electronics and web projects. If I'm not on the computer I'm out there
+    reading or at the beach.
+  </p>
 
-    <a href="https://github.com/GabrielBaiano">
-      <p>GitHub</p>
-    </a>
-    <a href="https://www.linkedin.com/in/gabriel-nascimento-gama-5b0b30185/">
-      <p>Linkedin</p>
-    </a>
-    <a href="https://www.instagram.com/gabrielbaiano_/">
-      <p>Instagram</p>
-    </a>
+  <h2>Contact</h2>
+  <p id="libre-baskerville-regular-italic">+55 91 98409-0887</p>
+  <p id="libre-baskerville-regular-italic"> gabrielngama@gmail.com </p>
+  <h2>Projects so far</h2>
 
-    <h2>About</h2>
-    <p>
-        I'm a 22 year old Brazilian with a degree in systems analysis and
-      development, I love building things and solving problems. I like doing
-      electronics and web projects. If I'm not on the computer I'm out there
-      reading or at the beach.
-    </p>
-
-    <h2>Contact</h2>
-    <p id="libre-baskerville-regular-italic">+55 91 98409-0887</p>
-    <p id="libre-baskerville-regular-italic"> gabrielngama@gmail.com </p>
-    <h2>Projects so far</h2>
-
-    <ul>
+  <ul>
     <li><a class="projects" href="https://codepen.io/GabrielBaiano/pen/oNOgmWX">
-      tic-tac-toe
-    </a></li>
-    </ul>
+        tic-tac-toe
+      </a></li>
+  </ul>
 
-    <h2> Why so simple ?</h2>
-    <p>The answer is as simple as it seems, minimalism is in fashion !</p>
+  <h2> Why so simple ?</h2>
+  <p>The answer is as simple as it seems, minimalism is in fashion !</p>
+
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <script>
+    const coords = { x: 0, y: 0 };
+    const circles = document.querySelectorAll(".circle");
+
+    const colors = [
+      "#ffb56b",
+      "#fdaf69",
+      "#f89d63",
+      "#f59761",
+      "#ef865e",
+      "#ec805d",
+      "#e36e5c",
+      "#df685c",
+      "#d5585c",
+      "#d1525c",
+      "#c5415d",
+      "#c03b5d",
+      "#b22c5e",
+      "#ac265e",
+      "#9c155f",
+      "#950f5f",
+      "#830060",
+      "#7c0060",
+      "#680060",
+      "#60005f",
+      "#48005f",
+      "#3d005e"
+    ];
+
+    circles.forEach(function (circle, index) {
+      circle.x = 0;
+      circle.y = 0;
+      circle.style.backgroundColor = colors[index % colors.length];
+    });
+
+    window.addEventListener("mousemove", function (e) {
+      coords.x = e.clientX;
+      coords.y = e.clientY;
+
+    });
+
+    function animateCircles() {
+
+      let x = coords.x;
+      let y = coords.y;
+
+      circles.forEach(function (circle, index) {
+        circle.style.left = x - 8 + "px";
+        circle.style.top = y - 8 + "px";
+
+        circle.style.scale = (circles.length - index) / circles.length;
+
+        circle.x = x;
+        circle.y = y;
+
+        const nextCircle = circles[index + 1] || circles[0];
+        x += (nextCircle.x - x) * 0.3;
+        y += (nextCircle.y - y) * 0.3;
+      });
+
+      requestAnimationFrame(animateCircles);
+    }
+
+    animateCircles();
+
+    // get the element
+    const text = document.querySelector('.typing-text');
+
+    // make a words array
+    const words = [
+      "— Front-end Dev.",
+      "— The coolest.",
+      "— The marvelous"
+    ];
+
+    // start typing effect
+    setTyper(text, words);
+
+    function setTyper(element, words) {
+
+      const LETTER_TYPE_DELAY = 75;
+      const WORD_STAY_DELAY = 2000;
+
+      const DIRECTION_FORWARDS = 0;
+      const DIRECTION_BACKWARDS = 1;
+
+      var direction = DIRECTION_FORWARDS;
+      var wordIndex = 0;
+      var letterIndex = 0;
+
+      var wordTypeInterval;
+
+      startTyping();
+
+      function startTyping() {
+        wordTypeInterval = setInterval(typeLetter, LETTER_TYPE_DELAY);
+      }
+
+      function typeLetter() {
+        const word = words[wordIndex];
+
+        if (direction == DIRECTION_FORWARDS) {
+          letterIndex++;
+
+          if (letterIndex == word.length) {
+            direction = DIRECTION_BACKWARDS;
+            clearInterval(wordTypeInterval);
+            setTimeout(startTyping, WORD_STAY_DELAY);
+          }
+
+        } else if (direction == DIRECTION_BACKWARDS) {
+          letterIndex--;
+
+          if (letterIndex == 0) {
+            nextWord();
+          }
+        }
+
+        const textToType = word.substring(0, letterIndex);
+
+        element.textContent = textToType;
+      }
+
+      function nextWord() {
+
+        letterIndex = 0;
+        direction = DIRECTION_FORWARDS;
+        wordIndex++;
+
+        if (wordIndex == words.length) {
+          wordIndex = 0;
+        }
+
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>
   </body>
 </html>
