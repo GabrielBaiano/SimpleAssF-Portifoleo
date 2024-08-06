@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Just a portifoleo</title>
+  <link rel="shotcut icon" href="https://i.pinimg.com/564x/8d/45/6f/8d456f95728f8a12cfe264ec421954bd.jpg"/>
 
   <style type="text/css">
     @import url("https://fonts.googleapis.com/css2?family=Jersey+15+Charted&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
@@ -49,6 +50,15 @@
     p,
     a {
       font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .typing-text {
+        font-size: 25px;
+      }
+      .me {
+        font-size: 30px;
+      }
     }
 
     @media (prefers-color-scheme: dark) {
@@ -177,6 +187,8 @@
   <div class="circle"></div>
   <div class="circle"></div>
   <script>
+
+    //cursos effect
     const coords = { x: 0, y: 0 };
     const circles = document.querySelectorAll(".circle");
 
@@ -315,5 +327,7 @@
 
   </script>
 </body>
+
+</html>
 
 </html>
