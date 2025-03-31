@@ -5,327 +5,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cool dev</title>
-  <link rel="shotcut icon" href="https://i.pinimg.com/564x/8f/85/d1/8f85d19c27888bb913f4caba58760851.jpg"/>
+  <link rel="shotcut icon" href="https://i.pinimg.com/564x/8f/85/d1/8f85d19c27888bb913f4caba58760851.jpg" />
 
   <style type="text/css">
-    @import url("https://fonts.googleapis.com/css2?family=Jersey+15+Charted&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
-
     * {
-      font-family: "Libre Baskerville", serif;
-      font-weight: 400;
-      font-style: normal;
+      margin: 0;
+      padding: 0;
     }
 
-    #libre-baskerville-bold {
-      font-family: "Libre Baskerville", serif;
-      font-weight: 700;
-      font-style: normal;
+    h1{
+      color: rgb(210, 214, 218);
     }
-
-    #libre-baskerville-regular-italic {
-      font-family: "Libre Baskerville", serif;
-      font-weight: 400;
-      font-style: italic;
-    }
-
 
     body {
-      margin-left: 40px;
-      max-width: 650px;
-      line-height: 1.6;
-      font-size: 18px;
-      color: #202020;
-      background-color: #ebecdd;
-      padding: 0 10px;
+      background-color: rgb(27, 27, 27);
     }
 
-    a {
-      color: #202020;
+    .page {
+      margin-top: 3%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
-    a:hover {
-      opacity: 0.7;
-    }
 
-    p,
-    a {
-      font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-      .typing-text {
-        font-size: 25px;
-      }
-      .me {
-        font-size: 30px;
-      }
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #202020;
-        color: #ebecdd;
-      }
-
-      h1 {
-        color: #ebecdd;
-      }
-
-      h3 {
-        color: #ebecdd;
-      }
-
-      a {
-        color: #ebecdd;
-      }
-
-      img {
-        filter: brightness(0.9);
-      }
-    }
-
-    .circle {
-      height: 16px;
-      width: 16px;
-      border-radius: 16px;
-      background-color: black;
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 99999999;
-    }
-
-    .typing-text {
-      margin-top: 0 !important;
-    }
-
-    .typing-text::after {
-      content: "|";
-      animation: blink ease 1s infinite;
-    }
-
-    .me {
-      margin-bottom: 0 !important;
-    }
-
-    .link {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 0;
-      }
-
-      50% {
-        opacity: 1;
-      }
+    .open {
+      margin-top: 3%;
+      height: 60vh;
+      border-radius: 10%;
     }
   </style>
 </head>
 
 <body>
-  <h1 class="me" id="libre-baskerville-bold">Gabriel Nascimento</h1>
-  <h1 class="typing-text">— Front-end Dev.</h1>
-
-  <h2>Links</h2>
-
-  <a href="https://github.com/GabrielBaiano">
-    <p class="link">GitHub 😺</p>
-  </a>
-  <a href="https://www.linkedin.com/in/gabriel-nascimento-gama-5b0b30185/">
-    <p class="link">Linkedin 🔗</p>
-  </a>
-  <a  href="https://www.instagram.com/gabrielbaiano_/">
-    <p class="link">Instagram 📷</p>
-  </a>
-
-  <h2>About</h2>
+  <div class="page">
+  <h1> Hi, there!</h1>
+  <img class="open" src="opening.gif"> 
   <p>
-    I'm a 22 year old Brazilian with a degree in systems analysis and
-    development, I love building things and solving problems. I like doing
-    electronics and web projects. If I'm not on the computer I'm out there
-    reading or at the beach.
+    I'm a 22 year old Brazilian with a degree in systems analysis and development, I love building things and solving problems. I like doing electronics and web projects. If I'm not on the computer I'm out there reading or at the beach
   </p>
-
-  <h2>Contact</h2>
-  <p id="libre-baskerville-regular-italic"> gabrielngama@gmail.com </p>
-  <h2>Projects so far</h2>
-
-  <ul>
-    <li><a class="projects" href="https://codepen.io/GabrielBaiano/pen/oNOgmWX">
-        tic-tac-toe
-      </a></li>
-      <li><a class="projects" href="https://happy-unemployed-blog.vercel.app">
-        Happy Unemployed Blog (Test version)
-      </a></li>
-  </ul>
-
-  <h2> Why so simple ?</h2>
-  <p>The answer is as simple as it seems, minimalism is in fashion !</p>
-
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
+  </div>
   <script>
-
-    //cursos effect
-    const coords = { x: 0, y: 0 };
-    const circles = document.querySelectorAll(".circle");
-
-    const colors = [
-      "#ffb56b",
-      "#fdaf69",
-      "#f89d63",
-      "#f59761",
-      "#ef865e",
-      "#ec805d",
-      "#e36e5c",
-      "#df685c",
-      "#d5585c",
-      "#d1525c",
-      "#c5415d",
-      "#c03b5d",
-      "#b22c5e",
-      "#ac265e",
-      "#9c155f",
-      "#950f5f",
-      "#830060",
-      "#7c0060",
-      "#680060",
-      "#60005f",
-      "#48005f",
-      "#3d005e"
-    ];
-
-    circles.forEach(function (circle, index) {
-      circle.x = 0;
-      circle.y = 0;
-      circle.style.backgroundColor = colors[index % colors.length];
-    });
-
-    window.addEventListener("mousemove", function (e) {
-      coords.x = e.clientX;
-      coords.y = e.clientY;
-
-    });
-
-    function animateCircles() {
-
-      let x = coords.x;
-      let y = coords.y;
-
-      circles.forEach(function (circle, index) {
-        circle.style.left = x - 8 + "px";
-        circle.style.top = y - 8 + "px";
-
-        circle.style.scale = (circles.length - index) / circles.length;
-
-        circle.x = x;
-        circle.y = y;
-
-        const nextCircle = circles[index + 1] || circles[0];
-        x += (nextCircle.x - x) * 0.3;
-        y += (nextCircle.y - y) * 0.3;
-      });
-
-      requestAnimationFrame(animateCircles);
-    }
-
-    animateCircles();
-
-    // get the element
-    const text = document.querySelector('.typing-text');
-
-    // make a words array
-    const words = [
-      "— Front-end Dev.",
-      "— The coolest.",
-      "— The marvelous"
-    ];
-
-    // start typing effect
-    setTyper(text, words);
-
-    function setTyper(element, words) {
-
-      const LETTER_TYPE_DELAY = 75;
-      const WORD_STAY_DELAY = 2000;
-
-      const DIRECTION_FORWARDS = 0;
-      const DIRECTION_BACKWARDS = 1;
-
-      var direction = DIRECTION_FORWARDS;
-      var wordIndex = 0;
-      var letterIndex = 0;
-
-      var wordTypeInterval;
-
-      startTyping();
-
-      function startTyping() {
-        wordTypeInterval = setInterval(typeLetter, LETTER_TYPE_DELAY);
-      }
-
-      function typeLetter() {
-        const word = words[wordIndex];
-
-        if (direction == DIRECTION_FORWARDS) {
-          letterIndex++;
-
-          if (letterIndex == word.length) {
-            direction = DIRECTION_BACKWARDS;
-            clearInterval(wordTypeInterval);
-            setTimeout(startTyping, WORD_STAY_DELAY);
-          }
-
-        } else if (direction == DIRECTION_BACKWARDS) {
-          letterIndex--;
-
-          if (letterIndex == 0) {
-            nextWord();
-          }
-        }
-
-        const textToType = word.substring(0, letterIndex);
-
-        element.textContent = textToType;
-      }
-
-      function nextWord() {
-
-        letterIndex = 0;
-        direction = DIRECTION_FORWARDS;
-        wordIndex++;
-
-        if (wordIndex == words.length) {
-          wordIndex = 0;
-        }
-
-      }
-    }
-
 
   </script>
 </body>
