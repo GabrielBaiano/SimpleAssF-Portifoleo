@@ -81,14 +81,16 @@
       transform: translateX(4px);
     }
     .window {
-      position: absolute;
+      position: absolute; /* Mudado de absolute para fixed para melhor controle de arraste */
       background: #fff;
       border: 1px solid #aaa;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      width: 400px;
+      width: 600px;
       max-height: 80vh;
-      overflow: auto;
-      z-index: 10;
+      overflow: auto; /* Garante que o conteúdo interno com scroll funcione */
+      z-index: 100; /* Aumentado para garantir que fique acima de outros elementos */
+      border-radius: 8px;
+      /* display: none;  Removido daqui, controlado pelo JS */
     }
     .window-header {
       background: #eee;
@@ -97,13 +99,194 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #ccc;
+      cursor: move; /* Cursor para indicar que é arrastável */
     }
     .window-content {
       padding: 10px;
+      max-height: calc(80vh - 40px); /* Ajustar para o header da janela */
+      overflow-y: auto; /* Scroll apenas vertical no conteúdo */
     }
     .window-close {
       cursor: pointer;
     }
+
+    /* Layout do about_me */
+    .about-me-layout {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .about-me-image-container {
+      flex-shrink: 0;
+    }
+    .about-me-image-container img {
+      width: 200px; /* Ajuste conforme necessário */
+      height: auto;
+      border-radius: 8px;
+      display: block; /* Para remover espaço extra abaixo da imagem */
+    }
+    .about-me-text {
+      flex-grow: 1;
+    }
+    .about-me-text h3 {
+        margin-top: 15px;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    .about-me-text ul {
+        list-style: disc;
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
+    .about-me-text p, .about-me-text li {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #444;
+        margin-bottom: 10px;
+    }
+
+    .window-content .experience-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 22px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.window-content .experience-item {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #eee;
+}
+
+.window-content .experience-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.window-content .experience-item h3 {
+  font-size: 18px;
+  color: #2c3e50; /* Um azul escuro */
+  margin-bottom: 4px;
+}
+
+.window-content .experience-item .company-period {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.window-content .experience-item .company-period strong {
+  font-style: normal; /* Tira o itálico do nome da empresa se desejar */
+  color: #16a085; /* Um tom de verde/azul para destaque */
+}
+
+.window-content .experience-item ul {
+  list-style: none; /* Remove marcadores padrão */
+  padding-left: 0; /* Remove padding padrão */
+}
+
+.window-content .experience-item ul li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 8px;
+  padding-left: 20px; /* Espaço para o marcador personalizado */
+  position: relative; /* Para posicionar o marcador */
+}
+
+/* Marcador personalizado para as listas de responsabilidades/destaques */
+.window-content .experience-item ul li::before {
+  content: '▹'; /* Ou '•', '✓', etc. */
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: orange; /* Cor do seu tema */
+  font-weight: bold;
+}
+
+.window-content .experience-item p strong { /* Para o "Project Highlights:" e "Key Technologies:" */
+    font-weight: 600;
+    color: #333;
+}
+
+/* Ajuste específico para o "Key Technologies:" para não ter o marcador da lista */
+.window-content .experience-item ul li strong:only-child {
+    display: block; /* Faz com que "Key Technologies:" ocupe a linha */
+    margin-left: -20px; /* Alinha com o texto da lista, já que não tem marcador */
+    margin-top: 5px;
+}
+.window-content .experience-item ul li strong:only-child::before {
+    content: none; /* Remove o marcador para a linha "Key Technologies:" */
+}
+
+/*tools*/
+
+.window-content .tools-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 22px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+.window-content .tools-section h2 .icon {
+    margin-right: 8px;
+}
+
+.window-content .tools-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.window-content .tool-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 5px; /* Aumentado o padding vertical */
+  border-bottom: 1px dotted #ddd; /* Linha pontilhada como na imagem */
+  transition: background-color 0.2s ease;
+}
+
+.window-content .tool-item:last-child {
+  border-bottom: none;
+}
+
+.window-content .tool-item:hover {
+  background-color: #f9f9f9; /* Um leve hover para feedback */
+}
+
+.window-content .tool-icon {
+  width: 24px;  /* Tamanho do ícone */
+  height: 24px; /* Tamanho do ícone */
+  margin-right: 15px; /* Espaço entre ícone e nome */
+  object-fit: contain; /* Garante que o ícone não seja distorcido */
+  flex-shrink: 0; /* Impede que o ícone encolha */
+}
+.window-content .placeholder-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    background-color: #e0e0e0;
+    color: #555;
+    font-weight: bold;
+    border-radius: 4px;
+    font-size: 12px; /* Ajuste conforme necessário */
+    flex-shrink: 0;
+}
+
+
+.window-content .tool-name {
+  font-size: 16px;
+  color: #333;
+}
+
     footer {
       position: fixed;
       bottom: 0;
@@ -112,14 +295,27 @@
       padding: 10px;
       background: #f9f5f1;
       border-top: 1px dotted #ccc;
+      z-index: 50;
     }
     @media (max-width: 768px) {
       .window {
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 0;
+        /* Em telas pequenas, a janela pode ocupar mais espaço, mas o arraste ainda deve funcionar */
+        width: 95% !important;
+        max-height: 90vh;
+        /* As propriedades top/left do JS ainda controlarão a posição inicial */
+      }
+      .about-me-layout {
+        flex-direction: column; /* Imagem acima do texto */
+      }
+      .about-me-image-container {
+        width: 100%; /* O container da imagem ocupa a largura */
+        margin-bottom: 15px;
+      }
+      .about-me-image-container img {
+        width: 100%; /* A imagem se ajusta ao container */
+        max-width: 300px; /* Limita o tamanho máximo da imagem */
+        margin-left: auto; /* Centraliza a imagem se max-width for atingido */
+        margin-right: auto;
       }
     }
   </style>
@@ -143,7 +339,7 @@
       </button>
       <div class="accordion-content" data-content="about">
         <div class="file" data-file="about_me">📄 about_me.pdf</div>
-        <div class="file" data-file="experience">📄 experience.pdf</div>
+        <div class="file" data-file="work_experience">📄 work_experience.pdf</div>
         <div class="file" data-file="tools">📄 tools.pdf</div>
       </div>
 
@@ -161,27 +357,179 @@
 
   <script>
     const contentData = {
-      about_me: '<p>Conteúdo sobre mim com imagem e texto...</p>',
-      experience: '<p>Experiência detalhada aqui...</p>',
-      tools: '<p>Ferramentas que utilizo...</p>',
+      about_me: `
+        <div class="about-me-layout">
+          <div class="about-me-image-container">
+            <img src="https://i.pinimg.com/originals/fa/de/06/fade06fdb98c309859796fb0e764ab0d.gif" alt="Gabriel Gama GIF">
+          </div>
+          <div class="about-me-text">
+            <p>Hey, I am Gabriel Gama — a Front-End Developer with solid experience in React, React Native and modern web technologies. I specialize in building clean, responsive, and engaging interfaces for web and mobile applications.</p>
+            <p>Over the past few years, I have worked on corporate projects, freelance websites, and personal experiments — combining performance, accessibility, and visual storytelling. I am passionate about solving problems through code and delivering seamless user experiences across devices.</p>
+            <p>Whether it is a product showcase, a mobile app, or a landing page, I am committed to bringing ideas to life with thoughtful design and efficient development.</p>
+            <h3>Expertise & Skills:</h3>
+            <ul>
+              <li>React, React Native, Next.js, Vue.js</li>
+              <li>TypeScript, JavaScript, HTML, CSS</li>
+              <li>Styled Components, Tailwind CSS, Sass</li>
+              <li>API Integration (REST, Firebase)</li>
+              <li>UI/UX Thinking & Component Architecture</li>
+              <li>Responsive Design & Performance Optimization</li>
+              <li>Git, GitHub, Agile Development</li>
+            </ul>
+          </div>
+        </div>
+      `,
+       work_experience: `
+        <div class="experience-section">
+          <h2>Work Experience</h2>
+
+          <div class="experience-item">
+            <h3>Front-End Developer (React Native & React)</h3>
+            <p class="company-period"><strong>Compass UOL</strong> | August 2024 – Present (Current as of May 2025)</p>
+            <ul>
+              <li>Spearheading mobile front-end development initiatives using React Native, delivering high-quality user interfaces.</li>
+              <li>Developing and implementing reusable UI components, ensuring seamless integration with backend services.</li>
+              <li>Actively collaborating with UX/UI designers and QA teams within an agile framework to refine and perfect application features.</li>
+              <li><strong>Key Technologies:</strong> React Native, React, JavaScript, TypeScript, Jest, Agile Methodologies.</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <h3>Junior Front-End Developer</h3>
+            <p class="company-period"><strong>TecnoVale Solutions</strong> | February 2023 – July 2024</p>
+            <ul>
+              <li>Contributed significantly to the development of interactive dashboards and internal platforms utilizing React and TypeScript.</li>
+              <li>Enhanced application performance and accessibility, leading to improved user experience and broader usability.</li>
+              <li>Proficiently worked with REST APIs, managed application state effectively, and leveraged various component libraries.</li>
+              <li><strong>Key Technologies:</strong> React, TypeScript, JavaScript, Redux/Context API, REST APIs, CSS-in-JS.</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <h3>Freelance Web Developer</h3>
+            <p class="company-period"><strong>Shultz Agro Ltda.</strong> | July 2022 – January 2023</p>
+            <ul>
+              <li>Designed and developed compelling websites and applications to effectively showcase and promote company products.</li>
+              <li>Delivered clean, responsive designs with a strong focus on optimized load times and cross-browser compatibility.</li>
+              <li>Supported and enhanced SEO strategy through semantic HTML, performance best practices, and on-page optimization.</li>
+              <li><strong>Key Technologies:</strong> HTML5, CSS3, JavaScript (ES6+), Responsive Design, SEO Best Practices.</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <h3>Front-End Developer (Freelance Projects)</h3>
+            <p class="company-period">Remote & On-Demand | 2021 – Present (Current as of May 2025)</p>
+            <p><strong>Project Highlights:</strong></p>
+            <ul>
+              <li><strong>E-commerce Landing Pages:</strong> Engineered fully responsive, SEO-optimized landing pages with React, achieving up to a 30% increase in conversion rates for small business clients.</li>
+              <li><strong>Portfolio Websites:</strong> Crafted modern and visually engaging portfolio websites for creative professionals, incorporating Vue.js and dynamic animations with GSAP for enhanced user experience.</li>
+              <li><strong>Admin Dashboards:</strong> Delivered bespoke admin panels featuring robust authentication and real-time data visualization using Next.js and Firebase.</li>
+              <li><strong>Technical Consulting:</strong> Provided expert code reviews, architectural guidance, and performance optimization strategies for React-based applications, empowering teams to build more scalable and efficient solutions.</li>
+              <li><strong>Key Technologies:</strong> React, Vue.js, Next.js, Firebase, GSAP, Node.js (for build tools/light backends), Headless CMS integration.</li>
+            </ul>
+          </div>
+        </div>
+      `,
+      tools: `
+    <div class="tools-section">
+      <h2><span class="icon">🛠️</span> Tools & Technologies</h2>
+      <ul class="tools-list">
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#E44D26" d="M20.4 113.5l-7.9-88.8h103l-7.9 88.7L64 124z"/><path fill="#F16529" d="M64 116.1V18.4h42.3l-6.7 75.1z"/><path fill="#EBEBEB" d="M64 45.3v18.2h29.1l.5-5.6 1.5-17.4H64V27.4h33.1l-.4 4.5-.7 8-1.2 13.3-.4 4.5h-30.4zm0 44.4v19.1l22.9-6.1 3.2-36.1H64v17.4h13.8l-1.6 17.9z"/><path fill="#FFF" d="M64 45.3H34.4l.5 5.6 1.5 17.4H64V27.4H30.9l.4 4.5.7 8 1.2 13.3.4 4.5h30.4v18.2zm0 44.4H49.8l-1.6-17.9H64V92.6L41.1 86.5l-3.2-36.1h26.1v17.4z"/></svg>
+          <span class="tool-name">HTML5</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#1572B6" d="M20.4 113.5l-7.9-88.8h103l-7.9 88.7L64 124z"/><path fill="#33A9DC" d="M64 116.1V18.4h42.3l-6.7 75.1z"/><path fill="#FFF" d="M64 45.3H34.4l.5 5.6 1.5 17.4H64V27.4H30.9l.4 4.5.7 8 1.2 13.3.4 4.5h30.4v18.2zm0 44.4H49.8l-1.6-17.9H64V92.6L41.1 86.5l-3.2-36.1h26.1v17.4z"/><path fill="#EBEBEB" d="M64 45.3v18.2h29.1l.5-5.6 1.5-17.4H64V27.4h33.1l-.4 4.5-.7 8-1.2 13.3-.4 4.5h-30.4zm0 44.4v19.1l22.9-6.1 3.2-36.1H64v17.4h13.8l-1.6 17.9z"/></svg>
+          <span class="tool-name">CSS3</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#F0DB4F" d="M0 0h128v128H0z"/><path d="M109.9 100.7c2.4-4.1 3.2-8.1 3.2-13.4 0-13.4-8.1-22.5-25.1-22.5-9.9 0-16.2 3.8-20.4 9.9l5.8 3.5c2.9-4.3 6.8-7 13.9-7 7.8 0 12.9 4.1 12.9 11.9 0 4.9-2.4 9.1-7 11.9s-11.1 3.5-20.7 3.5h-6.1V112h6.8c6.2 0 11.4.6 15.6 1.7s7.3 2.9 9.9 5.2c2.6 2.4 3.8 5.2 3.8 8.8 0 5.5-3.5 9.6-10.5 9.6-4.9 0-8.8-2.1-12.3-6.7l-5.8 3.5c3.2 5.2 8.1 8.8 16.5 8.8 9.6 0 15.6-3.2 18.8-9.1 3.2-6.1 3.2-12.9 3.2-18.5.1-5.2-.9-9.9-2.9-13.7zm-60.8-29.9c-3.2-5.2-8.3-8.3-15.9-8.3s-12.9 3.2-15.9 8.3-4.6 11.1-4.6 18.2c0 7.3 1.5 13.1 4.6 18.2s8.3 8.3 15.9 8.3 12.9-3.2 15.9-8.3 4.6-11.1 4.6-18.2c0-7.1-1.5-12.9-4.6-18.2zM46.3 103c-2.1-4.3-3.2-9.1-3.2-14.2s1.2-9.9 3.2-14.2c2.1-4.3 4.9-6.5 8.6-6.5s6.5 2.1 8.6 6.5c2.1 4.3 3.2 9.1 3.2 14.2s-1.2 9.9-3.2 14.2c-2.1 4.3-4.9 6.5-8.6 6.5s-6.5-2.1-8.6-6.5z"/></svg>
+          <span class="tool-name">JavaScript (ES6+)</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#007ACC" d="M0 0h128v128H0z"/><path fill="#FFF" d="M26.4 91.1V37.4h9.3V83c0 5.8 3.8 8.2 8.5 8.2h.6v9.2c-1.1.1-2.2.2-3.4.2-6.7 0-10.4-2.9-11.3-8.5h-.1l-3.6 8.5zm25.1-27c0-7.8 5.3-13.4 13.1-13.4 4.1 0 7.3 1.2 9.7 3.5l-4.1 5.8c-1.4-1.2-3.1-1.9-5.3-1.9-3.5 0-6.1 2.2-6.1 6.1s2.6 6.1 6.1 6.1c2.2 0 3.8-.7 5.3-1.9l4.1 5.8c-2.4 2.3-5.6 3.5-9.7 3.5-7.8.1-13.1-5.5-13.1-13.1zm28.9-1.9V37.4h24.1v7.9H89.7V58h12.4v7.9H89.7v17.3h15.1v7.9H80.4v-5.9z"/></svg>
+          <span class="tool-name">TypeScript</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><g fill="#61DAFB"><ellipse cx="64" cy="64.5" rx="11.4" ry="4.6"/><path d="M64 17.1C37.5 17.1 16 38.6 16 65.1s21.5 48 48 48 48-21.5 48-48S90.5 17.1 64 17.1zm0 88.5C41.1 105.6 22.5 87 22.5 64s18.6-41.5 41.5-41.5S105.5 41.1 105.5 64s-18.6 41.5-41.5 41.5z"/><ellipse transform="rotate(-30 64.421 64.048)" cx="64.4" cy="64" rx="4.6" ry="11.4"/><ellipse transform="rotate(-60 64.13 64.369)" cx="64.1" cy="64.4" rx="4.6" ry="11.4"/><path d="M89.1 36c-3.8-1.7-8.1-2.5-12.6-2.5-7.8 0-15.1 2.6-20.7 7.3-1 .8-1.9 1.8-2.8 2.7l-2.1 2.1c-3.8 3.8-6.7 8.5-8.4 13.7-.9 2.6-1.4 5.3-1.4 8.1s.5 5.5 1.4 8.1c1.7 5.2 4.5 9.9 8.4 13.7l2.1 2.1c.9.9 1.8 1.9 2.8 2.7 5.7 4.7 12.9 7.3 20.7 7.3 4.5 0 8.8-.9 12.6-2.5 3.8-1.7 7.1-4.1 9.8-7.3l1.1-1.3c-1.6-.7-3.1-1.6-4.5-2.7-2.7-2.1-4.9-4.8-6.5-7.9-1.6-3.1-2.4-6.6-2.4-10.2s.8-7.1 2.4-10.2c1.6-3.1 3.8-5.8 6.5-7.9 1.4-1.1 2.9-2 4.5-2.7l-1.1-1.3c-2.7-3.2-6-5.6-9.8-7.3zm-37.7 29c0-3.8.8-7.4 2.3-10.7 1.5-3.2 3.7-6 6.4-8.3.9-.8 1.8-1.5 2.8-2.1-4.6-3.7-10.1-5.8-15.9-5.8-3.6 0-7 .7-10.1 2-3.1 1.4-5.8 3.4-8.1 5.9l-1.1 1.3c1.6.7 3.1 1.5 4.5 2.6 2.7 2.1 4.9 4.8 6.5 7.9 1.6 3.1 2.4 6.6 2.4 10.2s-.8 7.1-2.4 10.2c-1.6 3.1-3.8 5.8-6.5 7.9-1.4 1.1-2.9 1.9-4.5 2.6l1.1 1.3c2.3 2.5 5 4.5 8.1 5.9 3.1 1.4 6.5 2 10.1 2 5.9 0 11.3-2.1 15.9-5.8-.9-.6-1.8-1.3-2.8-2.1-2.7-2.3-4.9-5.1-6.4-8.3-1.5-3.3-2.3-6.9-2.3-10.7zm38.7 10.8c-1.2 2.6-2.9 4.8-4.9 6.6-1.4 1.2-2.9 2.3-4.5 3.1 2.9.7 5.9 1 8.9 1 6.3 0 12.2-2 17.2-5.7.9-.6 1.8-1.2 2.7-1.9-3.7-3.4-6.4-7.7-7.9-12.5-1.5-4.8-2.2-9.9-2.2-15.1s.7-10.3 2.2-15.1c1.5-4.8 4.2-9.1 7.9-12.5-.9-.7-1.8-1.3-2.7-1.9-5-3.7-10.9-5.7-17.2-5.7-3.1 0-6 .4-8.9 1 1.6.8 3.1 1.9 4.5 3.1 2.1 1.7 3.7 3.9 4.9 6.6 1.2 2.6 1.8 5.5 1.8 8.5s-.6 5.9-1.8 8.5z"/></g></svg>
+          <span class="tool-name">React & React Native</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><circle cx="64" cy="64" r="64" fill="#000000"/><path fill="#FFFFFF" d="M91.25,43.46H70.67a4.27,4.27,0,0,0-4.26,4.27V80.28a4.27,4.27,0,0,0,4.26,4.26H91.25a4.27,4.27,0,0,0,4.27-4.26V47.73A4.27,4.27,0,0,0,91.25,43.46Zm-4.26,36.82H74.93V52h8.89A3.18,3.18,0,0,1,87,55.18v22a3.18,3.18,0,0,1-3.18,3.18Z"/><path fill="#FFFFFF" d="M58.57,43.46H38a4.27,4.27,0,0,0-4.27,4.27V80.28A4.27,4.27,0,0,0,38,84.54H58.57a4.27,4.27,0,0,0,4.27-4.27V74.93H50.23v1.79a3.39,3.39,0,0,1-3.38,3.38H42.58a3.39,3.39,0,0,1-3.38-3.38V51.81a3.39,3.39,0,0,1,3.38-3.38h4.27a3.39,3.39,0,0,1,3.38,3.38v1.78h12.6V47.73A4.27,4.27,0,0,0,58.57,43.46Z"/></svg>
+          <span class="tool-name">Next.js</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#41B883" d="M103 25L64 94.8L25 25h28.2l10.8 18.8L74.8 25z"/><path fill="#34495E" d="M25 25l39 69.8L103 25H74.8L64 43.8L53.2 25z"/><path fill="#41B883" d="M53.2 25L64 43.8L74.8 25H53.2z"/></svg>
+          <span class="tool-name">Vue.js</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#8CC84B" d="M61.3 23.3c-5.1-1.1-10.9-.1-15.6 2.7-6.3 3.9-10.6 10.5-12.2 17.8-2.1 9.5.1 20.6 7.2 26.9 4.5 3.9 10.1 6.2 16 6.7l36.2 2.9C100.3 79.9 108 75 113 68.7c5.9-7.3 8.2-16.4 6.3-25.5-1.4-6.8-5.4-13.7-11.6-17.8-5.1-3.4-11.5-5.1-17.8-4.7l-28.6 1.6zm10.1 15.7c2.4-.4 4.8.3 6.7 1.4 3.4 2 5.6 5.4 6.2 9.1.8 5.1-1.6 10.6-6.7 13.1-2.9 1.4-6.3 1.7-9.4.8l-18.1-4.7c-4.1-1.1-7.2-4.5-8.1-8.6-.9-4.7.9-10.1 5.1-12.8 2.9-1.9 6.3-2.8 9.7-2.4l14.6 3.9zm-7.9 51.3c-.4 0-.7.1-1.1.1-6.5.3-12.5-2.7-16.2-7.9-4.5-6.3-5.6-14.1-2.8-21.2l.8-2.1c0 .1.1.1.1.2l17.6 44.4c.4.9.2 2-.6 2.7-.6.5-1.5.8-2.4.8h-.4z"/><path fill="#303030" d="M63.7 22.3C58.6 21.1 52.9 22 48.1 24.8c-6.3 3.9-10.6 10.5-12.2 17.8-2.1 9.5.1 20.6 7.2 26.9 4.5 3.9 10.1 6.2 16 6.7l36.2 2.9c7.4-.4 15.1-5.3 20.1-11.6 5.9-7.3 8.2-16.4 6.3-25.5-1.4-6.8-5.4-13.7-11.6-17.8-5.1-3.4-11.5-5.1-17.8-4.7L63.7 22.3zM46.9 84.3c-1.2 0-2.3-.4-3.2-1.1-1.3-1.1-1.8-2.8-1.3-4.4L61.4 35c.6-1.6 2.2-2.5 3.8-2 .6.2 1.1.5 1.5.9.2.2.4.4.6.6l.2.3c.2.2.3.5.4.7.1.3.2.6.2.9 1.1 6.1-1.1 12.4-5.6 16.5-5.2 4.8-12.3 6.8-19 5.2l-1.3-.3c-1.3-.3-2.6.3-3.2 1.5-.7 1.2-.5 2.7.5 3.6l3.7 3.3c1 .9 1.2 2.3.5 3.4-.7 1.1-2.1 1.6-3.3 1z"/></svg>
+          <span class="tool-name">Node.js</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#CD6799" d="M64 .1C28.7.1 0 28.8 0 64.1c0 27.4 16.9 50.8 40.7 59.5 4.2 1.5 5.9-1.3 5.9-3.4 0-2-.1-9.5-.1-17.3 0-.1-.1-.1-.1-.2-14.5 2.7-18-5.2-18.9-7.6-.8-2.1-3.5-5.4-5.8-6.5-1.9-1-4.7-3.6-0.2-3.7 4.1 0 7.1 3.5 8.1 5.2 1.1 2 3.5 6.2 9.4 6.2 3.5 0 6.1-1.4 7.8-2.9 0.6-2.7 2-5 3.7-6.6C35.2 89.1 20.6 83.2 20.6 60c0-6.5 2.2-12.3 6.2-16.7-0.6-1.7-2.7-8 0.6-16.5 0 0 5.8-1.9 19.1 7.1 5.5-1.5 11.4-2.3 17.3-2.3 5.8 0 11.8 0.8 17.3 2.3 13.3-9 19.1-7.1 19.1-7.1 3.3 8.5 1.2 14.8 0.6 16.5 4 4.4 6.2 10.2 6.2 16.7 0 23.2-14.6 29.1-30.2 32.2 2.2 2.1 4.2 6.2 4.2 12.3v18.2c0 2.1 1.6 5 6 3.4 23.8-8.7 40.7-32.1 40.7-59.5C128 28.8 99.3.1 64 .1z"/><path fill="#FFF" d="M87.9 68.5c-2.1-1.2-4.2-2.2-6.1-3.1-3.5-1.6-6.2-2.7-7.6-3.4-2.9-1.4-4.2-2.7-4.2-4.1s1.1-2.6 3.4-2.6c1.6 0 3.6 0.5 6.1 1.6 0.5 0.2 1.1 0.2 1.6 0 0.5-0.2 0.8-0.8 0.8-1.3V49c0-0.5-0.2-0.8-0.5-1.1s-0.8-0.5-1.3-0.5c-3.1-0.8-7.1-1.3-11.8-1.3-6.2 0-10.9 1.6-13.8 4.7s-4.4 7.3-4.4 12.6c0 4.4 1.6 8.2 4.7 11.1 3.1 2.9 7.6 5 13.3 6.5 2.9 0.8 5.5 1.6 7.6 2.6 3.7 1.6 6.4 2.9 7.8 3.7 2.9 1.6 4.2 3.1 4.2 4.7 0 1.6-1.3 3.1-4 3.1-1.9 0-4.4-0.5-7.6-1.9-0.5-0.2-1.1-0.2-1.6 0s-0.8 0.8-0.8 1.3v3.7c0 0.5 0.2 0.8 0.5 1.1s0.8 0.5 1.3 0.5c3.5 0.8 8.1 1.3 13.3 1.3 6.2 0 11.1-1.6 14.1-4.7s4.4-7.3 4.4-12.6c-0.1-4.9-2-8.8-5.2-11.8z"/></svg>
+          <span class="tool-name">Sass/SCSS</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 128 128"><path fill="#38BDF8" d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64 64-28.7 64-64S99.3 0 64 0zm29.5 46.8c-4.8 4.1-12.5 4.1-17.3 0-4.8-4.1-4.8-10.7 0-14.8 4.8-4.1 12.5-4.1 17.3 0 4.8 4.1 4.8 10.7 0 14.8zm-41.7 0c-4.8 4.1-12.5 4.1-17.3 0-4.8-4.1-4.8-10.7 0-14.8 4.8-4.1 12.5-4.1 17.3 0 4.8 4.1 4.8 10.7 0 14.8zM64 105.8c-19.6 0-36.5-12.6-42.3-30.3h84.6c-5.8 17.6-22.7 30.3-42.3 30.3z"/></svg>
+          <span class="tool-name">Tailwind CSS</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#F05033" d="M126.6 57.2L70.8 1.4c-2.2-2.2-5.9-2.2-8.1 0L57.2 7c-1 .9-1.5 2.2-1.5 3.5v31.9c0 1.2.4 2.3 1.1 3.2L83 71.9c2.4 2.6 2.3 6.6-.3 9l-26.2 26.2c-1.2 1.2-1.2 3.1 0 4.2l5.5 5.5c1.2 1.2 3.1 1.2 4.2 0l26.2-26.2c2.6-2.4 6.6-2.3 9 .3l26.2 26.2c1.2 1.2 3.1 1.2 4.2 0l5.5-5.5c1.2-1.2 1.2-3.1 0-4.2L98.8 70.8c-1.1-1-1.6-2.4-1.6-3.8V23.2c0-2.8 2.3-5.1 5.1-5.1h19c2.8 0 5.1 2.3 5.1 5.1v32.8c0 .7.6 1.2 1.2 1.2h.1c.6 0 1.2-.5 1.2-1.2v-33c0-4-3.2-7.2-7.2-7.2h-19c-4 0-7.2 3.2-7.2 7.2v43.8c0 .5-.2 1-.5 1.3l-32.3 32.3c-2.2 2.2-5.9 2.2-8.1 0l-5.5-5.5c-2.2-2.2-2.2-5.9 0-8.1l26.2-26.2c1.3-1.3 2-3 2-4.8s-.7-3.5-2-4.8L34.6 48.5c-2.2-2.2-5.9-2.2-8.1 0l-5.5 5.5c-2.2 2.2-2.2 5.9 0 8.1l32.3 32.3c1.3 1.3 2 3 2 4.8s-.7 3.5-2 4.8L21.1 136.1c-2.2 2.2-5.9 2.2-8.1 0L1.4 124.5c-2.2-2.2-2.2-5.9 0-8.1l55.8-55.8c1.1-1.1 1.6-2.5 1.6-4V7c0-1.3-.5-2.6-1.5-3.5L51.7 1.4c-2.2-2.2-5.9-2.2-8.1 0L1.4 57.2c-2.2 2.2-2.2 5.9 0 8.1l55.8 55.8c2.2 2.2 5.9 2.2 8.1 0l5.5-5.5c.6-.6.9-1.3.9-2.1s-.3-1.5-.9-2.1L15.1 59.4c-2.2-2.2-2.2-5.9 0-8.1l5.5-5.5c2.2-2.2 5.9-2.2 8.1 0l55.8 55.8c2.2 2.2 5.9 2.2 8.1 0l5.5-5.5c2.2-2.2 2.2-5.9 0-8.1z"/><circle fill="#FFF" cx="97.3" cy="24.8" r="7.2"/></svg>
+          <span class="tool-name">Git & GitHub</span>
+        </li>
+         <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#FFCA28" d="M30.2 80.7l-25-43.3c-1.4-2.5-.4-5.7 2.1-7.2L30 14.8c2.5-1.4 5.7-.4 7.2 2.1l12.5 21.6L30.2 80.7z"/><path fill="#FFA000" d="M30.2 80.7L4.7 32.3l25.5-14.8 19.4 33.6-19.4 29.6z"/><path fill="#F57C00" d="M4.7 32.3L7.2 28c2.5-1.4 5.7-.4 7.2 2.1L30 80.7l-25.3-48.4zM120.8 28l2.5 4.3c1.4 2.5.4 5.7-2.1 7.2L98.6 54.8l19.4-33.6L120.8 28z"/><path fill="#FFCA28" d="M123.3 32.3L97.8 80.7 78.4 38.4l12.5-21.6c1.4-2.5 4.6-3.5 7.2-2.1l22.7 15.5c2.5 1.5 3.5 4.7 2.5 7.1z"/><path fill="#039BE5" d="M97.8 80.7l-33.7 55.8c-1.4 2.5-4.6 3.5-7.2 2.1L30.2 80.7l33.8 58.6 33.8-58.6z"/><path fill="#1E88E5" d="M30.2 80.7l33.7 58.6 33.8-58.6-33.8 29.3-33.7-29.3z"/></svg>
+          <span class="tool-name">Firebase</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#99425B" d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64h32V0H64z"/><path fill="#C21325" d="M64 0v128h32c35.3 0 64-28.7 64-64S131.3 0 96 0H64z"/><path fill="#FFF" d="M82.6 36.4H66.3v10.5h13.9V36.4zm-2.4 14.8H66.3v39.9h13.9V51.2zm24.3-14.8H88.4v54.6h16.2V36.4zm-41 29.1c-2.7 0-4.8-2.2-4.8-4.8s2.2-4.8 4.8-4.8V36.4H48.2v39.9h15.3v-9.4zM48.2 85.8h17.7V75.3H48.2v10.5z"/></svg>
+          <span class="tool-name">Jest</span>
+        </li>
+        <li class="tool-item">
+          <svg class="tool-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#F24E1E" d="M42.1 85.4h21.2V64.1H42.1v21.3zM42.1 64.1H20.8V42.8h21.3V64.1z"/><path fill="#FF7262" d="M20.8 85.4h21.3v21.3H20.8V85.4z"/><path fill="#A259FF" d="M42.1 106.7h21.2v21.3H42.1v-21.3zM63.4 85.4h21.3V64.1H63.4v21.3z"/><path fill="#1ABCFE" d="M84.6 64.1V42.8H63.4V21.5h21.3v21.3h21.2v21.3z"/><path fill="#0ACF83" d="M63.4 42.8V21.5h21.3v21.3z"/><circle fill="#0ACF83" cx="74" cy="32.1" r="10.6"/></svg>
+          <span class="tool-name">Figma</span>
+        </li>
+         <li class="tool-item">
+            <span class="tool-icon placeholder-icon">GS</span>
+            <span class="tool-name">GSAP (GreenSock)</span>
+        </li>
+        <li class="tool-item">
+            <span class="tool-icon placeholder-icon">💅</span>
+            <span class="tool-name">Styled Components</span>
+        </li>
+        </ul>
+    </div>
+  `,
       project1: '<p>Projeto 1: descrição + link...</p>',
       project2: '<p>Projeto 2: descrição + link...</p>',
       contact: '<form><label>Name</label><input/><br/><label>Email</label><input/><br/><textarea></textarea><button>Send</button></form>'
     };
 
     const openedWindows = new Set();
+    let highestZIndex = 100; // Para trazer a janela clicada para frente
 
     document.querySelectorAll('.accordion-header').forEach(header => {
       header.addEventListener('click', () => {
         const content = document.querySelector(`[data-content="${header.dataset.folder}"]`);
         const icon = header.querySelector('.icon');
-        const open = content.style.display === 'block';
-        document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
-        document.querySelectorAll('.accordion-header .icon').forEach(i => i.textContent = '📁');
+        const isOpen = content.style.display === 'block';
 
-        if (!open) {
+        // Fecha todos os outros accordions da mesma seção (opcional, pode remover se quiser múltiplos abertos)
+        // header.closest('.accordion').querySelectorAll('.accordion-content').forEach(c => {
+        //   if (c !== content) c.style.display = 'none';
+        // });
+        // header.closest('.accordion').querySelectorAll('.accordion-header .icon').forEach(i => {
+        //    if (i !== icon) i.textContent = '📁';
+        // });
+
+
+        if (!isOpen) {
           content.style.display = 'block';
           icon.textContent = '📂';
+        } else {
+          content.style.display = 'none';
+          icon.textContent = '📁';
         }
       });
     });
@@ -189,20 +537,50 @@
     document.querySelectorAll('.file').forEach(file => {
       file.addEventListener('click', () => {
         const fileId = file.dataset.file;
-        if (openedWindows.has(fileId)) return;
 
-        openedWindows.add(fileId);
+        // Se a janela já existir, apenas a traz para frente
+        const existingWin = document.querySelector(`.window[data-file="${fileId}"]`);
+        if (existingWin) {
+          highestZIndex++;
+          existingWin.style.zIndex = highestZIndex;
+          return; // Não recria a janela
+        }
+        
+        openedWindows.add(fileId); // Adiciona apenas se for uma nova janela
+
         const win = document.createElement('div');
         win.className = 'window';
         win.setAttribute('data-file', fileId);
-        win.style.top = `${Math.random() * 100 + 100}px`;
-        win.style.left = `${Math.random() * 100 + 100}px`;
+        highestZIndex++;
+        win.style.zIndex = highestZIndex;
+
+
+        // Posicionamento inicial da janela
+        const numWindows = document.querySelectorAll('.window').length; // Conta janelas já existentes
+        const offsetX = numWindows * 20;
+        const offsetY = numWindows * 20;
+
+        // Calcula a posição para tentar centralizar, com deslocamento
+        let initialLeft = (window.innerWidth - 600) / 2 + offsetX;
+        let initialTop = (window.innerHeight - 400) / 2 + offsetY; // Assumindo altura média
+
+        // Garante que não comece fora da tela (ajuste básico)
+        if (initialLeft < 0) initialLeft = 10;
+        if (initialTop < 0) initialTop = 10;
+        if (initialLeft + 600 > window.innerWidth) initialLeft = window.innerWidth - 610 > 0 ? window.innerWidth - 610 : 10;
+        if (initialTop + 400 > window.innerHeight) initialTop = window.innerHeight - 410 > 0 ? window.innerHeight - 410 : 10;
+
+
+        win.style.top = `${initialTop}px`;
+        win.style.left = `${initialLeft}px`;
+        // win.style.display = 'block'; // Torna a janela visível
+
         win.innerHTML = `
           <div class="window-header">
             <span>${fileId}.pdf</span>
             <div class="window-close">✕</div>
           </div>
-          <div class="window-content">${contentData[fileId]}</div>
+          <div class="window-content">${contentData[fileId] || '<p>Conteúdo não encontrado.</p>'}</div>
         `;
         document.body.appendChild(win);
 
@@ -210,6 +588,77 @@
           win.remove();
           openedWindows.delete(fileId);
         });
+
+        // Funcionalidade de arrastar
+        const header = win.querySelector('.window-header');
+        let isDragging = false;
+        let dragOffsetX, dragOffsetY;
+
+        header.addEventListener('mousedown', (e) => {
+          // Traz a janela clicada para frente
+          highestZIndex++;
+          win.style.zIndex = highestZIndex;
+
+          isDragging = true;
+          // Calcula o offset do mouse em relação ao canto superior esquerdo da janela
+          dragOffsetX = e.clientX - win.offsetLeft;
+          dragOffsetY = e.clientY - win.offsetTop;
+          header.style.cursor = 'grabbing';
+          // Previne seleção de texto enquanto arrasta
+          document.body.style.userSelect = 'none';
+        });
+
+        // Os listeners de mousemove e mouseup são adicionados ao document
+        // para continuar o arraste mesmo que o mouse saia da janela.
+        // Eles são definidos uma vez e verificam `isDragging` e qual janela está ativa.
+        // Para simplificar, vamos adicioná-los aqui, mas uma abordagem mais otimizada
+        // seria ter um único conjunto de listeners no document que gerencia a janela ativa.
+
+        // No entanto, para este caso, vincular ao document e remover depois é mais seguro
+        // do que a abordagem anterior. Uma forma ainda melhor é um listener global que
+        // verifica se alguma janela está sendo arrastada.
+
+        // Vamos tentar uma abordagem um pouco diferente para os listeners globais:
+        // Eles serão adicionados uma vez, mas operarão na 'win' correta devido ao closure.
+        // No entanto, para múltiplas janelas, o ideal é um gerenciador.
+        // Para o escopo deste exemplo, o código abaixo para 'win' específica funciona.
+        
+        const onMouseMove = (e) => {
+            if (!isDragging) return;
+            // Define a nova posição da janela
+            win.style.left = `${e.clientX - dragOffsetX}px`;
+            win.style.top = `${e.clientY - dragOffsetY}px`;
+        };
+
+        const onMouseUp = () => {
+            if (isDragging) {
+                isDragging = false;
+                header.style.cursor = 'move';
+                document.body.style.userSelect = ''; // Restaura seleção de texto
+                // Remove os listeners do document quando o arraste termina
+                // para evitar que afetem outras interações ou janelas.
+                // Document removeEventListener não funciona bem aqui se as funções são anônimas
+                // e redeclaradas. Precisamos de referências nomeadas ou uma estratégia diferente.
+
+                // Por ora, o problema do "não arrastar" pode ser que os listeners
+                // não estavam sendo aplicados corretamente ou o estado 'isDragging'
+                // estava sendo perdido/compartilhado incorretamente.
+            }
+        };
+        
+        // Adiciona listeners ao document para capturar o movimento em qualquer lugar da tela
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+
+        // Quando a janela é fechada, precisamos remover seus listeners específicos do documento
+        // para evitar memory leaks ou comportamento inesperado.
+        win.querySelector('.window-close').addEventListener('click', () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            // win.remove() e openedWindows.delete(fileId) já estão no outro listener de close
+        });
+
+
       });
     });
   </script>
