@@ -5,24 +5,19 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #fffaf7;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 100vh;
-  padding: 40px 20px;
-  color: #111;
+  font-family: sans-serif;
+  background: #f9f5f1;
+  color: #222;
+  padding-bottom: 60px; /* Espaço para o footer fixo */
 }
 
-.card {
-  background-color: #fffaf7;
-  border: 1px dashed #ccc;
-  border-radius: 16px;
-  padding: 24px;
-  width: 100%;
-  max-width: 600px;
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px dotted #ccc;
+  border-radius: 12px;
+  background: #fff9f5;
 }
 
 .profile {
@@ -33,155 +28,492 @@ body {
 }
 
 .avatar {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.subtitle {
-  font-size: 0.9rem;
+.name-role {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-role h1 {
+  font-size: 28px;
+}
+
+.name-role p {
+  font-size: 14px;
   color: #555;
 }
 
 .description {
   margin: 16px 0;
-  line-height: 1.5;
 }
-
-.message-link {
-  color: orange;
-  text-decoration: none;
-  font-weight: bold;
-  margin-bottom: 16px;
-  display: inline-block;
-}
-
-hr {
-  border: none;
-  border-top: 1px dotted #aaa;
-  margin: 20px 0;
-}
-
-.sections {
-  list-style: none;
-  font-size: 1rem;
-}
-
-.sections li {
-  margin: 12px 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer {
-  margin-top: 40px;
-  font-size: 0.85rem;
-  color: #999;
-}
-
-
 
 .accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  margin-top: 20px;
 }
 
 .accordion-header {
-  all: unset;
+  background: none;
+  border: none;
+  font-size: 18px;
+  margin: 10px 0;
   cursor: pointer;
-  font-size: 1rem;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 0;
+  width: 100%;
+  text-align: left;
+}
+
+.accordion-header .icon {
+  margin-right: 10px;
 }
 
 .accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  padding-left: 24px;
-  color: #333;
-}
-
-.accordion-item.open .accordion-content {
-  max-height: 200px;
-  padding-top: 4px;
-}
-
-.accordion-item.open .icon::before {
-  content: "📂";
-}
-
-.file-list {
-  list-style: none;
-  padding-left: 20px;
+  display: none;
+  padding-left: 25px;
 }
 
 .file {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin: 6px 0;
+  margin: 4px 0;
+  padding: 4px 0;
   cursor: pointer;
-  color: #222;
-  font-family: monospace;
-  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
 }
 
-.file img {
-  width: 16px;
-  height: 16px;
+.file[data-file]::before {
+  content: '📄';
+  margin-right: 8px;
+  font-size: 1em;
 }
 
+.file.external-link::before {
+  content: '⚙️';
+  margin-right: 8px;
+  font-size: 1em;
+}
+
+.file:hover {
+  color: orange;
+  transform: translateX(4px);
+}
+
+/* Estilos da Janela Modal (Window) */
 .window {
-  position: absolute;
-  width: 400px;
-  height: 300px;
+  position: fixed;
   background: #fff;
-  border: 1px solid #888;
-  border-radius: 6px;
-  box-shadow: 2px 2px 12px rgba(0,0,0,0.2);
-  resize: both;
-  overflow: auto;
-  z-index: 10;
+  border: 1px solid #aaa;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  width: 600px; /* Largura padrão */
+  max-height: 80vh;
+  z-index: 100;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .window-header {
-  background: #f0f0f0;
-  padding: 6px 12px;
-  cursor: move;
-  font-weight: bold;
+  background: #eee;
+  padding: 8px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #ccc;
-}
-
-.window-header span {
-  flex-grow: 1;
+  cursor: move;
 }
 
 .window-content {
-  padding: 12px;
-  font-size: 0.9rem;
+  padding: 15px;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .window-close {
   cursor: pointer;
-  color: red;
-  font-weight: bold;
+  font-size: 18px;
+  padding: 0 5px;
 }
 
+/* Layout da seção "About Me" */
+.about-me-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.about-me-image-container {
+  flex-shrink: 0;
+}
+
+.about-me-image-container img {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.about-me-text {
+  flex-grow: 1;
+}
+
+.about-me-text h3 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.about-me-text ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.about-me-text p, .about-me-text li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+/* Estilos da seção "Work Experience" */
+.window-content .experience-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 22px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.window-content .experience-item {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #eee;
+}
+
+.window-content .experience-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.window-content .experience-item h3 {
+  font-size: 18px;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.window-content .experience-item .company-period {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.window-content .experience-item .company-period strong {
+  font-style: normal;
+  color: #16a085;
+}
+
+.window-content .experience-item > ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.window-content .experience-item > ul > li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.window-content .experience-item > ul > li::before {
+  content: '▹';
+  color: orange;
+  font-weight: bold;
+  margin-right: 10px;
+  flex-shrink: 0;
+  line-height: inherit;
+}
+
+.window-content .project-highlights-section {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.window-content .project-highlights-section h4 {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.window-content .highlight-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.window-content .highlight-title {
+  font-weight: bold;
+  color: #3a3a3a;
+  flex-basis: 200px;
+  flex-shrink: 0;
+  margin-right: 8px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.window-content .highlight-title::before {
+  content: '▹';
+  color: orange;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 1px;
+}
+
+.window-content .highlight-description {
+  font-size: 14px;
+  color: #444;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.window-content .key-technologies-freelance {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  margin-top: 20px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.window-content .key-technologies-freelance::before {
+  content: '▹';
+  color: orange;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 1px;
+}
+
+.window-content .key-technologies-freelance strong {
+  font-weight: bold;
+  color: #333;
+  margin-right: 5px;
+}
+
+/* Estilos da seção "Tools & Technologies" */
+.window-content .tools-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 22px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.window-content .tools-section h2 .icon {
+  margin-right: 8px;
+}
+
+.window-content .tools-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.window-content .tool-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 5px;
+  border-bottom: 1px dotted #ddd;
+  transition: background-color 0.2s ease;
+}
+
+.window-content .tool-item:last-child {
+  border-bottom: none;
+}
+
+.window-content .tool-item:hover {
+  background-color: #f9f9f9;
+}
+
+.window-content .tool-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.window-content .placeholder-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+  background-color: #e0e0e0;
+  color: #555;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.window-content .tool-name {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Estilos para o Formulário de Contato */
+.window-content .contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.window-content .contact-form .form-field {
+    margin-bottom: 10px;
+}
+.window-content .contact-form .form-field:last-of-type { /* Último campo antes do footer do form */
+    margin-bottom: 0; /* Ajusta para o novo .form-footer-flex */
+}
+
+.window-content .contact-form input[type="text"],
+.window-content .contact-form input[type="email"],
+.window-content .contact-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+.window-content .contact-form input[type="text"]::placeholder,
+.window-content .contact-form input[type="email"]::placeholder,
+.window-content .contact-form textarea::placeholder {
+  color: #999;
+}
+
+.window-content .contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.window-content .form-footer-flex {
+    display: flex;
+    align-items: flex-start; /* Alinha o topo do botão com o texto */
+    gap: 15px;
+    margin-top: 10px; /* Espaço acima do botão e texto de consentimento */
+}
+
+.window-content .contact-form button[type="submit"] {
+  background-color: orange;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  /* align-self: flex-start; Removido, pois o flex container agora controla */
+}
+
+.window-content .contact-form button[type="submit"]:hover {
+  background-color: #e69500;
+}
+
+.window-content .form-consent-text {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.4; /* Para melhor alinhamento com o botão */
+    flex-grow: 1; /* Permite que o texto ocupe o espaço restante */
+}
+
+.sr-only { /* Para esconder labels visualmente, mas mantê-los para acessibilidade */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background: #f9f5f1;
+  border-top: 1px dotted #ccc;
+  z-index: 50;
+}
+
+/* Media Queries para Responsividade */
 @media (max-width: 768px) {
   .window {
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 0;
+    width: 95% !important;
+    max-height: 90vh;
+  }
+
+  .about-me-layout {
+    flex-direction: column;
+  }
+
+  .about-me-image-container {
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .about-me-image-container img {
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .window-content .highlight-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .window-content .highlight-title {
+    flex-basis: auto;
+    margin-bottom: 5px;
+  }
+  .window-content .key-technologies-freelance {
+     padding-left: 0;
+  }
+  .window-content .key-technologies-freelance::before {
+    left: 0; /* Ajuste ou remova se o padding for 0 */
+    /* content: none; /* Opcional: remover marcador em telas pequenas */
+  }
+
+  .window-content .form-footer-flex {
+    flex-direction: column; /* Empilha botão e texto de consentimento */
+    align-items: flex-start;
+  }
+  .window-content .form-consent-text {
+    margin-top: 10px; /* Espaço quando empilhado */
   }
 }
