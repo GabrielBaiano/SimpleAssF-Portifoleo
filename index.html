@@ -1,338 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cool dev</title>
-  <link rel="shotcut icon" href="https://i.pinimg.com/564x/8f/85/d1/8f85d19c27888bb913f4caba58760851.jpg"/>
-
-  <style type="text/css">
-    @import url("https://fonts.googleapis.com/css2?family=Jersey+15+Charted&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
-
+  <title>Portfolio</title>
+  <style>
     * {
-      font-family: "Libre Baskerville", serif;
-      font-weight: 400;
-      font-style: normal;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-
-    #libre-baskerville-bold {
-      font-family: "Libre Baskerville", serif;
-      font-weight: 700;
-      font-style: normal;
-    }
-
-    #libre-baskerville-regular-italic {
-      font-family: "Libre Baskerville", serif;
-      font-weight: 400;
-      font-style: italic;
-    }
-
-
     body {
-      margin-left: 40px;
-      max-width: 650px;
-      line-height: 1.6;
+      font-family: sans-serif;
+      background: #f9f5f1;
+      color: #222;
+      padding-bottom: 60px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px dotted #ccc;
+      border-radius: 12px;
+      background: #fff9f5;
+    }
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .name-role {
+      display: flex;
+      flex-direction: column;
+    }
+    .name-role h1 {
+      font-size: 28px;
+    }
+    .name-role p {
+      font-size: 14px;
+      color: #555;
+    }
+    .description {
+      margin: 16px 0;
+    }
+    .accordion {
+      margin-top: 20px;
+    }
+    .accordion-header {
+      background: none;
+      border: none;
       font-size: 18px;
-      color: #202020;
-      background-color: #ebecdd;
-      padding: 0 10px;
+      margin: 10px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
     }
-
-    a {
-      color: #202020;
+    .accordion-header .icon {
+      margin-right: 10px;
     }
-
-    a:hover {
-      opacity: 0.7;
+    .accordion-content {
+      display: none;
+      padding-left: 25px;
     }
-
-    p,
-    a {
-      font-size: 16px;
+    .file {
+      display: flex;
+      align-items: center;
+      margin: 4px 0;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
     }
-
-    @media (max-width: 480px) {
-      .typing-text {
-        font-size: 25px;
-      }
-      .me {
-        font-size: 30px;
-      }
+    .file:hover {
+      color: orange;
+      transform: translateX(4px);
     }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #202020;
-        color: #ebecdd;
-      }
-
-      h1 {
-        color: #ebecdd;
-      }
-
-      h3 {
-        color: #ebecdd;
-      }
-
-      a {
-        color: #ebecdd;
-      }
-
-      img {
-        filter: brightness(0.9);
-      }
+    .window {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #aaa;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      width: 400px;
+      max-height: 80vh;
+      overflow: auto;
+      z-index: 10;
     }
-
-    .circle {
-      height: 16px;
-      width: 16px;
-      border-radius: 16px;
-      background-color: black;
+    .window-header {
+      background: #eee;
+      padding: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+    .window-content {
+      padding: 10px;
+    }
+    .window-close {
+      cursor: pointer;
+    }
+    footer {
       position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 99999999;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      background: #f9f5f1;
+      border-top: 1px dotted #ccc;
     }
-
-    .typing-text {
-      margin-top: 0 !important;
-    }
-
-    .typing-text::after {
-      content: "|";
-      animation: blink ease 1s infinite;
-    }
-
-    .me {
-      margin-bottom: 0 !important;
-    }
-
-    .link {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 0;
-      }
-
-      50% {
-        opacity: 1;
+    @media (max-width: 768px) {
+      .window {
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0;
       }
     }
   </style>
 </head>
-
 <body>
-  <h1 class="me" id="libre-baskerville-bold">Gabriel Nascimento</h1>
-  <h1 class="typing-text">— Front-end Dev.</h1>
+  <div class="container">
+    <div class="profile">
+      <img src="avatar.jpg" alt="Avatar" class="avatar" />
+      <div class="name-role">
+        <h1>Gabriel Nascimento</h1>
+        <p>UX/UI Designer | Web and Mobile Developer | 9:00 AM – 8:00 PM BR 🐝</p>
+      </div>
+    </div>
+    <p class="description">Passionate about building clean and intuitive user experiences, I combine strong front-end skills with a problem-solving mindset to create efficient, modern web and mobile applications.</p>
 
-  <h2>Links</h2>
+    <a href="#" style="color: orange; text-decoration: none; font-weight: bold;">Send Message</a>
 
-  <a href="https://github.com/GabrielBaiano">
-    <p class="link">GitHub 😺</p>
-  </a>
-  <a href="https://www.linkedin.com/in/gabriel-nascimento-gama-5b0b30185/">
-    <p class="link">Linkedin 🔗</p>
-  </a>
-  <a  href="https://www.instagram.com/gabrielbaiano_/">
-    <p class="link">Instagram 📷</p>
-  </a>
+    <div class="accordion">
+      <button class="accordion-header" data-folder="about">
+        <span class="icon">📁</span> About
+      </button>
+      <div class="accordion-content" data-content="about">
+        <div class="file" data-file="about_me">📄 about_me.pdf</div>
+        <div class="file" data-file="experience">📄 experience.pdf</div>
+        <div class="file" data-file="tools">📄 tools.pdf</div>
+      </div>
 
-  <h2>About</h2>
+      <button class="accordion-header" data-folder="projects">
+        <span class="icon">📁</span> Projects
+      </button>
+      <div class="accordion-content" data-content="projects">
+        <div class="file" data-file="project1">📄 project1.pdf</div>
+        <div class="file" data-file="project2">📄 project2.pdf</div>
+      </div>
+    </div>
+  </div>
 
-  <p id="libre-baskerville-regular-italic"> Current working on <a href="https://www.linkedin.com/company/compass-uol/?originalSubdomain=br">Compass UOL</a></p>
+  <footer>Gabriel Nascimento — 2025</footer>
 
-  <p>
-    I'm a 22 year old Brazilian with a degree in systems analysis and
-    development, I love building things and solving problems. I like doing
-    electronics and web projects. If I'm not on the computer I'm out there
-    reading or at the beach.
-  </p>
-
-  <h2>Contact</h2>
-  <p id="libre-baskerville-regular-italic"> gabrielngama@gmail.com </p>
-  <h2>Projects so far</h2>
-
-  <ul>
-    <li><a class="projects" href="https://codepen.io/GabrielBaiano/pen/oNOgmWX">
-        tic-tac-toe
-      </a></li>
-      <li><a class="projects" href="https://happy-unemployed-blog.vercel.app">
-        Happy Unemployed Blog (Test version)
-      </a></li>
-  </ul>
-
-  <h2> Why so simple ?</h2>
-  <p>The answer is as simple as it seems, minimalism is in fashion !</p>
-
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
   <script>
+    const contentData = {
+      about_me: '<p>Conteúdo sobre mim com imagem e texto...</p>',
+      experience: '<p>Experiência detalhada aqui...</p>',
+      tools: '<p>Ferramentas que utilizo...</p>',
+      project1: '<p>Projeto 1: descrição + link...</p>',
+      project2: '<p>Projeto 2: descrição + link...</p>',
+      contact: '<form><label>Name</label><input/><br/><label>Email</label><input/><br/><textarea></textarea><button>Send</button></form>'
+    };
 
-    //cursos effect
-    const coords = { x: 0, y: 0 };
-    const circles = document.querySelectorAll(".circle");
+    const openedWindows = new Set();
 
-    const colors = [
-      "#ffb56b",
-      "#fdaf69",
-      "#f89d63",
-      "#f59761",
-      "#ef865e",
-      "#ec805d",
-      "#e36e5c",
-      "#df685c",
-      "#d5585c",
-      "#d1525c",
-      "#c5415d",
-      "#c03b5d",
-      "#b22c5e",
-      "#ac265e",
-      "#9c155f",
-      "#950f5f",
-      "#830060",
-      "#7c0060",
-      "#680060",
-      "#60005f",
-      "#48005f",
-      "#3d005e"
-    ];
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const content = document.querySelector(`[data-content="${header.dataset.folder}"]`);
+        const icon = header.querySelector('.icon');
+        const open = content.style.display === 'block';
+        document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
+        document.querySelectorAll('.accordion-header .icon').forEach(i => i.textContent = '📁');
 
-    circles.forEach(function (circle, index) {
-      circle.x = 0;
-      circle.y = 0;
-      circle.style.backgroundColor = colors[index % colors.length];
-    });
-
-    window.addEventListener("mousemove", function (e) {
-      coords.x = e.clientX;
-      coords.y = e.clientY;
-
-    });
-
-    function animateCircles() {
-
-      let x = coords.x;
-      let y = coords.y;
-
-      circles.forEach(function (circle, index) {
-        circle.style.left = x - 8 + "px";
-        circle.style.top = y - 8 + "px";
-
-        circle.style.scale = (circles.length - index) / circles.length;
-
-        circle.x = x;
-        circle.y = y;
-
-        const nextCircle = circles[index + 1] || circles[0];
-        x += (nextCircle.x - x) * 0.3;
-        y += (nextCircle.y - y) * 0.3;
+        if (!open) {
+          content.style.display = 'block';
+          icon.textContent = '📂';
+        }
       });
+    });
 
-      requestAnimationFrame(animateCircles);
-    }
+    document.querySelectorAll('.file').forEach(file => {
+      file.addEventListener('click', () => {
+        const fileId = file.dataset.file;
+        if (openedWindows.has(fileId)) return;
 
-    animateCircles();
+        openedWindows.add(fileId);
+        const win = document.createElement('div');
+        win.className = 'window';
+        win.setAttribute('data-file', fileId);
+        win.style.top = `${Math.random() * 100 + 100}px`;
+        win.style.left = `${Math.random() * 100 + 100}px`;
+        win.innerHTML = `
+          <div class="window-header">
+            <span>${fileId}.pdf</span>
+            <div class="window-close">✕</div>
+          </div>
+          <div class="window-content">${contentData[fileId]}</div>
+        `;
+        document.body.appendChild(win);
 
-    // get the element
-    const text = document.querySelector('.typing-text');
-
-    // make a words array
-    const words = [
-      "— Front-end Dev.",
-      "— The coolest.",
-      "— The marvelous"
-    ];
-
-    // start typing effect
-    setTyper(text, words);
-
-    function setTyper(element, words) {
-
-      const LETTER_TYPE_DELAY = 75;
-      const WORD_STAY_DELAY = 2000;
-
-      const DIRECTION_FORWARDS = 0;
-      const DIRECTION_BACKWARDS = 1;
-
-      var direction = DIRECTION_FORWARDS;
-      var wordIndex = 0;
-      var letterIndex = 0;
-
-      var wordTypeInterval;
-
-      startTyping();
-
-      function startTyping() {
-        wordTypeInterval = setInterval(typeLetter, LETTER_TYPE_DELAY);
-      }
-
-      function typeLetter() {
-        const word = words[wordIndex];
-
-        if (direction == DIRECTION_FORWARDS) {
-          letterIndex++;
-
-          if (letterIndex == word.length) {
-            direction = DIRECTION_BACKWARDS;
-            clearInterval(wordTypeInterval);
-            setTimeout(startTyping, WORD_STAY_DELAY);
-          }
-
-        } else if (direction == DIRECTION_BACKWARDS) {
-          letterIndex--;
-
-          if (letterIndex == 0) {
-            nextWord();
-          }
-        }
-
-        const textToType = word.substring(0, letterIndex);
-
-        element.textContent = textToType;
-      }
-
-      function nextWord() {
-
-        letterIndex = 0;
-        direction = DIRECTION_FORWARDS;
-        wordIndex++;
-
-        if (wordIndex == words.length) {
-          wordIndex = 0;
-        }
-
-      }
-    }
-
-
+        win.querySelector('.window-close').addEventListener('click', () => {
+          win.remove();
+          openedWindows.delete(fileId);
+        });
+      });
+    });
   </script>
 </body>
-
-</html>
-
 </html>
