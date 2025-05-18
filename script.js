@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Work Experience</h2>
         <div class="experience-item">
           <h3>Front-End Developer (React Native & React)</h3>
-          <p class="company-period"><strong>Compass UOL</strong> | August 2024 – Present (Current as of May 2025)</p>
+          <p class="company-period"><strong>Compass UOL</strong> | August 2024 – Present</p>
           <ul>
             <li>Spearheading mobile front-end development initiatives using React Native, delivering high-quality user interfaces.</li>
             <li>Developing and implementing reusable UI components, ensuring seamless integration with backend services.</li>
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="experience-item">
           <h3>Front-End Developer (Freelance Projects)</h3>
-          <p class="company-period">Remote & On-Demand | 2021 – Present (Current as of May 2025)</p>
+          <p class="company-period">Remote & On-Demand | 2021 – Present</p>
           <div class="project-highlights-section">
               <h4>Project Highlights:</h4>
               <div class="highlight-item">
@@ -144,11 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="tool-name">Figma</span>
           </li>
           <li class="tool-item">
-            <span class="tool-icon placeholder-icon">GS</span>
+            <svg class="tool-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#4CAF50"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15V7l5 5-5 5z"/></svg>
             <span class="tool-name">GSAP (GreenSock)</span>
           </li>
           <li class="tool-item">
-            <span class="tool-icon placeholder-icon">💅</span>
+             <svg class="tool-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#DB7093"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.47 13.5L12 12.73 7.53 15.5l1.3-5.1L5 7.5h5.1L12 2.5l1.9 5H19l-3.83 2.9 1.3 5.1z"/></svg>
             <span class="tool-name">Styled Components</span>
           </li>
         </ul>
@@ -157,24 +157,17 @@ document.addEventListener('DOMContentLoaded', () => {
     project1: '<p>Projeto 1: descrição + link...</p>',
     project2: '<p>Projeto 2: descrição + link...</p>',
     contact_form: `
-      <form id="portfolioContactForm" class="contact-form" action="https://formspree.io/f/movdrgnr" method="POST">
-        <div class="form-field">
-          <label for="contactName" class="sr-only">Name*</label>
-          <input type="text" id="contactName" name="name" placeholder="Name*" required>
+      <div class="copy-email-container">
+        <p class="copy-email-instructions">Click the button to copy my email address:</p>
+        <div class="email-to-copy-wrapper">
+          <input type="text" id="emailToCopy" value="gabrielngama@gmail.com" readonly class="email-display-field">
+          <button id="copyEmailButton" class="copy-button" title="Copy Email">
+            <span class="copy-button-text">Copy</span>
+            <span class="copy-button-icon">📋</span>
+          </button>
         </div>
-        <div class="form-field">
-          <label for="contactEmail" class="sr-only">Email*</label>
-          <input type="email" id="contactEmail" name="_replyto" placeholder="Email*" required>
-        </div>
-        <div class="form-field">
-          <label for="contactMessage" class="sr-only">Message*</label>
-          <textarea id="contactMessage" name="message" placeholder="Message*" required></textarea>
-        </div>
-        <div class="form-footer-flex">
-            <button type="submit">Send message</button>
-            <p class="form-consent-text">By filling out this form, you consent to the collection and use of your information.</p>
-        </div>
-      </form>
+        <p id="copyFeedback" class="copy-feedback-message" style="min-height: 20px;"></p>
+      </div>
     `
   };
 
@@ -208,18 +201,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (existingWin) {
           highestZIndex++;
           existingWin.style.zIndex = highestZIndex;
-          existingWin.style.display = 'flex'; // Garante que está visível se estava escondida
+          existingWin.style.display = 'flex';
           return;
         }
         openedWindows.add(fileId);
-        const win = createWindow(fileId, contentData[fileId] || '<p>Conteúdo não encontrado.</p>');
+        const win = createWindow(fileId, contentData[fileId] || '<p>Content not found.</p>');
         document.body.appendChild(win);
         makeDraggable(win);
       }
     });
   });
 
-  const openContactFormButton = document.getElementById('openContactForm');
+  const openContactFormButton = document.getElementById('openContactFormButton');
   if (openContactFormButton) {
     openContactFormButton.addEventListener('click', (e) => {
       e.preventDefault();
@@ -229,14 +222,110 @@ document.addEventListener('DOMContentLoaded', () => {
       if (existingWin) {
         highestZIndex++;
         existingWin.style.zIndex = highestZIndex;
-        existingWin.style.display = 'flex'; // Garante que está visível
+        existingWin.style.display = 'flex';
         return;
       }
       
-      const win = createWindow(fileId, contentData.contact_form, "Send a Message");
+      const win = createWindow(fileId, contentData.contact_form, "Contact / Copy Email");
       document.body.appendChild(win);
       makeDraggable(win);
     });
+  }
+  
+  function createEmojiExplosion(x, y) {
+    const emojis = ['🎉', '✨', '💥', '🎊', '👍', '✅', '🥳', '🚀'];
+    const particleCount = 15 + Math.floor(Math.random() * 10); // 15 a 24 partículas
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('emoji-particle');
+        particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        // Ajuste para centralizar a partícula no cursor
+        particle.style.transform = 'translate(-50%, -50%)'; 
+
+        document.body.appendChild(particle);
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 60 + 40; // Distância um pouco maior
+        const duration = Math.random() * 0.6 + 0.4; // Duração 0.4s a 1s
+        const rotation = Math.random() * 720 - 360; // Rotação maior
+
+        // Força reflow para a transição iniciar corretamente
+        void particle.offsetWidth; 
+
+        particle.style.transition = `transform ${duration}s cubic-bezier(0.175, 0.885, 0.320, 1.275), opacity ${duration}s ease-out`;
+        particle.style.transform = `translate(calc(-50% + ${Math.cos(angle) * distance}px), calc(-50% + ${Math.sin(angle) * distance}px)) scale(0.3) rotate(${rotation}deg)`;
+        particle.style.opacity = '0';
+
+        setTimeout(() => {
+            particle.remove();
+        }, duration * 1000 + 200);
+    }
+  }
+
+  function setupCopyEmailFunctionality() {
+    const copyButton = document.getElementById('copyEmailButton');
+    const emailToCopyInput = document.getElementById('emailToCopy');
+    const copyFeedbackTextEl = document.getElementById('copyFeedback');
+
+    if (copyButton && emailToCopyInput) {
+      copyButton.addEventListener('click', (event) => {
+        emailToCopyInput.select();
+        emailToCopyInput.setSelectionRange(0, 99999);
+
+        try {
+          const successful = document.execCommand('copy');
+          if (successful) {
+            const clickX = event.clientX;
+            const clickY = event.clientY;
+            createEmojiExplosion(clickX, clickY);
+
+            const originalButtonTextSpan = copyButton.querySelector('.copy-button-text');
+            const originalButtonIconSpan = copyButton.querySelector('.copy-button-icon');
+            
+            const originalText = originalButtonTextSpan.textContent;
+            const originalIconHTML = originalButtonIconSpan.innerHTML;
+
+            originalButtonTextSpan.textContent = 'Copied!';
+            originalButtonIconSpan.innerHTML = '✔';
+            copyButton.classList.add('copied-state'); // Usa a classe para o estado verde
+
+            setTimeout(() => {
+              originalButtonTextSpan.textContent = originalText;
+              originalButtonIconSpan.innerHTML = originalIconHTML;
+              copyButton.classList.remove('copied-state');
+              if(copyFeedbackTextEl) copyFeedbackTextEl.classList.remove('visible');
+            }, 2000);
+            
+            if (copyFeedbackTextEl) { // Fallback de texto
+              copyFeedbackTextEl.textContent = 'Email copied to clipboard!';
+              copyFeedbackTextEl.classList.add('visible');
+              setTimeout(() => copyFeedbackTextEl.classList.remove('visible'), 1800); // Some um pouco antes do botão resetar
+            }
+
+          } else {
+            if(copyFeedbackTextEl) {
+                copyFeedbackTextEl.textContent = 'Failed to copy. Please try again.';
+                copyFeedbackTextEl.classList.add('visible');
+                setTimeout(() => copyFeedbackTextEl.classList.remove('visible'), 2000);
+            }
+            alert('Failed to copy email. Please copy it manually.');
+          }
+        } catch (err) {
+          console.error('Error copying email:', err);
+           if(copyFeedbackTextEl) {
+                copyFeedbackTextEl.textContent = 'Error copying. Please copy manually.';
+                copyFeedbackTextEl.classList.add('visible');
+                setTimeout(() => copyFeedbackTextEl.classList.remove('visible'), 2000);
+            }
+          alert('Error copying email. Please copy it manually.');
+        }
+        window.getSelection().removeAllRanges();
+      });
+    }
   }
 
   function createWindow(fileId, contentHtml, windowTitle) {
@@ -245,38 +334,37 @@ document.addEventListener('DOMContentLoaded', () => {
     win.setAttribute('data-file', fileId);
     highestZIndex++;
     win.style.zIndex = highestZIndex;
-    win.style.display = 'flex'; // Janelas são flex containers por padrão
+    win.style.display = 'flex';
 
-    const titleText = windowTitle || `${fileId.replace(/_/g, ' ')}`; // Remove .pdf, já que nem todos são pdf
-     if (!windowTitle && fileId !== 'contact_form_window') { // Adiciona .pdf de volta se não for o form de contato
-        // titleText += '.pdf'; // Removido para não adicionar .pdf ao título de 'contact_form_window' se windowTitle não for passado
+    let titleText = windowTitle || `${fileId.replace(/_/g, ' ')}`;
+    if (!windowTitle && !fileId.includes('_form_') && !fileId.includes('.exe')) { // Evita adicionar .pdf ao form ou .exe
+        titleText += '.pdf';
     }
 
-
-    const numWindowsAlreadyOpen = document.querySelectorAll('.window').length -1; // -1 para não contar a que está sendo criada
-    const offsetX = numWindowsAlreadyOpen * 25; // Aumentei o offset
+    const numWindowsAlreadyOpen = document.querySelectorAll('.window').length - 1;
+    const offsetX = numWindowsAlreadyOpen * 25;
     const offsetY = numWindowsAlreadyOpen * 25;
 
     let windowWidth = 600;
-    let windowHeight = 450; 
+    let windowHeight = 'auto'; 
+
     if (fileId === 'contact_form_window') {
-        windowHeight = 480; // Ajuste a altura específica para o formulário de contato
+        windowWidth = 480; 
+        windowHeight = '280px'; 
+        win.style.minHeight = '250px'; 
     }
-
-
-    let initialLeft = (window.innerWidth - windowWidth) / 2 + offsetX;
-    let initialTop = (window.innerHeight - windowHeight) / 2 + offsetY;
-
-    initialLeft = Math.max(10, Math.min(initialLeft, window.innerWidth - windowWidth - 10));
-    initialTop = Math.max(10, Math.min(initialTop, window.innerHeight - windowHeight - 10));
     
     win.style.width = `${windowWidth}px`;
-    // A altura é controlada por max-height e pelo conteúdo, a menos que seja a janela de contato
-    if (fileId === 'contact_form_window') {
-      win.style.height = `${windowHeight}px`;
+    if(windowHeight !== 'auto') {
+        win.style.height = windowHeight;
     }
 
-
+    let initialLeft = (window.innerWidth - windowWidth) / 2 + offsetX;
+    let initialTop = (window.innerHeight - (windowHeight === 'auto' ? 450 : parseInt(windowHeight.replace('px','')))) / 2 + offsetY;
+    
+    initialLeft = Math.max(10, Math.min(initialLeft, window.innerWidth - windowWidth - 10));
+    initialTop = Math.max(10, Math.min(initialTop, window.innerHeight - (windowHeight === 'auto' ? 450 : parseInt(windowHeight.replace('px',''))) - 10));
+    
     win.style.top = `${initialTop}px`;
     win.style.left = `${initialLeft}px`;
 
@@ -288,15 +376,33 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="window-content">${contentHtml}</div>
     `;
 
-    win.querySelector('.window-close').addEventListener('click', () => {
+    const closeButton = win.querySelector('.window-close');
+    
+    const cleanupDragListeners = () => {
+        if (win.currentMouseMoveListener) {
+            document.removeEventListener('mousemove', win.currentMouseMoveListener);
+            win.currentMouseMoveListener = null;
+        }
+        if (win.currentMouseUpListener) {
+            document.removeEventListener('mouseup', win.currentMouseUpListener);
+            win.currentMouseUpListener = null;
+        }
+    };
+
+    closeButton.addEventListener('click', () => {
       win.remove();
       openedWindows.delete(fileId);
+      cleanupDragListeners();
     });
     
     win.addEventListener('mousedown', () => {
         highestZIndex++;
         win.style.zIndex = highestZIndex;
     });
+
+    if (fileId === 'contact_form_window') {
+      setTimeout(setupCopyEmailFunctionality, 50); // Pequeno delay para garantir DOM
+    }
 
     return win;
   }
@@ -305,16 +411,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = element.querySelector('.window-header');
     let isDragging = false;
     let dragOffsetX, dragOffsetY;
-    let currentMouseMoveListener = null;
-    let currentMouseUpListener = null;
 
     if (!header) return;
 
     const startDrag = (e) => {
       if (e.target.classList.contains('window-close')) return;
       
-      if (currentMouseMoveListener) document.removeEventListener('mousemove', currentMouseMoveListener);
-      if (currentMouseUpListener) document.removeEventListener('mouseup', currentMouseUpListener);
+      if (element.currentMouseMoveListener) document.removeEventListener('mousemove', element.currentMouseMoveListener);
+      if (element.currentMouseUpListener) document.removeEventListener('mouseup', element.currentMouseUpListener);
 
       isDragging = true;
       dragOffsetX = e.clientX - element.offsetLeft;
@@ -322,11 +426,11 @@ document.addEventListener('DOMContentLoaded', () => {
       header.style.cursor = 'grabbing';
       document.body.style.userSelect = 'none';
 
-      currentMouseMoveListener = moveDrag;
-      currentMouseUpListener = endDrag;
+      element.currentMouseMoveListener = moveDrag;
+      element.currentMouseUpListener = endDrag;
 
-      document.addEventListener('mousemove', currentMouseMoveListener);
-      document.addEventListener('mouseup', currentMouseUpListener);
+      document.addEventListener('mousemove', element.currentMouseMoveListener);
+      document.addEventListener('mouseup', element.currentMouseUpListener);
     };
 
     const moveDrag = (e) => {
@@ -349,18 +453,13 @@ document.addEventListener('DOMContentLoaded', () => {
         isDragging = false;
         header.style.cursor = 'move';
         document.body.style.userSelect = '';
-        if(currentMouseMoveListener) document.removeEventListener('mousemove', currentMouseMoveListener);
-        if(currentMouseUpListener) document.removeEventListener('mouseup', currentMouseUpListener);
-        currentMouseMoveListener = null;
-        currentMouseUpListener = null;
+        if(element.currentMouseMoveListener) document.removeEventListener('mousemove', element.currentMouseMoveListener);
+        if(element.currentMouseUpListener) document.removeEventListener('mouseup', element.currentMouseUpListener);
+        element.currentMouseMoveListener = null;
+        element.currentMouseUpListener = null;
       }
     };
     
     header.addEventListener('mousedown', startDrag);
-
-    element.querySelector('.window-close').addEventListener('click', () => {
-      if (currentMouseMoveListener) document.removeEventListener('mousemove', currentMouseMoveListener);
-      if (currentMouseUpListener) document.removeEventListener('mouseup', currentMouseUpListener);
-    });
   }
 });

@@ -15,7 +15,7 @@ body {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px dotted #ccc;
+  border: 1px solid #e0e0e0; /* Alterado de dotted para solid */
   border-radius: 12px;
   background: #fff9f5;
 }
@@ -93,7 +93,7 @@ body {
 }
 
 .file.external-link::before {
-  content: '⚙️';
+  content: '⚙️'; /* Ícone para "executáveis" */
   margin-right: 8px;
   font-size: 1em;
 }
@@ -279,7 +279,7 @@ body {
   font-weight: bold;
   position: absolute;
   left: 0;
-  top: 1px;
+  top: 1px; /* Ajuste fino para alinhamento vertical */
 }
 
 .window-content .highlight-description {
@@ -304,7 +304,7 @@ body {
   font-weight: bold;
   position: absolute;
   left: 0;
-  top: 1px;
+  top: 1px; /* Ajuste fino para alinhamento vertical */
 }
 
 .window-content .key-technologies-freelance strong {
@@ -337,7 +337,7 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 5px;
-  border-bottom: 1px dotted #ddd;
+  border-bottom: 1px solid #eaeaea; /* Alterado de dotted para solid */
   transition: background-color 0.2s ease;
 }
 
@@ -376,86 +376,132 @@ body {
   color: #333;
 }
 
-/* Estilos para o Formulário de Contato */
-.window-content .contact-form {
+/* Estilos para a Janela de Copiar E-mail */
+.window[data-file="contact_form_window"] {
+    width: 480px; /* Ajuste a largura conforme necessário */
+    height: auto; /* Permitir que a altura se ajuste ao conteúdo */
+    min-height: 250px; /* Altura mínima para melhor aparência */
+    max-height: 350px; /* Limita para não ficar muito alta */
+}
+
+.window[data-file="contact_form_window"] .window-content {
+    display: flex; /* Para centralizar o .copy-email-container */
+    align-items: center;
+    justify-content: center;
+}
+
+.window-content .copy-email-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  gap: 20px;
+  height: 100%; /* Tenta ocupar a altura do .window-content */
 }
 
-.window-content .contact-form .form-field {
-    margin-bottom: 10px;
-}
-.window-content .contact-form .form-field:last-of-type { /* Último campo antes do footer do form */
-    margin-bottom: 0; /* Ajusta para o novo .form-footer-flex */
+.window-content .copy-email-instructions {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 0; /* Ajustado pois o gap do container já dá espaço */
 }
 
-.window-content .contact-form input[type="text"],
-.window-content .contact-form input[type="email"],
-.window-content .contact-form textarea {
+.window-content .email-to-copy-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
+  max-width: 400px; /* Limita a largura máxima do input + botão */
+}
+
+.window-content .email-display-field {
+  flex-grow: 1;
   padding: 10px 12px;
+  font-size: 16px;
+  color: #555;
+  background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 15px;
-  font-family: sans-serif;
-  background-color: #fff;
-  color: #333;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.window-content .contact-form input[type="text"]::placeholder,
-.window-content .contact-form input[type="email"]::placeholder,
-.window-content .contact-form textarea::placeholder {
-  color: #999;
-}
-
-.window-content .contact-form textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.window-content .form-footer-flex {
-    display: flex;
-    align-items: flex-start; /* Alinha o topo do botão com o texto */
-    gap: 15px;
-    margin-top: 10px; /* Espaço acima do botão e texto de consentimento */
-}
-
-.window-content .contact-form button[type="submit"] {
+.window-content .copy-button {
   background-color: orange;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
-  transition: background-color 0.2s ease;
-  /* align-self: flex-start; Removido, pois o flex container agora controla */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  min-width: 100px; /* Ajuste para "Copy" ou "Copied" */
+  position: relative; /* Para o feedback de "copied" */
+  overflow: visible; /* Para as partículas de emoji */
 }
 
-.window-content .contact-form button[type="submit"]:hover {
+.window-content .copy-button:hover {
   background-color: #e69500;
 }
 
-.window-content .form-consent-text {
-    font-size: 12px;
-    color: #777;
-    line-height: 1.4; /* Para melhor alinhamento com o botão */
-    flex-grow: 1; /* Permite que o texto ocupe o espaço restante */
+.window-content .copy-button:active {
+  transform: scale(0.98);
 }
 
-.sr-only { /* Para esconder labels visualmente, mas mantê-los para acessibilidade */
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+.window-content .copy-button .copy-button-icon {
+  font-size: 1.1em;
+  transition: opacity 0.2s ease-in-out;
 }
+
+.window-content .copy-button .copy-button-text {
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Estado "Copiado" do botão */
+.window-content .copy-button.copied-state .copy-button-text {
+  /* O texto "Copied!" é adicionado/removido via JS */
+}
+
+.window-content .copy-button.copied-state .copy-button-icon {
+  /* O ícone '✔' é adicionado/removido via JS */
+}
+
+.window-content .copy-button.copied-state {
+  background-color: #28a745; /* Verde para feedback de sucesso */
+}
+
+
+/* Emoji Particle Explosion */
+.emoji-particle {
+  position: absolute;
+  font-size: 18px;
+  user-select: none;
+  pointer-events: none;
+  will-change: transform, opacity;
+  z-index: 9999; /* Acima de tudo */
+}
+
+/* Feedback de texto (opcional, como fallback) */
+.window-content .copy-feedback-message {
+  font-size: 14px;
+  color: #28a745;
+  min-height: 20px; /* Reserva espaço */
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.window-content .copy-feedback-message.visible {
+  opacity: 1;
+}
+
 
 /* Footer */
 footer {
@@ -465,7 +511,7 @@ footer {
   text-align: center;
   padding: 10px;
   background: #f9f5f1;
-  border-top: 1px dotted #ccc;
+  border-top: 1px solid #e0e0e0; /* Alterado de dotted para solid */
   z-index: 50;
 }
 
@@ -505,15 +551,20 @@ footer {
      padding-left: 0;
   }
   .window-content .key-technologies-freelance::before {
-    left: 0; /* Ajuste ou remova se o padding for 0 */
-    /* content: none; /* Opcional: remover marcador em telas pequenas */
+    left: 0;
+    /* content: none; Opcional: remover marcador em telas pequenas */
   }
 
-  .window-content .form-footer-flex {
-    flex-direction: column; /* Empilha botão e texto de consentimento */
-    align-items: flex-start;
+  .window[data-file="contact_form_window"] {
+    width: 90% !important; /* Janela de contato um pouco mais larga em mobile */
+    min-height: 220px;
   }
-  .window-content .form-consent-text {
-    margin-top: 10px; /* Espaço quando empilhado */
+  .window-content .email-to-copy-wrapper {
+    flex-direction: column; /* Empilha input e botão em telas menores */
+    gap: 15px;
   }
+  .window-content .copy-button {
+    width: 100%; /* Botão ocupa largura total */
+  }
+
 }
