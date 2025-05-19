@@ -5,19 +5,20 @@
 }
 
 body {
-  font-family: sans-serif;
-  background: #f9f5f1;
-  color: #222;
-  padding-bottom: 60px; /* Espaço para o footer fixo */
+  font-family: sans-serif; /* Considere escolher uma fonte específica do Google Fonts */
+  background: #EDF2F7; /* NOVA COR DE FUNDO */
+  color: #2D3748; /* NOVO TEXTO PRINCIPAL */
+  padding-bottom: 60px;
 }
 
 .container {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #e0e0e0; /* Alterado de dotted para solid */
+  border: 1px solid #CBD5E0; /* NOVA COR DE BORDA */
   border-radius: 12px;
-  background: #fff9f5;
+  background: #FFFFFF; /* NOVO FUNDO DO CONTAINER */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra mais suave */
 }
 
 .profile {
@@ -32,6 +33,7 @@ body {
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #CBD5E0; /* Borda sutil no avatar */
 }
 
 .name-role {
@@ -41,16 +43,34 @@ body {
 
 .name-role h1 {
   font-size: 28px;
+  color: #2D3748; /* Garante que o H1 use a cor do texto principal */
 }
 
 .name-role p {
   font-size: 14px;
-  color: #555;
+  color: #718096; /* NOVO TEXTO SECUNDÁRIO */
 }
 
 .description {
   margin: 16px 0;
+  line-height: 1.6;
+  color: #4A5568; /* Um tom entre o principal e o secundário para descrições */
 }
+
+/* Link "Send Message" com a cor de destaque */
+#openContactFormButton {
+  color: #FF8C00 !important; /* SEU LARANJA AQUI */
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+#openContactFormButton:hover {
+  background-color: #FF8C00;
+  color: white !important;
+}
+
 
 .accordion {
   margin-top: 20px;
@@ -66,83 +86,111 @@ body {
   align-items: center;
   width: 100%;
   text-align: left;
+  color: #4A5568; /* Cor para os títulos do accordion */
+  padding: 5px 0; /* Um pouco de padding */
+  border-bottom: 1px solid transparent; /* Para transição suave no hover */
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
 }
+.accordion-header:hover {
+    color: #FF8C00; /* Laranja no hover */
+    /* border-bottom-color: #FF8C00; Opcional: sublinhado no hover */
+}
+
 
 .accordion-header .icon {
   margin-right: 10px;
+  color: #718096; /* Cor dos ícones de pasta */
+  transition: color 0.2s ease;
 }
+.accordion-header:hover .icon,
+.accordion-header.open .icon { /* Quando o accordion está aberto (classe 'open' a ser adicionada via JS) */
+    color: #FF8C00;
+}
+
 
 .accordion-content {
   display: none;
   padding-left: 25px;
+  border-left: 2px solid #CBD5E0; /* Linha guia sutil */
+  margin-left: 10px; /* Alinha com o ícone da pasta */
 }
 
 .file {
   display: flex;
   align-items: center;
   margin: 4px 0;
-  padding: 4px 0;
+  padding: 6px 4px; /* Aumenta um pouco o padding */
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  color: #4A5568; /* Cor do texto dos arquivos */
+  border-radius: 3px;
 }
 
-.file[data-file]::before {
-  content: '📄';
+.file[data-file]::before,
+.file.external-link::before {
+  content: '📄'; /* Default, será sobrescrito */
   margin-right: 8px;
   font-size: 1em;
+  color: #718096; /* Cor dos ícones de arquivo/exe */
 }
 
 .file.external-link::before {
-  content: '⚙️'; /* Ícone para "executáveis" */
-  margin-right: 8px;
-  font-size: 1em;
+  content: '⚙️';
 }
 
 .file:hover {
-  color: orange;
+  color: #FF8C00; /* Laranja no hover */
+  background-color: #EDF2F7; /* Fundo sutil no hover */
   transform: translateX(4px);
 }
 
 /* Estilos da Janela Modal (Window) */
 .window {
   position: fixed;
-  background: #fff;
-  border: 1px solid #aaa;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  width: 600px; /* Largura padrão */
+  background: #FFFFFF; /* FUNDO DA JANELA */
+  border: 1px solid #CBD5E0; /* BORDA DA JANELA */
+  box-shadow: 0 5px 15px rgba(45, 55, 72, 0.1); /* Sombra mais suave e direcionada */
+  width: 600px;
   max-height: 80vh;
   z-index: 100;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Para garantir que o border-radius afete o conteúdo */
 }
 
 .window-header {
-  background: #eee;
-  padding: 8px 12px;
+  background: #4A5568; /* NOVO CABEÇALHO DA JANELA */
+  color: #FFFFFF; /* Texto branco no cabeçalho */
+  padding: 10px 15px; /* Aumentar padding */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  /* border-bottom: 1px solid #CBD5E0; Não é mais necessário com fundo sólido */
   cursor: move;
 }
 
 .window-content {
-  padding: 15px;
+  padding: 20px; /* Mais padding no conteúdo */
   overflow-y: auto;
   flex-grow: 1;
+  background-color: #FFFFFF; /* Garante fundo branco se o .window tiver outra cor */
 }
 
 .window-close {
   cursor: pointer;
-  font-size: 18px;
-  padding: 0 5px;
+  font-size: 20px; /* Um pouco maior */
+  color: #E2E8F0; /* Cor do X de fechar */
+  transition: color 0.2s ease;
+}
+.window-close:hover {
+    color: #FF8C00; /* Laranja no hover */
 }
 
 /* Layout da seção "About Me" */
 .about-me-layout {
   display: flex;
-  gap: 20px;
+  gap: 25px; /* Mais espaço */
   align-items: flex-start;
 }
 
@@ -153,8 +201,9 @@ body {
 .about-me-image-container img {
   width: 200px;
   height: auto;
-  border-radius: 8px;
+  border-radius: 6px; /* Bordas um pouco menos arredondadas */
   display: block;
+  border: 1px solid #E2E8F0; /* Borda sutil na imagem */
 }
 
 .about-me-text {
@@ -162,62 +211,75 @@ body {
 }
 
 .about-me-text h3 {
-  margin-top: 15px;
-  margin-bottom: 5px;
-  color: #333;
+  margin-top: 0; /* Remove margin-top se for o primeiro elemento */
+  margin-bottom: 8px;
+  color: #2D3748; /* Texto principal */
+  font-size: 1.1em;
 }
 
 .about-me-text ul {
-  list-style: disc;
-  padding-left: 20px;
+  list-style-type: none; /* Remover marcadores padrão, vamos usar customizados se necessário */
+  padding-left: 0;
   margin-bottom: 10px;
 }
+.about-me-text ul li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 6px;
+}
+.about-me-text ul li::before {
+    content: '›'; /* Marcador mais sutil */
+    color: #FF8C00; /* Laranja */
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
 
 .about-me-text p, .about-me-text li {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #444;
-  margin-bottom: 10px;
+  font-size: 14px; /* Ajuste se usar uma fonte nova */
+  line-height: 1.7; /* Melhor legibilidade */
+  color: #4A5568; /* Cor para parágrafos */
+  margin-bottom: 12px;
 }
 
 /* Estilos da seção "Work Experience" */
 .window-content .experience-section h2 {
   text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+  color: #2D3748; /* Texto principal */
+  margin-bottom: 25px;
   font-size: 22px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
+  border-bottom: 1px solid #CBD5E0; /* Borda sutil */
+  padding-bottom: 12px;
 }
 
 .window-content .experience-item {
   margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 1px dashed #eee;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #E2E8F0; /* Linha divisória mais clara */
 }
 
 .window-content .experience-item:last-child {
-  margin-bottom: 0;
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.window-content .experience-item h3 {
+.window-content .experience-item h3 { /* Título do Cargo */
   font-size: 18px;
-  color: #2c3e50;
+  color: #2D3748; /* Cor primária para títulos de cargo */
   margin-bottom: 4px;
 }
 
 .window-content .experience-item .company-period {
   font-size: 14px;
-  color: #555;
-  margin-bottom: 10px;
+  color: #718096; /* Texto secundário */
+  margin-bottom: 12px;
   font-style: italic;
 }
 
 .window-content .experience-item .company-period strong {
   font-style: normal;
-  color: #16a085;
+  color: #4A5568; /* Tom mais escuro para o nome da empresa */
 }
 
 .window-content .experience-item > ul {
@@ -229,7 +291,7 @@ body {
 .window-content .experience-item > ul > li {
   font-size: 14px;
   line-height: 1.7;
-  color: #444;
+  color: #4A5568;
   margin-bottom: 8px;
   display: flex;
   align-items: flex-start;
@@ -237,7 +299,7 @@ body {
 
 .window-content .experience-item > ul > li::before {
   content: '▹';
-  color: orange;
+  color: #FF8C00; /* Laranja */
   font-weight: bold;
   margin-right: 10px;
   flex-shrink: 0;
@@ -249,9 +311,9 @@ body {
   margin-bottom: 15px;
 }
 
-.window-content .project-highlights-section h4 {
+.window-content .project-highlights-section h4 { /* "Project Highlights:" */
   font-size: 15px;
-  color: #333;
+  color: #2D3748;
   margin-bottom: 12px;
   font-weight: 600;
 }
@@ -265,7 +327,7 @@ body {
 
 .window-content .highlight-title {
   font-weight: bold;
-  color: #3a3a3a;
+  color: #4A5568;
   flex-basis: 200px;
   flex-shrink: 0;
   margin-right: 8px;
@@ -275,16 +337,16 @@ body {
 
 .window-content .highlight-title::before {
   content: '▹';
-  color: orange;
+  color: #FF8C00; /* Laranja */
   font-weight: bold;
   position: absolute;
   left: 0;
-  top: 1px; /* Ajuste fino para alinhamento vertical */
+  top: 1px;
 }
 
 .window-content .highlight-description {
   font-size: 14px;
-  color: #444;
+  color: #4A5568;
   flex-grow: 1;
   margin: 0;
 }
@@ -292,7 +354,7 @@ body {
 .window-content .key-technologies-freelance {
   font-size: 14px;
   line-height: 1.6;
-  color: #444;
+  color: #4A5568;
   margin-top: 20px;
   padding-left: 20px;
   position: relative;
@@ -300,31 +362,33 @@ body {
 
 .window-content .key-technologies-freelance::before {
   content: '▹';
-  color: orange;
+  color: #FF8C00; /* Laranja */
   font-weight: bold;
   position: absolute;
   left: 0;
-  top: 1px; /* Ajuste fino para alinhamento vertical */
+  top: 1px;
 }
 
 .window-content .key-technologies-freelance strong {
   font-weight: bold;
-  color: #333;
+  color: #2D3748; /* Texto principal */
   margin-right: 5px;
 }
+
 
 /* Estilos da seção "Tools & Technologies" */
 .window-content .tools-section h2 {
   text-align: center;
-  color: #333;
+  color: #2D3748; /* Texto principal */
   margin-bottom: 25px;
   font-size: 22px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
+  border-bottom: 1px solid #CBD5E0; /* Borda sutil */
+  padding-bottom: 12px;
 }
 
 .window-content .tools-section h2 .icon {
   margin-right: 8px;
+  color: #718096; /* Ícone do título da seção */
 }
 
 .window-content .tools-list {
@@ -337,7 +401,7 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 5px;
-  border-bottom: 1px solid #eaeaea; /* Alterado de dotted para solid */
+  border-bottom: 1px solid #E2E8F0; /* Linha mais clara e sólida */
   transition: background-color 0.2s ease;
 }
 
@@ -346,7 +410,7 @@ body {
 }
 
 .window-content .tool-item:hover {
-  background-color: #f9f9f9;
+  background-color: #EDF2F7; /* Fundo sutil no hover */
 }
 
 .window-content .tool-icon {
@@ -354,6 +418,7 @@ body {
   height: 24px;
   margin-right: 15px;
   flex-shrink: 0;
+  /* Os fills dos SVGs agora controlarão as cores, não definimos aqui */
 }
 
 .window-content .placeholder-icon {
@@ -363,8 +428,8 @@ body {
   width: 24px;
   height: 24px;
   margin-right: 15px;
-  background-color: #e0e0e0;
-  color: #555;
+  background-color: #CBD5E0; /* Cor de borda/detalhe */
+  color: #4A5568; /* Cor do texto secundário */
   font-weight: bold;
   border-radius: 4px;
   font-size: 12px;
@@ -373,21 +438,23 @@ body {
 
 .window-content .tool-name {
   font-size: 16px;
-  color: #333;
+  color: #4A5568; /* Texto dos nomes das ferramentas */
 }
 
 /* Estilos para a Janela de Copiar E-mail */
 .window[data-file="contact_form_window"] {
-    width: 480px; /* Ajuste a largura conforme necessário */
-    height: auto; /* Permitir que a altura se ajuste ao conteúdo */
-    min-height: 250px; /* Altura mínima para melhor aparência */
-    max-height: 350px; /* Limita para não ficar muito alta */
+    width: 480px;
+    height: auto;
+    min-height: 250px;
+    max-height: 350px;
+    background-color: #FFFFFF; /* Fundo branco para a janela de cópia */
 }
 
 .window[data-file="contact_form_window"] .window-content {
-    display: flex; /* Para centralizar o .copy-email-container */
+    display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #FFFFFF; /* Garante que o conteúdo interno também seja branco */
 }
 
 .window-content .copy-email-container {
@@ -395,16 +462,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 25px; /* Mais padding */
   text-align: center;
-  gap: 20px;
-  height: 100%; /* Tenta ocupar a altura do .window-content */
+  gap: 25px; /* Mais espaço */
+  height: 100%;
 }
 
 .window-content .copy-email-instructions {
   font-size: 16px;
-  color: #333;
-  margin-bottom: 0; /* Ajustado pois o gap do container já dá espaço */
+  color: #4A5568; /* Texto secundário mais escuro */
+  margin-bottom: 0;
 }
 
 .window-content .email-to-copy-wrapper {
@@ -412,28 +479,28 @@ body {
   align-items: center;
   gap: 10px;
   width: 100%;
-  max-width: 400px; /* Limita a largura máxima do input + botão */
+  max-width: 400px;
 }
 
 .window-content .email-display-field {
   flex-grow: 1;
-  padding: 10px 12px;
+  padding: 12px 15px; /* Mais padding */
   font-size: 16px;
-  color: #555;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  color: #2D3748; /* Texto principal */
+  background-color: #EDF2F7; /* Fundo sutil */
+  border: 1px solid #CBD5E0; /* Borda sutil */
+  border-radius: 6px; /* Bordas mais arredondadas */
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .window-content .copy-button {
-  background-color: orange;
+  background-color: #FF8C00; /* Laranja */
   color: white;
-  padding: 10px 15px;
+  padding: 12px 18px; /* Mais padding */
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
@@ -442,13 +509,13 @@ body {
   justify-content: center;
   gap: 8px;
   transition: background-color 0.2s ease, transform 0.1s ease;
-  min-width: 100px; /* Ajuste para "Copy" ou "Copied" */
-  position: relative; /* Para o feedback de "copied" */
-  overflow: visible; /* Para as partículas de emoji */
+  min-width: 110px;
+  position: relative;
+  overflow: visible;
 }
 
 .window-content .copy-button:hover {
-  background-color: #e69500;
+  background-color: #E57B00; /* Laranja um pouco mais escuro */
 }
 
 .window-content .copy-button:active {
@@ -464,44 +531,56 @@ body {
   transition: opacity 0.2s ease-in-out;
 }
 
-/* Estado "Copiado" do botão */
-.window-content .copy-button.copied-state .copy-button-text {
-  /* O texto "Copied!" é adicionado/removido via JS */
-}
-
-.window-content .copy-button.copied-state .copy-button-icon {
-  /* O ícone '✔' é adicionado/removido via JS */
-}
-
 .window-content .copy-button.copied-state {
-  background-color: #28a745; /* Verde para feedback de sucesso */
+  background-color: #38A169; /* Verde para sucesso */
+}
+.window-content .copy-button.copied-state .copy-button-text,
+.window-content .copy-button.copied-state .copy-button-icon {
+  opacity: 0;
 }
 
+.window-content .copy-button .copied-feedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  white-space: nowrap;
+  opacity: 0;
+}
 
-/* Emoji Particle Explosion */
+.window-content .copy-button.copied-state .copied-feedback {
+  animation: fadeInOutFeedback 2s ease-in-out forwards;
+}
+
+@keyframes fadeInOutFeedback {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
 .emoji-particle {
   position: absolute;
   font-size: 18px;
   user-select: none;
   pointer-events: none;
   will-change: transform, opacity;
-  z-index: 9999; /* Acima de tudo */
+  z-index: 9999;
 }
 
-/* Feedback de texto (opcional, como fallback) */
 .window-content .copy-feedback-message {
   font-size: 14px;
-  color: #28a745;
-  min-height: 20px; /* Reserva espaço */
+  color: #38A169; /* Verde para sucesso */
+  min-height: 20px;
   font-weight: bold;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
-
 .window-content .copy-feedback-message.visible {
   opacity: 1;
 }
-
 
 /* Footer */
 footer {
@@ -510,9 +589,10 @@ footer {
   width: 100%;
   text-align: center;
   padding: 10px;
-  background: #f9f5f1;
-  border-top: 1px solid #e0e0e0; /* Alterado de dotted para solid */
+  background: #EDF2F7; /* Mesma cor do body */
+  border-top: 1px solid #CBD5E0; /* Borda sutil */
   z-index: 50;
+  color: #718096; /* Texto secundário */
 }
 
 /* Media Queries para Responsividade */
@@ -548,23 +628,25 @@ footer {
     margin-bottom: 5px;
   }
   .window-content .key-technologies-freelance {
-     padding-left: 0;
+     padding-left: 0; /* Remove padding para melhor fluxo */
   }
   .window-content .key-technologies-freelance::before {
-    left: 0;
-    /* content: none; Opcional: remover marcador em telas pequenas */
+    /* content: none; Opcional: remover marcador em telas pequenas se o padding-left for 0 */
+    /* Se o padding-left for 0, o marcador ficaria fora. Melhor remover ou ajustar. */
+    /* Para este caso, vamos remover o marcador em telas pequenas para esta seção específica */
+    content: ''; 
+    margin-right: 0;
   }
 
   .window[data-file="contact_form_window"] {
-    width: 90% !important; /* Janela de contato um pouco mais larga em mobile */
+    width: 90% !important;
     min-height: 220px;
   }
   .window-content .email-to-copy-wrapper {
-    flex-direction: column; /* Empilha input e botão em telas menores */
+    flex-direction: column;
     gap: 15px;
   }
   .window-content .copy-button {
-    width: 100%; /* Botão ocupa largura total */
+    width: 100%;
   }
-
 }
