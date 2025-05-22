@@ -1,56 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cool dev</title>
-  <link rel="shotcut icon" href="https://i.pinimg.com/564x/8f/85/d1/8f85d19c27888bb913f4caba58760851.jpg" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Nascimento's Portfolio</title>
+    <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/100228796?v=4">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* Styles for the page body */
+        html {
+            overflow-x: hidden;
+        }
+        body {
+            background-color: #FDFBF5; /* Reverted to creamy white background */
+            font-family: 'Press Start 2P', cursive;
+            color: #333; /* Main text color for light background */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-  <style type="text/css">
-    * {
-      margin: 0;
-      padding: 0;
-    }
+        /* Main container for the gallery content */
+        .main-content {
+            padding: 2em; 
+        }
 
-    h1{
-      color: rgb(210, 214, 218);
-    }
+        /* Styles for the image list (gallery) */
+        .list {
+            columns: 400px;
+            column-gap: 1.5em;
+        }
 
-    body {
-      background-color: rgb(27, 27, 27);
-    }
+        /* Base style for each list item (div) */
+        .list > div { /* Applies to all direct div children of .list (header and gallery-item) */
+            margin-bottom: 1.5em;
+            break-inside: avoid-column;
+            border-radius: 8px;
+            box-shadow: -2px -2px 0px rgba(255, 255, 255, 0.4), 3px 3px 0px black;
+            overflow: hidden;
+            position: relative; 
+        }
 
-    .page {
-      margin-top: 3%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+        /* Specific style for the header when it's a list item */
+        .header-as-item {
+            background-image: url('https://i.pinimg.com/originals/ad/d4/74/add47491dfa1ae92337b41e78ce014f4.gif');
+            background-size: cover;
+            background-position: center;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            image-rendering: pixelated;
+            border: 2px solid black; /* Specific border for the header */
+        }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            image-rendering: pixelated;
+            flex-shrink: 0;
+            border: 2px solid black; 
+        }
+
+        .main-info-area {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            font-size: 1.25rem;
+            color: white;
+            text-shadow: 2px 2px 0px black;
+            line-height: 1.2;
+        }
+
+        .user-location {
+            font-size: 0.65rem;
+            color: #EAEAEA;
+            text-shadow: 1px 1px 0px #111;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            line-height: 1;
+        }
+         .user-location span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+         }
+
+        .user-location svg { /* Pin Icon */
+            width: 12px;
+            height: 12px;
+            fill: #FF0000; /* Red pin icon */
+            filter: drop-shadow(1px 1px 0px black); /* Shadow for the pin */
+            flex-shrink: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            border: 1px solid #555; 
+            box-shadow: 1px 1px 0px black; 
+            transition: transform 0.1s linear, box-shadow 0.1s linear, background-color 0.2s linear;
+            text-decoration: none;
+        }
+         .social-icon:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 2px 2px 0px black; 
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+         .social-icon:active {
+            transform: translate(0px, 0px); 
+            box-shadow: 1px 1px 0px black;
+        }
 
 
-    .open {
-      margin-top: 3%;
-      height: 60vh;
-      border-radius: 10%;
-    }
-  </style>
+        .social-icon i {
+            font-size: 20px;
+            color: #333333; 
+        }
+
+        /* Filter Controls Card Styles */
+        .filter-controls-card {
+            background-color: #333; 
+            padding: 1em;
+            border: 2px solid black; 
+            display: flex; 
+            flex-wrap: nowrap; /* Prevent wrapping to ensure they stay in a line */
+            justify-content: center; 
+            align-items: center; 
+            gap: 10px; 
+            overflow-x: auto; /* Add horizontal scroll if they don't fit */
+        }
+        .filter-controls-card label {
+            color: #FDFBF5; 
+            font-size: 0.8em;
+            cursor: pointer;
+            flex-shrink: 0; /* Prevent buttons from shrinking too much */
+        }
+        .filter-controls-card input[type="checkbox"] {
+            display: none; 
+        }
+
+        /* Styling for the visible part of the button (the span) */
+        .filter-controls-card label span {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #777; 
+            border: 2px solid #222;
+            border-top-color: #999;
+            border-left-color: #999;
+            border-bottom-color: #555;
+            border-right-color: #555;
+            box-shadow: 2px 2px 0px black;
+            position: relative;
+            transition: all 0.1s linear;
+            user-select: none; 
+            color: #222; 
+            white-space: nowrap; /* Prevent text inside button from wrapping */
+        }
+        
+        /* Checked state - "ON" button */
+        .filter-controls-card input[type="checkbox"]:checked + span {
+            background-color: #4CAF50; 
+            color: white;
+            border-top-color: #388E3C; 
+            border-left-color: #388E3C;
+            border-bottom-color: #66BB6A; 
+            border-right-color: #66BB6A;
+            box-shadow: 1px 1px 0px black, inset 1px 1px 0px rgba(0,0,0,0.2); 
+            transform: translate(1px, 1px); 
+        }
+        
+        .filter-controls-card label:hover > span {
+            filter: brightness(1.1);
+        }
+        
+        .filter-controls-card label:active > span {
+            filter: brightness(0.9);
+            transform: translate(1px, 1px);
+             box-shadow: 1px 1px 0px black, inset 1px 1px 0px rgba(0,0,0,0.2);
+        }
+
+
+        /* Styles for gallery items that are image-only */
+        .gallery-item.image-only {
+            padding: 0;
+            border: none; 
+            background-color: transparent;
+        }
+
+        .list .gallery-item.image-only img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px; 
+        }
+
+        .list .gallery-item.image-only a {
+            text-decoration: none;
+            display: block;
+            line-height: 0;
+        }
+
+        /* Styles for text cards with Markdown */
+        .gallery-item.text-card {
+            background-color: #444;
+            padding: 1em;
+            color: #f0f0f0;
+            border: 2px solid black; 
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        .gallery-item.text-card.scrollable-content {
+            overflow-y: auto;
+        }
+
+        /* Styles for cards with background image and overlaid text */
+        .gallery-item.overlay-card {
+            background-size: cover;
+            background-position: center;
+            min-height: 230px; 
+            display: flex;
+            flex-direction: column; 
+            justify-content: flex-end; 
+            padding: 0;
+            border: none; 
+            color: white; 
+        }
+
+        .overlay-card .overlay-content { 
+            background-color: rgba(0, 0, 0, var(--markdown-bg-opacity, 0.55)); 
+            backdrop-filter: blur(4px); 
+            -webkit-backdrop-filter: blur(4px); 
+            padding: 1em;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            border-radius: 0 0 6px 6px; 
+            height: auto; 
+        }
+
+        .overlay-card .overlay-content.full-height-overlay {
+            height: 100%; 
+            border-radius: 0; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .overlay-card .overlay-content.scrollable {
+            overflow-y: auto;
+        }
+        .overlay-card .overlay-content.full-height-overlay.scrollable {
+            max-height: 100%;
+        }
+         .overlay-card .overlay-content:not(.full-height-overlay).scrollable {
+            max-height: 120px; 
+        }
+
+
+        /* Styles for elements generated by Markdown */
+        .markdown-to-render h1,
+        .markdown-to-render h2,
+        .markdown-to-render h3,
+        .markdown-to-render h4 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+            color: #FFFFAA;
+            line-height: 1.2;
+        }
+        .markdown-to-render p {
+            margin-bottom: 0.75em;
+        }
+        .markdown-to-render ul,
+        .markdown-to-render ol {
+            padding-left: 20px;
+            margin-bottom: 0.75em;
+        }
+        .markdown-to-render li {
+            margin-bottom: 0.25em;
+        }
+        .markdown-to-render a {
+            color: #90CAF9;
+            text-decoration: underline;
+        }
+
+        /* Custom Scrollbar Styles for WebKit browsers */
+        .scrollable-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: #2c2c2c;
+            border-radius: 0px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 0px;
+            border: 1px solid #1a1a1a;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
+        /* Custom Scrollbar Styles for Firefox */
+        .scrollable-content {
+            scrollbar-width: thin;
+            scrollbar-color: #666 #2c2c2c;
+        }
+
+
+        /* Footer style */
+        .footer {
+            text-align: center;
+            padding: 2em;
+            font-size: 0.75rem;
+            color: #4A4A4A; 
+            text-shadow: 1px 1px 0px #D0D0D0; 
+            width: 100%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .list { columns: 300px; }
+            .user-name { font-size: 1.1rem; }
+            .user-location { font-size: 0.6rem; }
+            .gallery-item.overlay-card { min-height: 220px; }
+        }
+
+        @media (max-width: 640px) { 
+            .list { columns: 1; }
+            .user-name { font-size: 1.2rem; }
+            .user-location { font-size: 0.65rem; }
+            .profile-picture { width: 70px; height: 70px; }
+            .social-icon { width: 36px; height: 36px; }
+            .social-icon i { font-size: 18px; }
+            .gallery-item.overlay-card { min-height: 200px; }
+            .overlay-card .overlay-content:not(.full-height-overlay).scrollable { max-height: 100px; }
+            /* .filter-controls-card {
+                flex-direction: column; /* Removed to keep buttons in a row */
+            /* } */
+            .filter-controls-card label {
+                /* margin-right: 0; Removed */
+                /* width: fit-content;  Removed */
+                /* margin-left: auto; Removed */
+                /* margin-right: auto; Removed */
+            }
+        }
+
+         @media (max-width: 420px) {
+             .header-as-item { flex-direction: column; text-align: center; align-items: center; }
+             .main-info-area { align-items: center; width: 100%; gap: 0.1rem; text-align: center; }
+             .user-location { justify-content: center; }
+             .social-icons { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-left: 0; margin-top: 0.75rem; }
+             .profile-picture { margin-bottom: 0.5rem; }
+             .gallery-item.text-card, .overlay-card .overlay-content { font-size: 0.7rem; }
+         }
+
+    </style>
 </head>
-
 <body>
-  <div class="page">
-  <h1> Hi, there!</h1>
-  <img class="open" src="opening.gif"> 
-  <p>
-    I'm a 22 year old Brazilian with a degree in systems analysis and development, I love building things and solving problems. I like doing electronics and web projects. If I'm not on the computer I'm out there reading or at the beach
-  </p>
-  </div>
-  <script>
+    <div class="main-content">
+        <div class="list">
+            <div class="header-as-item">
+                <img src="https://avatars.githubusercontent.com/u/100228796?v=4" alt="Profile Picture" class="profile-picture">
+                <div class="main-info-area">
+                    <h1 class="user-name">Gabriel Nascimento</h1>
+                    <p class="user-location">
+                        <svg viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 1L6 1V2H5V3H4V4H3V5H2V7H3V8H4V9H5V10H6V11H7V13H9V11H10V10H11V9H12V8H13V7H14V5H13V4H12V3H11V2H10V1H8ZM7 4H9V6H7V4Z"/>
+                        </svg>
+                        <span>Brazil / Full Stack Dev</span>
+                    </p>
+                    </div>
+                <div class="social-icons">
+                    <a href="https://www.github.com/GabrielBaiano" target="_blank" class="social-icon" aria-label="GitHub Profile">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/gabriel-nascimento-gama-5b0b30185/" target="_blank" class="social-icon" aria-label="LinkedIn Profile">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://twitter.com/seu-usuario" target="_blank" class="social-icon" aria-label="Twitter Profile">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                </div>
+            </div>
 
-  </script>
-</body>
+            <div class="filter-controls-card">
+                <label><input type="checkbox" id="nav-projects" checked><span>Projects</span></label>
+                <label><input type="checkbox" id="nav-publications" checked><span>Publications</span></label>
+                <label><input type="checkbox" id="nav-misc" checked><span>Misc</span></label>
+            </div>
 
-</html>
+            <div class="gallery-item overlay-card misc-item" style="background-image: url('https://i.pinimg.com/originals/fa/de/06/fade06fdb98c309859796fb0e764ab0d.gif'); min-height: 230px;">
+                <div class="overlay-content markdown-to-render scrollable full-height-overlay" style="--markdown-bg-opacity: 0.6;">## About Me
 
+Hi! I’m Gabriel Gama, a Front-End / Full-Stack Developer from Itanhaém, São Paulo, Brazil. I’m passionate about building modern, responsive web and mobile applications.
+
+**Technologies I master:**
+- React
+- React Native
+- Node.js
+- TypeScript
+
+In my spare time, I enjoy video games, robotics projects, and the ocean breeze at the beach. I love combining creativity and technology to solve problems and create intuitive digital experiences.
+
+Always eager to learn new skills and collaborate on exciting projects!
+                </div>
+            </div>
+
+            <div class="gallery-item overlay-card project-item" style="background-image: url('https://lh3.googleusercontent.com/fife/ALs6j_FpMxQSt4kQ7Oj3Q87wCy0DOeEuDX_zktZUrxygUh_1q5dhOo6MHWzIDzcbkD-YNEZNIzccZwF6MoKQIvO7ccwp1kgvlo8O9X_QDewlIuiyBizyoiHviI_x9RxDNaRareM0mHOMO77BwCUEms_W5S8_v1yz8YFED0ulkuv7W5BIXYNLevYUaUP07PEb8QoaN1cPC4UDAMXuwld6JGXXr3VCBgG6PrAY2DRGuatmpN1S7e5_ObDvPFGWC3uDxaR2hhLS0PkfopQU-lQuxLTel-CeE2s_tPeKc-I6-1d1z7L_evetnYvl-hSgahoXnkSddUlHYPv1czLifqE0IyTP2RU1xS2_XOMkm9kTOHKCNPhG5N1emflRdQoIHYDsoBGzqd0Dsp6bbyr15lNtsCfOO1r6goLa8M0_bqD7jNzV5x_wdNheIs9aTFFKLaOx4sGsKOsBdYEvEOfMnJY0B5uRJg4iCmkA7B2w4QbS_qcLFepXgHCZHQNnTJngMBN-6hB6l4dApqPukrf7Jey8J5yas4RHHwfhxfWAuVi8dSAMJqSrX7PJ0IPM-TinDDRqWy_BEGmweRYf2tWBDg2wtWjF3DALbZ7QPNEkMXPi1JMN9ntfowx-R1MCGsB-wkhKfsGkvY5LYzyr-EYfeQztxgz2LqVTftolq2lEQUk4wI7g5qHMvvcmdBLPR9YLa2r75KoCBhtryA3uv2J2IFRkAh4OJw7BBMWTtcz9_0ovOC8AmSF6zzbrOOQEk2rFohuyoxfgiFEf0-K0kusLA3WqVK3G04qJdlqmS08RR3i-46XQMkE9f3DT4_vQ8uPlV14ye1lFUs3cXFZ9Zk0NnKu7k8qRCs-FoqMnJSiVnTWpSChTp0f-87t_SjcBPqjBZlckyskAqHo7bN6N1hte_thPTPylXoSioE3hgmQ3_rdMTukVC_8CM9S8VtxHUcdDCFhmR2xtVwHh-12mVVMBDjyOYooZWuiQItu41EY7LVqrtBFtfKZ4MMFapaYMHei664qUdudT2S3IllplvVJdI49SBveMtW-nTu6LJr9hcr-MZMLR1H0diio26oYjx5AaIpHMggSOeOQ2Cm3DikAdYZ-M8D5T_8CI1-2X_GSQYxRjuKAlt_J3pzr6mz4ZxAkSqB4Zz0M1HrGQNnXIbTcZMSXX8Sk2qnXwUjv6W5wr7T-_QQ4nqouDCOHFgRbrnFM8o3FXDilE-VXYku0SuwWmNVrNC8IYuCL9Ynt7-ope3j9jUNnPl13FvZCJJr-BNQNpjoj-FFds0GogIS6vS_w0a9RB5BdN-X2KAsmK-t27F7F4nH57_zPY4CFwF14xWwmUMMW3d_wzXBRV4KzUIcDD38cC4-uU1h7Kiyi4Lwx83mvyYmcv_O163BDU_dgUEyiBE1hz2pSLvX5ULvrPBmz7hEwomh5Z5AJCVrBGpE2oG2UvtuJ8nql3G-nJJ_0X4f0RvbdKHJ4yCSFnd003eX6EwwCDu815UVuBPErfB4HpinxehRyaXyl0SFDKxGlQ0_vIxkmvL8vsHxX3sKuwoBvirsUy4QcFPI6BKJ3QcxIFKT7GMDCMZTOyi8arSeOmM6dFLDpuDGV0C5tPlIBpfWjq8hY4J9697Vi74320rf_aYO5Ff4UDUqJ26dcR8g'); min-height: 300px;">
+                <div class="overlay-content markdown-to-render" style="--markdown-bg-opacity: 0.7;">
+### [VOSTOK_OS_TERMINAL](https://vostok-os-terminal.vercel.app)
+A Dystopian Terminal Interactive with AI. Explore a unique command-line interface experience.
+                </div>
+            </div>
+            
+            <div class="gallery-item overlay-card publication-item" style="background-image: url('https://i.pinimg.com/originals/8b/70/4f/8b704f5e6a201423a676c96f8937d3c6.gif'); min-height: 280px;">
+                <div class="overlay-content markdown-to-render" style="--markdown-bg-opacity: 0.65;">
+### [Books Library](https://www.github.com/GabrielBaiano/books)
+A curated library of books on various programming topics. Find resources on your favorite languages and technologies.
+                </div>
+            </div>
+
+            <div class="gallery-item image-only misc-item">
+                <a href="#">
+                    <img src="https://i.pinimg.com/736x/41/5f/1f/415f1fce67ae48e731ddf7a947e920ef.jpg" alt="New Pixel Art Scenery">
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2024 Gabriel Nascimento. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Renders Markdown when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            const markdownElements = document.querySelectorAll('.markdown-to-render');
+            markdownElements.forEach(element => {
+                const markdownText = element.innerHTML.trim();
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = markdownText;
+                const cleanMarkdown = tempDiv.textContent || tempDiv.innerText || "";
+
+                element.innerHTML = ''; 
+                element.innerHTML = marked.parse(cleanMarkdown);
+            });
+
+            // Navigation filter logic
+            const navProjects = document.getElementById('nav-projects');
+            const navPublications = document.getElementById('nav-publications');
+            const navMisc = document.getElementById('nav-misc');
+
+            function updateGalleryVisibility() {
+                const showProjects = navProjects.checked;
+                const showPublications = navPublications.checked;
+                const showMisc = navMisc.checked;
+
+                document.querySelectorAll('.list > div:not(.header-as-item):not(.filter-controls-card)').forEach(item => {
+                    let visible = false;
+                    if (showProjects && item.classList.contains('project-item')) {
+                        visible = true;
+                    }
+                    if (showPublications && item.classList.contains('publication-item')) {
+                        visible = true;
+                    }
+                    if (showMisc && item.classList.contains('misc-item')) {
+                        visible = true;
+                    }
+                    item.style.display = visible ? '' : 'none';
+                });
+            }
+
+            navProjects.addEventListener('change', updateGalleryVisibility);
+            navPublications.addEventListener('change', updateGalleryVisibility);
+            navMisc.addEventListener('change', updateGalleryVisibility);
+
+            // Initial call to set visibility based on default checkbox states
+            updateGalleryVisibility();
+        });
+    </script>
+    </body>
 </html>
