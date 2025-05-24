@@ -37,8 +37,8 @@
         .list > div { 
             margin-bottom: 1.5em;
             break-inside: avoid-column;
-            border-radius: 8px;
-            box-shadow: -3px -3px 0px rgba(255, 255, 255, 0.5), 4px 4px 0px black;
+            border-radius: 12px;
+            /* box-shadow: -3px -3px 0px rgba(255, 255, 255, 0.5), 4px 4px 0px black; */
             overflow: hidden;
             position: relative; 
         }
@@ -203,6 +203,10 @@
              box-shadow: 1px 1px 0px black, inset 1px 1px 0px rgba(0,0,0,0.2);
         }
 
+        .gallery-item .pub0 {
+            font-size: 0.8rem;
+            margin: 4%;
+        }
 
         /* Styles for gallery items that are image-only */
         .gallery-item.image-only {
@@ -216,7 +220,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            border-radius: 8px; 
+            border-radius: 12px; 
         }
 
         .list .gallery-item.image-only a {
@@ -279,25 +283,6 @@
         }
          .overlay-card .overlay-content:not(.full-height-overlay).scrollable {
             max-height: 120px; 
-        }
-
-        /* Specific styles for VOSTOK_OS_TERMINAL card - TEXT COLOR */
-        .vostok-overlay .markdown-to-render,
-        .vostok-overlay .markdown-to-render p,
-        .vostok-overlay .markdown-to-render h3,
-        .vostok-overlay .markdown-to-render a {
-            color: #33FF33; /* Terminal green */
-            text-shadow: 1px 1px 0px #114411; /* Darker green shadow for depth */
-        }
-        .vostok-overlay .markdown-to-render h3 {
-             color: #66FF66; /* Slightly lighter green for header */
-        }
-        .vostok-overlay .markdown-to-render a {
-            text-decoration-color: #33FF33;
-        }
-        .vostok-overlay .markdown-to-render a:hover {
-            color: #88FF88;
-            text-decoration-color: #88FF88;
         }
 
 
@@ -382,8 +367,6 @@
             .social-icon i { font-size: 18px; }
             .gallery-item.overlay-card { min-height: 200px; }
             .overlay-card .overlay-content:not(.full-height-overlay).scrollable { max-height: 100px; }
-            .filter-controls-card label {
-            }
         }
 
          @media (max-width: 420px) {
@@ -453,10 +436,10 @@ Always eager to learn new skills and collaborate on exciting projects!
                 </div>
             </div>
 
-            <div class="gallery-item overlay-card project-item" style="background-image: url('https://lh3.googleusercontent.com/fife/ALs6j_FyXXtGrf4JfMM_h9CKarPmdXC0eWaAGQ8pkXg1nWeDWmvWZJrYmQbeIwIIQhlk9s_UvahBDkjpt095ozdD6SQE15gA42XcslEMrRLBW6gw9VHfXQKG3ue9lCdJbELuLFaBeoTR9TGNjNWMIfcMUC-v1SBb5n2mSA2Qp_11pu82g5_Dxy4DTdvPAtdy3LCZx-BsKghaqkvd5AdIRondf_oQsjZSeU4wDEcIDK3ixYqV_WB0U_lptArRgTVh654Y4v3cJxxrS06nBW2I_9YflZMFjto2IohE1uUOlLJULRsV1wslpRulvRgHrPKzDgvIhGApS5GanitMtfLuyAAXh2Wpo_vmWYY8cVPnWjZGgbH8bcZdjqklX_yPiub8RloMN2fIAEdiN1vuSpJrT-abTFQkFJFr1yFn9LNxM3IGL2vd877ORPfc4Tk7XwqSsRyT69jL_tOHa_u8pIQmbBHclC6Ast5hJKdv1IVW4fUfiNw3dh8oJzGSblUiSysEW7ISKzNUlPY_zuexbR1ider9pWIGuHbcMHP7YYklfJZAWSm9wdqmCaHno5nISyk-hGL7GFJRGRmXce6ipf-jD8W8uSFRN6Fv0qmHmUlHVKDHhJN6eJW5mOuXsTqmuqaH53GVKKdD7mYQfSVaRIHgaDGfjRPt-NxRUnQAEZLk-EL30Sa8FBybOJZT9jsDWbx_o9_qPOxP0S9AkcoNavPfR6aWRfxztNdjIaiznt1RehOkho8C3A_iNNiSQx53_7XPhnWk7p8DWdkRhPwCrYOmpdWFBjXZy-Ig-9Xmb10VAv_yoQFWDNwFG-g7f8matpjTjr9DHWXde9EXEePK9JkSI6IB_RfgfzthfjZoZp5IpT_1tSj36rM-0314pwLtNu-gcmejghz6Cn7lVe5iZa5JKjqGVRUWpgiihKeEsS4WQG0T1GqQw6yufc6rsaXHB63_2vqRjmaU6G4qD7p_dB7zcQBzlXIk5oL962kaWFBukyj965k0FHWzn6k7OM0le5y6IRQmhE27uBaV-z9rvCMxRTEIEh4ZoGldzKL5Bzy7XHTvecrAz3xBcttSVz-EC9LFiLBtfQF9wvnP2Ksmm4Hq0viI5sqZGUoESgDQJk4wv0k_FLE6P6O8IxyWLpALsbpvxBF3ICSHAEe8EE6rTicj8Wsbm4Q7KXeSnhO5BZsCfBmaSzl9wA-TcT2SUIeoZGDH3sMTNgS5SGBQU5FbiWRe1lZfa6sbiNYha-yl8nuj1D0iRv7-2rDn6HCq91t1qCkoRKkgK28PEkMNfPwsMjtyCi_hUq7zzA4zeKY4Njka4FR70pcgnHjc_XkzVhMcU9mOBvsSA6bmpyjI_GCOfoNQWOElAuJYG_3qF-REAAVNSlkSEBL5QnzV1pbxqYDo6mYUZoTgaLxFdF1fYyFVwzChtOKaqmqwNUSsmyte7qbMCO0dZUoddB_zZNTRv8D0ZzoqDRL7Rl110Y5lG3UR5SlL23xbYY4tdZvxD9dgSNfJmSROioJ99UMrHgeKXamDFhR0vShd_B2bwUOBrOSemvTMJKEWtk3wF02uiXbH7EdJV_0bsS343-JLVE5bPOfRBO4Xi0nf70bO-dL5HWJf4W62O2hVceEuBZYLYs1INI5h-HEO95up7mfAhXBO_Z73b2R3KmCCew'); aspect-ratio: 1013 / 1013;">
+            <div class="gallery-item overlay-card project-item" style="background-image: url('https://lh3.googleusercontent.com/fife/ALs6j_FyXXtGrf4JfMM_h9CKarPmdXC0eWaAGQ8pkXg1nWeDWmvWZJrYmQbeIwIIQhlk9s_UvahBDkjpt095ozdD6SQE15gA42XcslEMrRLBW6gw9VHfXQKG3ue9lCdJbELuLFaBeoTR9TGNjNWMIfcMUC-v1SBb5n2mSA2Qp_11pu82g5_Dxy4DTdvPAtdy3LCZx-BsKghaqkvd5AdIRondf_oQsjZSeU4wDEcIDK3ixYqV_WB0U_lptArRgTVh654Y4v3cJxxrS06nBW2I_9YflZMFjto2IohE1uUOlLJULRsV1wslpRulvRgHrPKzDgvIhGApS5GanitMtfLuyAAXh2Wpo_vmWYY8cVPnWjZGgbH8bcZdjqklX_yPiub8RloMN2fIAEdiN1vuSpJrT-abTFQkFJFr1yFn9LNxM3IGL2vd877ORPfc4Tk7XwqSsRyT69jL_tOHa_u8pIQmbBHclC6Ast5hJKdv1IVW4fUfiNw3dh8oJzGSblUiSysEW7ISKzNUlPY_zuexbR1ider9pWIGuHbcMHP7YYklfJZAWSm9wdqmCaHno5nISyk-hGL7GFJRGRmXce6ipf-jD8W8uSFRN6Fv0qmHmUlHVKDHhJN6eJW5mOuXsTqmuqaH53GVKKdD7mYQfSVaRIHgaDGfjRPt-NxRUnQAEZLk-EL30Sa8FBybOJZT9jsDWbx_o9_qPOxP0S9AkcoNavPfR6aWRfxztNdjIaiznt1RehOkho8C3A_iNNiSQx53_7XPhnWk7p8DWdkRhPwCrYOmpdWFBjXZy-Ig-9Xmb10VAv_yoQFWDNwFG-g7f8matpjTjr9DHWXde9EXEePK9JkSI6IB_RfgfzthfjZoZp5IpT_1tSj36rM-0314pwLtNu-gcmejghz6Cn7lVe5iZa5JKjqGVRUWpgiihKeEsS4WQG0T1GqQw6yufc6rsaXHB63_2vqRjmaU6G4qD7p_dB7zcQBzlXIk5oL962kaWFBukyj965k0FHWzn6k7OM0le5y6IRQmhE27uBaV-z9rvCMxRTEIEh4ZoGldzKL5Bzy7XHTvecrAz3xBcttSVz-EC9LFiLBtfQF9wvnP2Ksmm4Hq0viI5sqZGUoESgDQJk4wv0k_FLE6P6O8IxyWLpALsbpvxBF3ICSHAEe8EE6rTicj8Wsbm4Q7KXeSnhO5BZsCfBmaSzl9wA-TcT2SUIeoZGDH3sMTNgS5SGBQU5FbiWRe1lZfa6sbiNYha-yl8nuj1D0iRv7-2rDn6HCq91t1qCkoRKkgK28PEkMNfPwsMjtyCi_hUq7zzA4zeKY4Njka4FR70pcgnHjc_XkzVhMcU9mOBvsSA6bmpyjI_GCOfoNQWOElAuJYG_3qF-REAAVNSlkSEBL5QnzV1pbxqYDo6mYUZoTgaLxFdF1fYyFVwzChtOKaqmqwNUSsmyte7qbMCO0dZUoddB_zZNTRv8D0ZzoqDRL7Rl110Y5lG3UR5SlL23xbYY4tdZvxD9dgSNfJmSROioJ99UMrHgeKXamDFhR0vShd_B2bwUOBrOSemvTMJKEWtk3wF02uiXbH7EdJV_0bsS343-JLVE5bPOfRBO4Xi0nf70bO-dL5HWJf4W62O2hVceEuBZYLYs1INI5h-HEO95up7mfAhXBO_Z73b2R3KmCCew'); aspect-ratio: 400 / 350;">
                 <div class="overlay-content vostok-overlay markdown-to-render" style="--markdown-bg-opacity: 0.75;">
 ### [VOSTOK_OS_TERMINAL](https://vostok-os-terminal.vercel.app)
-A Dystopian Terminal Interactive with AI. Explore a unique command-line interface experience.
+A Concept Dystopian Terminal Interactive with AI. Explore a unique command-line interface experience.
                 </div>
             </div>
             
@@ -465,6 +448,19 @@ A Dystopian Terminal Interactive with AI. Explore a unique command-line interfac
 ### [Books Library](https://www.github.com/GabrielBaiano/books)
 A curated library of books on various programming topics. Find resources on your favorite languages and technologies.
                 </div>
+            </div>
+
+            <!-- <div class="gallery-item image-only misc-item">
+                <a href="#">
+                    <img src="https://i.pinimg.com/originals/6e/f6/2f/6ef62fb86557cbbaa0cdcdd2a11bfd7e.gif" alt="New Animated GIF">
+                </a>
+            </div> -->
+
+            <div class="gallery-item image-only project-item">
+                <a href="https://banered.vercel.app/">
+                    <img src="/banerer.png" alt="banerer">
+                </a>
+                <p class="pub0">Banerer Web App</p>
             </div>
             
         </div>
