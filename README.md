@@ -1,1 +1,0 @@
-# SimpleAssF-Portifoleo

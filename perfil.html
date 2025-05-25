@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Nascimento - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .tab-active {
+            border-bottom-width: 2px;
+            border-color: #1f2937;
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .tab-inactive {
+            color: #6b7280;
+        }
+        .sidebar-link {
+            color: #374151;
+        }
+        .sidebar-link-active {
+            color: #111827;
+            font-weight: 600;
+        }
+        .contact-link-icon {
+            display: inline-flex;
+            align-items: center;
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        .contact-link-icon svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+        }
+        .contact-link-icon:hover {
+            text-decoration: underline;
+        }
+        .project-image-small {
+            height: 60px; 
+            width: auto; 
+            border-radius: 0.375rem;
+            border: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="flex min-h-screen">
+        <aside class="w-1/5 bg-white p-8 border-r border-gray-200 hidden md:block">
+            <nav>
+                <ul>
+                    <li class="mb-4"><a href="index.html" class="sidebar-link hover:text-black">Home</a></li>
+                    <li class="mb-4"><a href="explorar.html" class="sidebar-link hover:text-black">Explore</a></li>
+                    <li class="mb-4"><a href="#" class="sidebar-link-active">Profile</a></li>
+                </ul>
+                <div class="mt-8 text-xs text-gray-500">
+                    <p>Your design</p>
+                    <p>tag: Private beta</p>
+                    <p>Build 1.0.4</p>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="w-full md:w-4/5 p-6 md:p-12 bg-white">
+            <section class="flex items-start mb-10">
+                <img src="https://avatars.githubusercontent.com/u/100228796?v=4" alt="Gabriel Nascimento's Avatar" class="w-16 h-16 md:w-20 md:h-20 rounded-full mr-6">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Gabriel Nascimento</h1>
+                    <p class="text-gray-600">Front-end & Mobile dev</p>
+                    <p class="text-sm text-gray-500 mt-1">Brazil</p>
+                    <p class="text-sm text-gray-500">Born: 10/04/2002</p>
+                </div>
+            </section>
+
+            <div class="mb-8 border-b border-gray-200">
+                <nav class="flex space-x-8">
+                    <button class="pb-2 tab-button tab-active" data-tab="posts">Posts</button>
+                    <button class="pb-2 tab-button tab-inactive" data-tab="information">Information</button>
+                </nav>
+            </div>
+
+            <div id="posts-content">
+                <h2 class="text-lg font-semibold text-gray-700 mb-2">Projects</h2>
+                <div class="mb-6 pb-6 border-b border-gray-300">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">
+                        <a href="#" class="hover:underline">Banered</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-2">Simple banner/icon maker.</p>
+                    <div class="flex space-x-3 mb-3 items-start">
+                        <img src="https://github.com/GabrielBaiano/Banered/raw/main/src/assets/01.jpg" alt="Banered project screenshot 1" class="project-image-small">
+                        <img src="https://github.com/GabrielBaiano/Banered/raw/main/src/assets/icon.png" alt="Banered project icon screenshot" class="project-image-small">
+                    </div>
+                    <p class="text-gray-600 leading-relaxed">
+                        Banered is a web app built with React and TypeScript. It allows users to easily create custom banners and icons. Key libraries used in this project include <code class="text-sm bg-gray-100 p-1 rounded">html2canvas</code> for image generation, <code class="text-sm bg-gray-100 p-1 rounded">lucide-react</code> for a rich set of icons, and <code class="text-sm bg-gray-100 p-1 rounded">react-color</code> for intuitive color selection. The goal was to provide a user-friendly tool for quick visual asset creation.
+                    </p>
+                </div>
+
+                <div class="mb-6 pb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">
+                        <a href="#" class="hover:underline">Coming Soon</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-2">Brief project description.</p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                </div>
+            </div>
+
+            <div id="information-content" class="hidden">
+                <section class="mb-8">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">About</h2>
+                    <p class="text-gray-600 leading-relaxed mb-3">
+                        Hi! I’m Gabriel Gama, a Front-End Developer from São Paulo, Brazil. I’m passionate about building modern, responsive web and mobile applications.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        In my spare time, I enjoy video games, robotics projects, and the ocean breeze at the beach. I love combining creativity and technology to solve problems and create intuitive digital experiences.
+                    </p>
+                </section>
+
+                <section class="mb-8">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">Details</h2>
+                    <div class="text-gray-600">
+                        <div class="flex flex-col space-y-3">
+                            <a href="https://github.com/GabrielBaiano" target="_blank" rel="noopener noreferrer" class="contact-link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+                                GitHub: GabrielBaiano
+                            </a>
+                            <a href="https://www.linkedin.com/in/gabriel-nascimento-gama-5b0b30185/" target="_blank" rel="noopener noreferrer" class="contact-link-icon">
+                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5"><path d="M13.437 13.437H10.87V9.99c0-.825-.012-1.887-.975-1.887s-1.125.9-1.125 1.837v3.5H6.188V5.962h2.475v1.125h.038c.337-.638.975-1.125 2.062-1.125 2.25 0 2.625 1.488 2.625 3.413v4.062ZM3.75 4.837a1.088 1.088 0 1 1 0-2.175 1.088 1.088 0 0 1 0 2.175Zm1.25 8.6H2.5V5.962h2.5V13.437ZM14.75 0H1.25C.563 0 0 .563 0 1.25v13.5C0 15.438.563 16 1.25 16h13.5c.688 0 1.25-.563 1.25-1.25V1.25C16 .563 15.438 0 14.75 0Z"/></svg>
+                                LinkedIn: Gabriel Nascimento Gama
+                            </a>
+                            <a href="mailto:gabrielngama@gmail.com" class="contact-link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51a.5.5 0 0 0 .652 0l6.598-3.185A2.008 2.008 0 0 0 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Zm0 11.5A1.5 1.5 0 0 0 4 16h8a1.5 1.5 0 0 0 1.5-1.5V7.383l-4.992 2.41a1.5 1.5 0 0 1-1.962 0L2.5 7.383V14.5Z"/></svg>
+                                Email: gabrielngama@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                </div>
+        </main>
+    </div>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const postsContent = document.getElementById('posts-content');
+        const informationContent = document.getElementById('information-content');
+
+        if (tabButtons.length > 0 && postsContent && informationContent) {
+            tabButtons.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabButtons.forEach(t => {
+                        t.classList.remove('tab-active');
+                        t.classList.add('tab-inactive');
+                    });
+                    tab.classList.add('tab-active');
+                    tab.classList.remove('tab-inactive');
+
+                    if (tab.dataset.tab === 'posts') {
+                        postsContent.classList.remove('hidden');
+                        informationContent.classList.add('hidden');
+                    } else if (tab.dataset.tab === 'information') {
+                        postsContent.classList.add('hidden');
+                        informationContent.classList.remove('hidden');
+                    }
+                });
+            });
+            const defaultActiveTab = document.querySelector('.tab-button[data-tab="posts"]');
+            if (defaultActiveTab) {
+                 defaultActiveTab.click();
+            }
+        }
+    </script>
+</body>
+</html>
