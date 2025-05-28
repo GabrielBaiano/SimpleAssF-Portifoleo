@@ -1,487 +1,457 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Interativo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Inter:wght@400;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        /* Estilos Globais */
+        /* Estilos Globais e Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+            font-family: "Exo 2", sans-serif; 
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             display: flex;
-            color: white;
-            font-family: 'Inter', sans-serif; 
-            margin: 0;
-            min-height: 100vh;
-            overflow: hidden; 
-        }
-
-        /* Fundo Animado de Ondas */
-        #animated-wave-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; 
-            overflow: hidden; 
-            background-color: #1c39b4; 
-        }
-
-        #animated-wave-background::before,
-        #animated-wave-background::after {
-            content: '';
-            position: absolute;
-            border-radius: 45% 55% 40% 60% / 50% 40% 60% 50%; 
-            background: rgba(255, 255, 255, 0.04); 
-            animation: flow 20s infinite linear;
-            opacity: 0.6; 
-        }
-
-        #animated-wave-background::before {
-            width: 160vw; 
-            height: 160vw;
-            top: -60vh; 
-            left: -50vw;
-            animation-duration: 35s; 
-            animation-delay: -5s; 
-        }
-
-        #animated-wave-background::after {
-            width: 140vw;
-            height: 140vw;
-            bottom: -70vh; 
-            right: -50vw;
-            background: rgba(135, 206, 250, 0.06); 
-            animation-duration: 40s;
-            animation-direction: reverse; 
-        }
-
-        @keyframes flow {
-            0% { transform: rotate(0deg) translate(0px, 0px) scale(1); opacity: 0.5; }
-            25% { opacity: 0.7; }
-            50% { transform: rotate(180deg) translate(30px, -30px) scale(1.05); opacity: 0.4; }
-            75% { opacity: 0.6; }
-            100% { transform: rotate(360deg) translate(0px, 0px) scale(1); opacity: 0.5; }
-        }
-
-        /* Navegação Principal */
-        .main-nav {
-            padding: 50px 30px; display: flex; flex-direction: column; gap: 15px; 
-            flex-shrink: 0; width: 200px; 
-            transition: width 0.3s ease, padding 0.3s ease; z-index: 10; 
-        }
-        .nav-item { display: flex; flex-direction: column; }
-        .nav-link {
-            color: white; text-decoration: none; font-size: 1.1em; opacity: 0.6;
-            transition: opacity 0.3s ease, font-weight 0.3s ease, font-size 0.3s ease;
-            font-weight: 400; padding: 10px 0; 
-        }
-        .nav-link.active { opacity: 1; font-weight: 700; }
-        .sub-nav {
-            display: none; padding-left: 20px; margin-left: 10px; margin-top: 5px;
-            position: relative; max-height: 0; overflow: hidden;
-            transition: max-height 0.5s ease-out, padding-left 0.3s ease, margin-left 0.3s ease;
-        }
-        .sub-nav.open { display: block; max-height: 200px; }
-        .nav-item-projects .sub-nav::before {
-            content: ''; position: absolute; left: -10px; top: 6px; bottom: 6px; 
-            width: 3px; background-color: rgba(255, 255, 255, 0.75); border-radius: 2px;
-            transition: left 0.3s ease, width 0.3s ease;
-        }
-        .sub-nav-link {
-            display: block; color: rgba(255, 255, 255, 0.7); text-decoration: none;
-            font-size: 0.95em; padding: 6px 0; font-family: 'Poppins', sans-serif;
-            font-weight: 400;
-            transition: color 0.3s ease, padding-left 0.3s ease, font-size 0.3s ease;
-        }
-        .sub-nav-link:hover, .sub-nav-link.active { color: white; font-weight: 500; }
-
-        /* Container dos Cartões */
-        .card-container {
-            flex-grow: 1; display: flex; justify-content: center; align-items: center;
-            padding: 20px; position: relative; transition: padding 0.3s ease; z-index: 5; 
-        }
-        .card-stack-wrapper {
-            position: relative; width: clamp(320px, 95vw, 1100px); 
-            height: clamp(400px, 65vh, 550px); min-width: 300px; 
-            transition: width 0.3s ease, height 0.3s ease;
-        }
-        .card {
-            position: absolute; width: 100%; height: 100%; background-color: white; color: #333;
-            border-radius: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.15), 0 8px 15px rgba(0,0,0,0.1);
-            /* Padding geral do card ajustado para o #card-home */
-            padding: 0; /* Resetado para o #card-home controlar o seu padding interno */
-            box-sizing: border-box; display: flex; flex-direction: column; 
-            overflow-y: auto; 
-            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
-                        opacity 0.6s ease-in-out, z-index 0s linear 0.35s, padding 0.3s ease; 
-            cursor: default; 
-        }
-
-        /* Conteúdo do Card Home com novo layout */
-        #card-home { 
-            flex-direction: row; 
+            flex-direction: column; 
             align-items: center; 
-            justify-content: space-between; 
-            transition: flex-direction 0.3s ease;
-            padding: 30px 0 30px 40px; /* Topo, Direita=0, Baixo, Esquerda */
+            background-color: #1c39b4; 
+            color: #333; 
+            min-height: 100vh;
+            padding: 20px; 
         }
-        #card-home .text-content {
+
+        a {
+            text-decoration: none;
+            color: black; 
+        }
+
+        ul {
+            list-style: none; 
+        }
+
+        /* Estilos do Cartão Principal */
+        .main-card-page {
+            background-color: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: clamp(300px, 90vw, 1200px);
+            min-height: 300px; 
+            height: auto; 
+            max-height: 75vh; 
+            display: flex;
+            flex-direction: row; 
+            overflow: hidden; 
+            padding: 40px 0 0 40px; 
+            margin-bottom: 40px; 
+        }
+
+        .main-card-page .text-content {
             flex-basis: 55%; 
-            padding-left: 0; /* O padding esquerdo é agora do #card-home */
             padding-right: 30px; 
+            padding-bottom: 40px; 
             display: flex;
             flex-direction: column;
             justify-content: center; 
-            height: 100%; 
-            transition: flex-basis 0.3s ease, padding-right 0.3s ease, padding-left 0.3s ease, height 0.3s ease;
             overflow-y: auto; 
+            font-family: 'Inter', sans-serif; 
         }
-        #card-home .image-content { 
-            flex-basis: 45%; /* Ajustado para ocupar o espaço restante */
-            height: 100%; 
+
+        .main-card-page .image-content { 
+            flex-basis: 45%; 
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: center; 
+            justify-content: center; 
             overflow: hidden; 
-            border-radius: 0 25px 25px 0; /* Arredonda os cantos direitos para corresponder ao card */
+            border-radius: 0 25px 25px 0; 
+            height: 100%; 
         }
-        #card-home .image-content img {
+
+        .main-card-page .image-content img {
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            border-radius: 0 25px 25px 0; /* Garante que a imagem também tenha os cantos arredondados */
+            border-radius: 0 25px 25px 0; 
         }
         
-        #card-home h1 { 
-            margin-top: 0; 
-            margin-bottom: 5px; 
-            margin-left: 0; 
-            color: #111; 
-            font-family: 'Hammersmith One', sans-serif; 
-            font-size: 102px; 
-            font-weight: 400; 
-            line-height: 1.0; 
+        .main-card-page .text-content h1 { 
+            margin-top: 0; margin-bottom: 5px; margin-left: 0; color: #111; 
+            font-family: 'Hammersmith One', sans-serif; font-size: 102px; 
+            font-weight: 400; line-height: 1.0; 
         }
-        #card-home .subtitle-jp { 
-            font-family: 'Poppins', sans-serif; 
-            font-size: 24px; 
-            color: #333; 
-            margin-bottom: 15px; 
-            font-weight: 700; 
-            line-height: 1.2; 
+        .main-card-page .text-content .subtitle-jp { 
+            font-family: 'Poppins', sans-serif; font-size: 24px; color: #333; 
+            margin-bottom: 15px; font-weight: 700; line-height: 1.2; 
             margin-left: 0; 
         }
-        #card-home .intro-text { 
-            font-family: 'Poppins', sans-serif; 
-            font-size: clamp(1em, 1.8vw, 1.1em); 
-            line-height: 1.5; 
+        .main-card-page .text-content .intro-text { 
+            font-family: 'Poppins', sans-serif; font-size: clamp(1em, 1.8vw, 1.1em); 
+            line-height: 1.5; color: #555; margin-bottom: 10px; 
+            font-weight: 400; margin-left: 0;
+        }
+        .main-card-page .text-content .developer-info { 
+            font-family: 'Poppins', sans-serif; font-size: clamp(0.8em, 1.5vw, 0.95em); 
+            color: #666; line-height: 1.6; margin-bottom: 0;
+            margin-left: 0;
+        }
+
+        /* Estilos dos Filtros da Galeria */
+        .filter-controls-container {
+            width: 100%;
+            max-width: 1200px; 
+            display: flex;
+            justify-content: center; 
+            margin-bottom: 2em;
+        }
+
+        .filter-controls {
+            display: inline-flex; 
+            position: relative;
+            background-color: white;
+            border-radius: 30px; 
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden; 
+        }
+
+        .filter-button {
+            background-color: transparent;
+            border: none;
+            padding: 10px 25px; 
+            margin: 0 2px; 
+            cursor: pointer;
+            font-family: "Exo 2", sans-serif;
+            font-size: 1em;
+            font-weight: 600;
             color: #555; 
-            margin-bottom: 10px; 
-            font-weight: 400; 
-            margin-left: 0;
+            border-radius: 25px; 
+            position: relative;
+            z-index: 2; 
+            transition: color 0.4s ease;
         }
-        #card-home .developer-info { 
-            font-family: 'Poppins', sans-serif; 
-            font-size: clamp(0.8em, 1.5vw, 0.95em); 
-            color: #666; 
-            line-height: 1.6; 
+
+        .filter-button.active {
+            color: white; 
+        }
+
+        .filter-pill {
+            position: absolute;
+            top: 8px; 
+            bottom: 8px;
+            background-color: #2962ff; 
+            border-radius: 25px; 
+            z-index: 1; 
+            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+
+        /* Estilos da Galeria de Imagens */
+        .list-container { 
+            width: 100%;
+            max-width: 1200px; 
+            margin-bottom: 40px; 
+        }
+        
+        .list img {
+            width: 100%;
+            border-radius: 12px; 
+            display: block; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .list a:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .list div.gallery-item { 
+            margin-bottom: 1.5em; 
+            break-inside: avoid-column; 
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            display: block; 
+        }
+        .list div.gallery-item.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            height: 0; 
             margin-bottom: 0;
-            margin-left: 0;
+            overflow: hidden;
         }
 
-        /* Estilos para os outros cards (para restaurar o padding geral) */
-        .card:not(#card-home) {
-            padding: 30px 40px;
+         .list div.gallery-item p { 
+            color: white;
+            text-align: left; 
+            padding-top: 8px;
+            font-size: 0.9em;
+            font-family: "Exo 2", sans-serif;
         }
 
-        #card-projects h1 {
-             margin-top: 0; margin-bottom: 20px; color: #111; font-family: 'Poppins', sans-serif; 
-             font-size: clamp(2.5em, 5vw, 3em); font-weight: 700;
+        .list {
+            columns: 300px; 
+            column-gap: 1.5em; 
+            margin: 0 auto; 
+            width: 100%;
         }
-        #card-projects .projects-intro-text { 
-            font-family: 'Poppins', sans-serif; font-size: clamp(1em, 2vw, 1.1em); line-height: 1.7; 
-            color: #555; margin-bottom: 18px; 
-        }
-        .card:not(#card-home):not(#card-projects) h1, 
-        .card[id^="card-project-"] h1 { 
-            margin-top: 0; margin-bottom: 15px; color: #111; font-family: 'Poppins', sans-serif; 
-            font-size: clamp(2.2em, 4.5vw, 2.8em); font-weight: 700;
-        }
-         .card:not(#card-home):not(#card-projects) p,
-         .card[id^="card-project-"] p {
-            font-family: 'Poppins', sans-serif; font-size: clamp(1em, 2vw, 1.1em); line-height: 1.7; 
-            color: #555; margin-bottom: 18px; 
-        }
-        .card p:last-child { margin-bottom: 0; }
 
+        /* Estilos do Novo Rodapé Flutuante Ajustado */
+        .floating-footer-card {
+            background-color: white;
+            border-radius: 25px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 320px; 
+            margin-top: 40px; 
+            margin-bottom: 20px; 
+            padding: 20px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 150px; 
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
+            flex-grow: 1; 
+            padding-right: 15px; 
+        }
+
+        .footer-site-name {
+            font-size: 1.5em; 
+            font-weight: 700;
+            color: #333;
+        }
+
+        .footer-credits, .footer-copyright {
+            font-size: 0.75em; 
+            color: #777;
+            line-height: 1.4;
+        }
+        .footer-credits .heart {
+            color: #e74c3c; 
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 10px; 
+            margin-top: 5px;
+        }
+
+        .footer-social-icons a {
+            background-color: #1c39b4; /* Cor de fundo azul */
+            color: white; /* Cor do ícone branca */
+            font-size: 1em; /* Tamanho do ícone ajustado */
+            width: 32px; /* Largura do quadrado */
+            height: 32px; /* Altura do quadrado */
+            border-radius: 8px; /* Cantos arredondados */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .footer-social-icons a:hover {
+            background-color: #2962ff; /* Azul mais claro ao pairar */
+            transform: translateY(-2px);
+        }
+
+        .footer-photo-placeholder {
+            width: 90px; 
+            height: 90px; 
+            border-radius: 20px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            color: #fff;
+            text-align: center;
+            flex-shrink: 0; 
+        }
+
+
+        /* Media Queries */
         @media (max-width: 768px) { 
-            .main-nav { width: 150px; padding: 40px 20px; gap: 10px; }
-            .nav-link { font-size: 1em; padding: 8px 0; }
-            .sub-nav { padding-left: 15px; margin-left: 8px; }
-            .nav-item-projects .sub-nav::before { left: -8px; width: 2.5px; }
-            .sub-nav-link { font-size: 0.9em; padding: 5px 0; }
-            .card-container { padding: 15px; }
-            .card-stack-wrapper { width: 90vw; height: 70vh; }
+            .main-card-page {
+                flex-direction: column; padding: 20px; width: clamp(300px, 90vw, 600px); 
+                max-height: none; height: auto; margin-bottom: 30px;
+            }
+            .main-card-page .text-content {
+                flex-basis: auto; width: 100%; padding: 0 0 20px 0; max-height: none;
+            }
+            .main-card-page .image-content { 
+                flex-basis: auto; width: 80%; height: 500px; 
+                aspect-ratio: 4 / 3; margin: 0 auto 20px auto; 
+                border-radius: 15px; 
+            }
+            .main-card-page .image-content img { border-radius: 15px; }
+            .main-card-page .text-content h1 { font-size: 70px; margin-bottom: 5px; } 
+            .main-card-page .text-content .subtitle-jp { font-size: 20px; margin-bottom: 10px;}
+            .main-card-page .text-content .intro-text { font-size: clamp(0.9em, 3.5vw, 1em); margin-bottom: 10px;}
+            .main-card-page .text-content .developer-info { font-size: clamp(0.85em, 3.2vw, 0.9em); }
             
-            .card { padding: 0; } /* Reset para mobile, #card-home controlará o seu */
-            #card-home { 
-                flex-direction: column; 
-                justify-content: flex-start; 
-                align-items: center; 
-                padding: 20px; /* Padding interno do card home no mobile */
-            }
-            #card-home .text-content {
-                flex-basis: auto; 
-                width: 100%; 
-                padding: 0 10px; 
-                height: auto; 
-                justify-content: flex-start; 
-                align-items: flex-start; 
-                margin-bottom: 20px; 
-                overflow-y: visible; 
-            }
-            #card-home .image-content { 
-                flex-basis: auto; 
-                width: 100%; /* Imagem ocupa toda a largura no mobile */
-                height: auto; 
-                max-height: 300px; 
-                margin-top: 15px; 
-                border-radius: 15px; /* Raio de borda geral para mobile */
-            }
-            #card-home .image-content img {
-                border-radius: 15px; /* Raio de borda geral para mobile */
-            }
-
-            .card:not(#card-home) {
-                 padding: 20px; /* Padding para outros cards no mobile */
-            }
-
-            #card-home h1 { font-size: 70px; margin-bottom: 5px; margin-left: 0px; } 
-            #card-home .subtitle-jp { font-size: 20px; margin-bottom: 10px;}
-            #card-home .intro-text { font-size: clamp(0.9em, 3.5vw, 1em); margin-bottom: 10px;}
-            #card-home .developer-info { font-size: clamp(0.85em, 3.2vw, 0.9em); }
-            .card:not(#card-home) h1, .card[id^="card-project-"] h1 { font-size: clamp(2em, 6vw, 2.5em); }
-            .card:not(#card-home) p, .card[id^="card-project-"] p { font-size: clamp(0.95em, 4vw, 1em); }
+            .filter-controls { flex-wrap: wrap; justify-content: center; padding: 6px; }
+            .filter-button { padding: 8px 15px; font-size: 0.9em; margin: 3px; }
+            .filter-pill { top: 6px; bottom: 6px; }
+            .list { columns: 200px; }
         }
-        @media (max-width: 480px) { 
-            .main-nav { width: 100px; padding: 30px 10px; gap: 8px; }
-            .nav-link { font-size: 0.9em; padding: 6px 0; }
-            .sub-nav { padding-left: 10px; margin-left: 5px; }
-            .nav-item-projects .sub-nav::before { left: -5px; width: 2px; }
-            .sub-nav-link { font-size: 0.8em; padding: 4px 0; }
-            .card-container { padding: 10px; }
-            .card-stack-wrapper { width: 92vw; height: 78vh; }
-            
-            #card-home { padding: 15px; }
-            #card-home .text-content { padding-left: 5px; padding-right: 5px; }
-            #card-home .image-content { width: 100%; max-height: 250px; }
-            
-            .card:not(#card-home) {
-                 padding: 15px; 
-            }
 
-            #card-home h1 { font-size: 60px; }
-            #card-home .subtitle-jp { font-size: 18px; }
-            #card-home .intro-text { font-size: clamp(0.85em, 3.2vw, 0.9em); }
-            #card-home .developer-info { font-size: clamp(0.8em, 3vw, 0.85em); }
-            .card:not(#card-home) h1, .card[id^="card-project-"] h1 { font-size: clamp(1.8em, 5.5vw, 2.2em); }
-            .card:not(#card-home) p, .card[id^="card-project-"] p { font-size: clamp(0.9em, 3.8vw, 1em); }
+        @media (max-width: 480px) { 
+            .main-card-page { padding: 15px; margin-bottom: 20px; }
+            .main-card-page .text-content h1 { font-size: 60px; }
+            .main-card-page .text-content .subtitle-jp { font-size: 18px; }
+            .main-card-page .image-content { width: 90%; aspect-ratio: 1 / 1; margin: 0 auto 20px auto; }
+            .filter-button { padding: 6px 12px; font-size: 0.85em; }
+            .list { columns: 1; } 
+            .list div.gallery-item { margin-bottom: 1em; }
+            .floating-footer-card {
+                width: clamp(260px, 90vw, 300px);
+            }
+            .footer-site-name { font-size: 1.3em; }
+            .footer-credits, .footer-copyright { font-size: 0.7em; }
+            .footer-social-icons a { width: 28px; height: 28px; font-size: 0.8em; }
+            .footer-photo-placeholder { width: 70px; height: 70px; }
         }
     </style>
+    <title>Portfólio e Galeria com Rodapé (Revertido)</title> 
 </head>
 <body>
-    <div id="animated-wave-background"></div>
 
-    <nav class="main-nav">
-        <div class="nav-item">
-            <a href="#" data-target="card-home" class="nav-link active">Home</a>
+    <div class="main-card-page">
+        <div class="text-content">
+            <h1>Hi.</h1>
+            <p class="subtitle-jp">叶える力になる会社</p>
+            <p class="intro-text">I'm here to help realize your dream.</p>
+            <p class="developer-info">I'm Gabriel Nascimento, a Front-End Developer from SP, Brazil with a passion for design.</p>
         </div>
-        <div class="nav-item nav-item-projects"> <a href="#" data-target="card-projects" class="nav-link">Projects</a>
-            <div class="sub-nav" id="projects-sub-nav">
-                <a href="#" data-target="card-project-1" class="sub-nav-link">Projeto Alpha</a>
-                <a href="#" data-target="card-project-2" class="sub-nav-link">Website Beta</a>
-            </div>
+        <div class="image-content">
+            <img src="https://i.pinimg.com/736x/4d/17/5a/4d175ae84a775871c38071cdbd0d99cd.jpg" alt="Imagem de Perfil Abstrata">
         </div>
-        <div class="nav-item">
-            <a href="#" data-target="card-contact" class="nav-link">Contact</a>
-        </div>
-    </nav>
+    </div>
 
-    <main class="card-container" id="cardContainer">
-        <div class="card-stack-wrapper">
-            <div class="card" id="card-home">
-                <div class="text-content">
-                    <h1>Hi.</h1>
-                    <p class="subtitle-jp">叶える力になる会社</p>
-                    <p class="intro-text">I'm here to help realize your dream.</p>
-                    <p class="developer-info">I'm Gabriel Nascimento, a Front-End Developer from SP, Brazil with a passion for design.</p>
-                </div>
-                <div class="image-content">
-                    <img src="https://i.pinimg.com/736x/4d/17/5a/4d175ae84a775871c38071cdbd0d99cd.jpg" alt="Imagem de Perfil Abstrata">
-                </div>
+    <div class="filter-controls-container">
+        <div class="filter-controls">
+            <div class="filter-pill"></div>
+            <button class="filter-button active" data-filter="all">Tudo</button>
+            <button class="filter-button" data-filter="projetos">Projetos</button>
+            <button class="filter-button" data-filter="postagens">Postagens</button>
+            <button class="filter-button" data-filter="contato">Contato</button>
+        </div>
+    </div>
+
+    <div class="list-container">
+        <div class="list">
+            <div class="gallery-item" data-category="projetos">
+                <a href="#">
+                    <img src="https://placehold.co/300x400/FDEB71/000000?text=Projeto+1" alt="Projeto 1">
+                    <p>Jesus</p>
+                </a>
             </div>
-            <div class="card" id="card-projects">
-                <h1>Projects</h1>
-                <p class="projects-intro-text">
-                    Bem-vindo à minha secção de projetos! Aqui pode encontrar uma visão geral do meu trabalho.
-                    Use a navegação à esquerda para explorar os projetos individuais.
-                </p>
+            <div class="gallery-item" data-category="projetos">
+                <a href="#">
+                    <img src="https://placehold.co/300x500/A9A9A9/FFFFFF?text=Projeto+2" alt="Projeto 2">
+                </a>
             </div>
-            <div class="card" id="card-project-1">
-                <h1>Projeto Alpha</h1>
-                <p>Este é o Projeto Alpha, focado em desenvolver uma solução inovadora para X, utilizando tecnologias Y e Z.</p>
-                <p>O objetivo principal foi criar uma experiência de utilizador intuitiva e eficiente.</p>
+            <div class="gallery-item" data-category="contato">
+                <a href="https://buymeacoffee.com/gabrielngal">
+                    <img src="https://i.pinimg.com/originals/50/65/5f/50655f4ff025d8d96d7832ebc0945c15.gif" alt="Buy me a coffee">
+                    <p>Buy me a coffee Sz</p>
+                </a>
             </div>
-            <div class="card" id="card-project-2">
-                <h1>Website Beta</h1>
-                <p>O Website Beta é uma plataforma de e-commerce moderna construída com as mais recentes tecnologias front-end e back-end.</p>
-                <p>Inclui funcionalidades como pesquisa avançada, personalização de perfil e um checkout simplificado.</p>
+            <div class="gallery-item" data-category="projetos">
+                <a href="#">
+                    <img src="https://placehold.co/300x450/FFC0CB/000000?text=Projeto+3" alt="Projeto 3">
+                    <p>Outro Projeto</p>
+                </a>
             </div>
-            <div class="card" id="card-contact">
-                <h1>Contact</h1>
-                <p>Let's connect! Feel free to reach out for collaborations, questions, or just to say hello.</p>
-                <p>You can find me on LinkedIn, GitHub, or send me an email directly.</p>
+             <div class="gallery-item" data-category="postagens">
+                <a href="#">
+                    <img src="https://placehold.co/300x300/ADD8E6/000000?text=Postagem+1" alt="Postagem 1">
+                    <p>Ideia Criativa</p>
+                </a>
+            </div>
+             <div class="gallery-item" data-category="projetos">
+                <a href="#">
+                    <img src="https://placehold.co/300x550/90EE90/000000?text=Projeto+4" alt="Projeto 4">
+                    <p>Mais um Trabalho</p>
+                </a>
+            </div>
+            <div class="gallery-item" data-category="postagens">
+                <a href="#">
+                    <img src="https://placehold.co/300x350/FFD700/000000?text=Postagem+2" alt="Postagem 2">
+                    <p>Artigo Interessante</p>
+                </a>
             </div>
         </div>
-    </main>
+    </div>
+
+    <div class="floating-footer-card">
+        <div class="footer-left">
+            <div class="footer-site-name">CoolSite</div> <div class="footer-credits">Feito com <span class="heart">❤️</span> por Jux</div> <div class="footer-social-icons">
+                <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a> </div>
+            <div class="footer-copyright">© 2024 Todos os Direitos Reservados</div>
+        </div>
+        <div class="footer-photo-placeholder">
+            <img src="/src/img/mocup (1).png" style="height: 160px; margin-right: 40px; margin-bottom: 20px;">
+        </div>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainNavLinks = document.querySelectorAll('.main-nav > .nav-item > .nav-link');
-            const subNavElement = document.getElementById('projects-sub-nav');
-            const subNavLinks = subNavElement.querySelectorAll('.sub-nav-link');
-            const cardContainer = document.getElementById('cardContainer'); 
-            
-            let currentStack = [
-                document.getElementById('card-home'),
-                document.getElementById('card-projects'),
-                document.getElementById('card-project-1'),
-                document.getElementById('card-project-2'),
-                document.getElementById('card-contact')
-            ].filter(card => card !== null);
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const filterPill = document.querySelector('.filter-pill');
+            const galleryItems = document.querySelectorAll('.gallery-item');
 
-            let isNavigating = false; 
-            const navigationDebounceTime = 700; 
-            let touchStartX = 0;
-            let touchStartY = 0;
-            const swipeThreshold = 50; 
-
-            function applyStackStyles() {
-                const totalCards = currentStack.length;
-                const maxVisibleCards = 3; 
-
-                currentStack.forEach((card, index) => {
-                    if (!card) return; 
-
-                    if (index < maxVisibleCards) {
-                        const depth = index; 
-                        const scale = 1 - depth * 0.04; 
-                        const translateX = depth * 30; 
-                        const translateY = depth * 20; 
-                        
-                        card.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-                        card.style.opacity = `${1 - depth * 0.25}`; 
-                        card.style.zIndex = totalCards - depth;
-                        card.style.pointerEvents = 'auto'; 
-                    } else {
-                        card.style.transform = `translate(0px, ${index * 10}px) scale(0.8)`; 
-                        card.style.opacity = '0';
-                        card.style.zIndex = totalCards - index; 
-                        card.style.pointerEvents = 'none'; 
-                    }
-                });
-
-                const activeCardId = (currentStack.length > 0 && currentStack[0]) ? currentStack[0].id : null;
-                mainNavLinks.forEach(link => {
-                    let isActive = false;
-                    if (link.dataset.target === activeCardId) isActive = true;
-                    else if (link.dataset.target === 'card-projects' && activeCardId && activeCardId.startsWith('card-project-')) isActive = true; 
-                    link.classList.toggle('active', isActive);
-                });
-                subNavLinks.forEach(link => {
-                    link.classList.toggle('active', link.dataset.target === activeCardId);
-                });
-                const projectsNavLink = document.querySelector('.nav-link[data-target="card-projects"]');
-                if (projectsNavLink && projectsNavLink.classList.contains('active')) {
-                    subNavElement.classList.add('open');
-                } else {
-                    subNavElement.classList.remove('open');
+            function setInitialPillPosition() {
+                const activeButton = document.querySelector('.filter-button.active');
+                if (activeButton && filterPill) { 
+                    filterPill.style.left = activeButton.offsetLeft + 'px';
+                    filterPill.style.width = activeButton.offsetWidth + 'px';
                 }
             }
 
-            function navigateNext() {
-                if (currentStack.length <= 1) return;
-                const frontCard = currentStack.shift(); 
-                currentStack.push(frontCard); 
-                applyStackStyles();
-            }
+            if (filterButtons.length > 0 && filterPill) {
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
 
-            function navigatePrevious() {
-                if (currentStack.length <= 1) return;
-                const backCard = currentStack.pop(); 
-                currentStack.unshift(backCard); 
-                applyStackStyles();
-            }
-            
-            function handleLinkClick(event, targetId) {
-                event.preventDefault();
-                if (isNavigating) return;
-                const targetCardElement = document.getElementById(targetId);
-                if (!targetCardElement || targetCardElement === currentStack[0]) return;
-                const oldFrontCardElement = currentStack[0];
-                const targetCardIndex = currentStack.indexOf(targetCardElement);
-                if (targetCardIndex > -1) currentStack.splice(targetCardIndex, 1); 
-                currentStack.unshift(targetCardElement); 
-                if (oldFrontCardElement !== targetCardElement) {
-                    const oldFrontIndexInNewStack = currentStack.indexOf(oldFrontCardElement);
-                    if (oldFrontIndexInNewStack > -1 && oldFrontIndexInNewStack !== 0) { 
-                         currentStack.splice(oldFrontIndexInNewStack, 1);
-                         currentStack.push(oldFrontCardElement);
-                    } else if (oldFrontIndexInNewStack === -1 && oldFrontCardElement) { 
-                        currentStack.push(oldFrontCardElement);
-                    }
-                }
-                applyStackStyles();
-            }
+                        filterPill.style.left = this.offsetLeft + 'px';
+                        filterPill.style.width = this.offsetWidth + 'px';
 
-            mainNavLinks.forEach(link => {
-                link.addEventListener('click', (event) => handleLinkClick(event, link.dataset.target));
-            });
-            subNavLinks.forEach(link => {
-                link.addEventListener('click', (event) => handleLinkClick(event, link.dataset.target));
-            });
-            cardContainer.addEventListener('wheel', (event) => {
-                if (isNavigating) return; 
-                event.preventDefault(); 
-                isNavigating = true;
-                if (event.deltaY > 0) navigateNext();
-                else if (event.deltaY < 0) navigatePrevious();
-                setTimeout(() => { isNavigating = false; }, navigationDebounceTime);
-            });
-            cardContainer.addEventListener('touchstart', (event) => {
-                if (isNavigating) return;
-                touchStartX = event.changedTouches[0].screenX;
-                touchStartY = event.changedTouches[0].screenY;
-            }, { passive: true }); 
-            cardContainer.addEventListener('touchend', (event) => {
-                if (isNavigating) return;
-                const touchEndX = event.changedTouches[0].screenX;
-                const touchEndY = event.changedTouches[0].screenY;
-                handleSwipeGesture(touchEndX, touchEndY);
-            }, { passive: true });
-            function handleSwipeGesture(touchEndX, touchEndY) {
-                const deltaX = touchEndX - touchStartX;
-                const deltaY = touchEndY - touchStartY;
-                if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > swipeThreshold) {
-                    isNavigating = true;
-                    if (deltaY < 0) { navigateNext(); } else { navigatePrevious(); }
-                    setTimeout(() => { isNavigating = false; }, navigationDebounceTime);
-                }
+                        const filterValue = this.getAttribute('data-filter');
+
+                        galleryItems.forEach(item => {
+                            setTimeout(() => {
+                                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                                    item.classList.remove('hidden');
+                                } else {
+                                    item.classList.add('hidden');
+                                }
+                            }, 50); 
+                        });
+                    });
+                });
+                setInitialPillPosition();
+                window.addEventListener('resize', setInitialPillPosition);
             }
-            
-            applyStackStyles(); 
         });
     </script>
 </body>
