@@ -1,179 +1,488 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Nascimento - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Portfolio Interativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Inter:wght@400;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* Estilos Globais */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9fafb;
+            display: flex;
+            color: white;
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden; 
         }
-        .tab-active {
-            border-bottom-width: 2px;
-            border-color: #1f2937;
-            color: #1f2937;
-            font-weight: 600;
+
+        /* Fundo Animado de Ondas */
+        #animated-wave-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            overflow: hidden; 
+            background-color: #1c39b4; 
         }
-        .tab-inactive {
-            color: #6b7280;
+
+        #animated-wave-background::before,
+        #animated-wave-background::after {
+            content: '';
+            position: absolute;
+            border-radius: 45% 55% 40% 60% / 50% 40% 60% 50%; 
+            background: rgba(255, 255, 255, 0.04); 
+            animation: flow 20s infinite linear;
+            opacity: 0.6; 
         }
-        .sidebar-link {
-            color: #374151;
+
+        #animated-wave-background::before {
+            width: 160vw; 
+            height: 160vw;
+            top: -60vh; 
+            left: -50vw;
+            animation-duration: 35s; 
+            animation-delay: -5s; 
         }
-        .sidebar-link-active {
-            color: #111827;
-            font-weight: 600;
+
+        #animated-wave-background::after {
+            width: 140vw;
+            height: 140vw;
+            bottom: -70vh; 
+            right: -50vw;
+            background: rgba(135, 206, 250, 0.06); 
+            animation-duration: 40s;
+            animation-direction: reverse; 
         }
-        .contact-link-icon {
-            display: inline-flex;
+
+        @keyframes flow {
+            0% { transform: rotate(0deg) translate(0px, 0px) scale(1); opacity: 0.5; }
+            25% { opacity: 0.7; }
+            50% { transform: rotate(180deg) translate(30px, -30px) scale(1.05); opacity: 0.4; }
+            75% { opacity: 0.6; }
+            100% { transform: rotate(360deg) translate(0px, 0px) scale(1); opacity: 0.5; }
+        }
+
+        /* Navegação Principal */
+        .main-nav {
+            padding: 50px 30px; display: flex; flex-direction: column; gap: 15px; 
+            flex-shrink: 0; width: 200px; 
+            transition: width 0.3s ease, padding 0.3s ease; z-index: 10; 
+        }
+        .nav-item { display: flex; flex-direction: column; }
+        .nav-link {
+            color: white; text-decoration: none; font-size: 1.1em; opacity: 0.6;
+            transition: opacity 0.3s ease, font-weight 0.3s ease, font-size 0.3s ease;
+            font-weight: 400; padding: 10px 0; 
+        }
+        .nav-link.active { opacity: 1; font-weight: 700; }
+        .sub-nav {
+            display: none; padding-left: 20px; margin-left: 10px; margin-top: 5px;
+            position: relative; max-height: 0; overflow: hidden;
+            transition: max-height 0.5s ease-out, padding-left 0.3s ease, margin-left 0.3s ease;
+        }
+        .sub-nav.open { display: block; max-height: 200px; }
+        .nav-item-projects .sub-nav::before {
+            content: ''; position: absolute; left: -10px; top: 6px; bottom: 6px; 
+            width: 3px; background-color: rgba(255, 255, 255, 0.75); border-radius: 2px;
+            transition: left 0.3s ease, width 0.3s ease;
+        }
+        .sub-nav-link {
+            display: block; color: rgba(255, 255, 255, 0.7); text-decoration: none;
+            font-size: 0.95em; padding: 6px 0; font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            transition: color 0.3s ease, padding-left 0.3s ease, font-size 0.3s ease;
+        }
+        .sub-nav-link:hover, .sub-nav-link.active { color: white; font-weight: 500; }
+
+        /* Container dos Cartões */
+        .card-container {
+            flex-grow: 1; display: flex; justify-content: center; align-items: center;
+            padding: 20px; position: relative; transition: padding 0.3s ease; z-index: 5; 
+        }
+        .card-stack-wrapper {
+            position: relative; width: clamp(320px, 95vw, 1100px); 
+            height: clamp(400px, 65vh, 550px); min-width: 300px; 
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+        .card {
+            position: absolute; width: 100%; height: 100%; background-color: white; color: #333;
+            border-radius: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.15), 0 8px 15px rgba(0,0,0,0.1);
+            /* Padding geral do card ajustado para o #card-home */
+            padding: 0; /* Resetado para o #card-home controlar o seu padding interno */
+            box-sizing: border-box; display: flex; flex-direction: column; 
+            overflow-y: auto; 
+            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                        opacity 0.6s ease-in-out, z-index 0s linear 0.35s, padding 0.3s ease; 
+            cursor: default; 
+        }
+
+        /* Conteúdo do Card Home com novo layout */
+        #card-home { 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: space-between; 
+            transition: flex-direction 0.3s ease;
+            padding: 30px 0 30px 40px; /* Topo, Direita=0, Baixo, Esquerda */
+        }
+        #card-home .text-content {
+            flex-basis: 55%; 
+            padding-left: 0; /* O padding esquerdo é agora do #card-home */
+            padding-right: 30px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            height: 100%; 
+            transition: flex-basis 0.3s ease, padding-right 0.3s ease, padding-left 0.3s ease, height 0.3s ease;
+            overflow-y: auto; 
+        }
+        #card-home .image-content { 
+            flex-basis: 45%; /* Ajustado para ocupar o espaço restante */
+            height: 100%; 
+            display: flex;
             align-items: center;
-            color: #3b82f6;
-            text-decoration: none;
+            justify-content: center;
+            overflow: hidden; 
+            border-radius: 0 25px 25px 0; /* Arredonda os cantos direitos para corresponder ao card */
         }
-        .contact-link-icon svg {
-            width: 1.25rem;
-            height: 1.25rem;
-            margin-right: 0.5rem;
+        #card-home .image-content img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 0 25px 25px 0; /* Garante que a imagem também tenha os cantos arredondados */
         }
-        .contact-link-icon:hover {
-            text-decoration: underline;
+        
+        #card-home h1 { 
+            margin-top: 0; 
+            margin-bottom: 5px; 
+            margin-left: 0; 
+            color: #111; 
+            font-family: 'Hammersmith One', sans-serif; 
+            font-size: 102px; 
+            font-weight: 400; 
+            line-height: 1.0; 
         }
-        .project-image-small {
-            height: 60px; 
-            width: auto; 
-            border-radius: 0.375rem;
-            border: 1px solid #e5e7eb;
+        #card-home .subtitle-jp { 
+            font-family: 'Poppins', sans-serif; 
+            font-size: 24px; 
+            color: #333; 
+            margin-bottom: 15px; 
+            font-weight: 700; 
+            line-height: 1.2; 
+            margin-left: 0; 
+        }
+        #card-home .intro-text { 
+            font-family: 'Poppins', sans-serif; 
+            font-size: clamp(1em, 1.8vw, 1.1em); 
+            line-height: 1.5; 
+            color: #555; 
+            margin-bottom: 10px; 
+            font-weight: 400; 
+            margin-left: 0;
+        }
+        #card-home .developer-info { 
+            font-family: 'Poppins', sans-serif; 
+            font-size: clamp(0.8em, 1.5vw, 0.95em); 
+            color: #666; 
+            line-height: 1.6; 
+            margin-bottom: 0;
+            margin-left: 0;
+        }
+
+        /* Estilos para os outros cards (para restaurar o padding geral) */
+        .card:not(#card-home) {
+            padding: 30px 40px;
+        }
+
+        #card-projects h1 {
+             margin-top: 0; margin-bottom: 20px; color: #111; font-family: 'Poppins', sans-serif; 
+             font-size: clamp(2.5em, 5vw, 3em); font-weight: 700;
+        }
+        #card-projects .projects-intro-text { 
+            font-family: 'Poppins', sans-serif; font-size: clamp(1em, 2vw, 1.1em); line-height: 1.7; 
+            color: #555; margin-bottom: 18px; 
+        }
+        .card:not(#card-home):not(#card-projects) h1, 
+        .card[id^="card-project-"] h1 { 
+            margin-top: 0; margin-bottom: 15px; color: #111; font-family: 'Poppins', sans-serif; 
+            font-size: clamp(2.2em, 4.5vw, 2.8em); font-weight: 700;
+        }
+         .card:not(#card-home):not(#card-projects) p,
+         .card[id^="card-project-"] p {
+            font-family: 'Poppins', sans-serif; font-size: clamp(1em, 2vw, 1.1em); line-height: 1.7; 
+            color: #555; margin-bottom: 18px; 
+        }
+        .card p:last-child { margin-bottom: 0; }
+
+        @media (max-width: 768px) { 
+            .main-nav { width: 150px; padding: 40px 20px; gap: 10px; }
+            .nav-link { font-size: 1em; padding: 8px 0; }
+            .sub-nav { padding-left: 15px; margin-left: 8px; }
+            .nav-item-projects .sub-nav::before { left: -8px; width: 2.5px; }
+            .sub-nav-link { font-size: 0.9em; padding: 5px 0; }
+            .card-container { padding: 15px; }
+            .card-stack-wrapper { width: 90vw; height: 70vh; }
+            
+            .card { padding: 0; } /* Reset para mobile, #card-home controlará o seu */
+            #card-home { 
+                flex-direction: column; 
+                justify-content: flex-start; 
+                align-items: center; 
+                padding: 20px; /* Padding interno do card home no mobile */
+            }
+            #card-home .text-content {
+                flex-basis: auto; 
+                width: 100%; 
+                padding: 0 10px; 
+                height: auto; 
+                justify-content: flex-start; 
+                align-items: flex-start; 
+                margin-bottom: 20px; 
+                overflow-y: visible; 
+            }
+            #card-home .image-content { 
+                flex-basis: auto; 
+                width: 100%; /* Imagem ocupa toda a largura no mobile */
+                height: auto; 
+                max-height: 300px; 
+                margin-top: 15px; 
+                border-radius: 15px; /* Raio de borda geral para mobile */
+            }
+            #card-home .image-content img {
+                border-radius: 15px; /* Raio de borda geral para mobile */
+            }
+
+            .card:not(#card-home) {
+                 padding: 20px; /* Padding para outros cards no mobile */
+            }
+
+            #card-home h1 { font-size: 70px; margin-bottom: 5px; margin-left: 0px; } 
+            #card-home .subtitle-jp { font-size: 20px; margin-bottom: 10px;}
+            #card-home .intro-text { font-size: clamp(0.9em, 3.5vw, 1em); margin-bottom: 10px;}
+            #card-home .developer-info { font-size: clamp(0.85em, 3.2vw, 0.9em); }
+            .card:not(#card-home) h1, .card[id^="card-project-"] h1 { font-size: clamp(2em, 6vw, 2.5em); }
+            .card:not(#card-home) p, .card[id^="card-project-"] p { font-size: clamp(0.95em, 4vw, 1em); }
+        }
+        @media (max-width: 480px) { 
+            .main-nav { width: 100px; padding: 30px 10px; gap: 8px; }
+            .nav-link { font-size: 0.9em; padding: 6px 0; }
+            .sub-nav { padding-left: 10px; margin-left: 5px; }
+            .nav-item-projects .sub-nav::before { left: -5px; width: 2px; }
+            .sub-nav-link { font-size: 0.8em; padding: 4px 0; }
+            .card-container { padding: 10px; }
+            .card-stack-wrapper { width: 92vw; height: 78vh; }
+            
+            #card-home { padding: 15px; }
+            #card-home .text-content { padding-left: 5px; padding-right: 5px; }
+            #card-home .image-content { width: 100%; max-height: 250px; }
+            
+            .card:not(#card-home) {
+                 padding: 15px; 
+            }
+
+            #card-home h1 { font-size: 60px; }
+            #card-home .subtitle-jp { font-size: 18px; }
+            #card-home .intro-text { font-size: clamp(0.85em, 3.2vw, 0.9em); }
+            #card-home .developer-info { font-size: clamp(0.8em, 3vw, 0.85em); }
+            .card:not(#card-home) h1, .card[id^="card-project-"] h1 { font-size: clamp(1.8em, 5.5vw, 2.2em); }
+            .card:not(#card-home) p, .card[id^="card-project-"] p { font-size: clamp(0.9em, 3.8vw, 1em); }
         }
     </style>
 </head>
-<body class="text-gray-800">
-    <div class="flex min-h-screen">
-        <aside class="w-1/5 bg-white p-8 border-r border-gray-200 hidden md:block">
-            <nav>
-                <ul>
-                    <li class="mb-4"><a href="index.html" class="sidebar-link hover:text-black">Home</a></li>
-                    <li class="mb-4"><a href="explorar.html" class="sidebar-link hover:text-black">Explore</a></li>
-                    <li class="mb-4"><a href="#" class="sidebar-link-active">Profile</a></li>
-                </ul>
-                <div class="mt-8 text-xs text-gray-500">
-                    <p>Your design</p>
-                    <p>tag: Private beta</p>
-                    <p>Build 1.0.4</p>
-                </div>
-            </nav>
-        </aside>
+<body>
+    <div id="animated-wave-background"></div>
 
-        <main class="w-full md:w-4/5 p-6 md:p-12 bg-white">
-            <section class="flex items-start mb-10">
-                <img src="https://avatars.githubusercontent.com/u/100228796?v=4" alt="Gabriel Nascimento's Avatar" class="w-16 h-16 md:w-20 md:h-20 rounded-full mr-6">
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Gabriel Nascimento</h1>
-                    <p class="text-gray-600">Front-end & Mobile dev</p>
-                    <p class="text-sm text-gray-500 mt-1">Brazil</p>
-                    <p class="text-sm text-gray-500">Born: 10/04/2002</p>
-                </div>
-            </section>
-
-            <div class="mb-8 border-b border-gray-200">
-                <nav class="flex space-x-8">
-                    <button class="pb-2 tab-button tab-active" data-tab="posts">Posts</button>
-                    <button class="pb-2 tab-button tab-inactive" data-tab="information">Information</button>
-                </nav>
+    <nav class="main-nav">
+        <div class="nav-item">
+            <a href="#" data-target="card-home" class="nav-link active">Home</a>
+        </div>
+        <div class="nav-item nav-item-projects"> <a href="#" data-target="card-projects" class="nav-link">Projects</a>
+            <div class="sub-nav" id="projects-sub-nav">
+                <a href="#" data-target="card-project-1" class="sub-nav-link">Projeto Alpha</a>
+                <a href="#" data-target="card-project-2" class="sub-nav-link">Website Beta</a>
             </div>
+        </div>
+        <div class="nav-item">
+            <a href="#" data-target="card-contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
 
-            <div id="posts-content">
-                <h2 class="text-lg font-semibold text-gray-700 mb-2">Projects</h2>
-                <div class="mb-6 pb-6 border-b border-gray-300">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-1">
-                        <a href="#" class="hover:underline">Banered</a>
-                    </h3>
-                    <p class="text-sm text-gray-500 mb-2">Simple banner/icon maker.</p>
-                    <div class="flex space-x-3 mb-3 items-start">
-                        <img src="https://github.com/GabrielBaiano/Banered/raw/main/src/assets/01.jpg" alt="Banered project screenshot 1" class="project-image-small">
-                        <img src="https://github.com/GabrielBaiano/Banered/raw/main/src/assets/icon.png" alt="Banered project icon screenshot" class="project-image-small">
-                    </div>
-                    <p class="text-gray-600 leading-relaxed">
-                        Banered is a web app built with React and TypeScript. It allows users to easily create custom banners and icons. Key libraries used in this project include <code class="text-sm bg-gray-100 p-1 rounded">html2canvas</code> for image generation, <code class="text-sm bg-gray-100 p-1 rounded">lucide-react</code> for a rich set of icons, and <code class="text-sm bg-gray-100 p-1 rounded">react-color</code> for intuitive color selection. The goal was to provide a user-friendly tool for quick visual asset creation.
-                    </p>
+    <main class="card-container" id="cardContainer">
+        <div class="card-stack-wrapper">
+            <div class="card" id="card-home">
+                <div class="text-content">
+                    <h1>Hi.</h1>
+                    <p class="subtitle-jp">叶える力になる会社</p>
+                    <p class="intro-text">I'm here to help realize your dream.</p>
+                    <p class="developer-info">I'm Gabriel Nascimento, a Front-End Developer from SP, Brazil with a passion for design.</p>
                 </div>
-
-                <div class="mb-6 pb-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-1">
-                        <a href="#" class="hover:underline">Coming Soon</a>
-                    </h3>
-                    <p class="text-sm text-gray-500 mb-2">Brief project description.</p>
-                    <p class="text-gray-600 leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </p>
+                <div class="image-content">
+                    <img src="https://i.pinimg.com/736x/4d/17/5a/4d175ae84a775871c38071cdbd0d99cd.jpg" alt="Imagem de Perfil Abstrata">
                 </div>
             </div>
-
-            <div id="information-content" class="hidden">
-                <section class="mb-8">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-3">About</h2>
-                    <p class="text-gray-600 leading-relaxed mb-3">
-                        Hi! I’m Gabriel Gama, a Front-End Developer from São Paulo, Brazil. I’m passionate about building modern, responsive web and mobile applications.
-                    </p>
-                    <p class="text-gray-600 leading-relaxed">
-                        In my spare time, I enjoy video games, robotics projects, and the ocean breeze at the beach. I love combining creativity and technology to solve problems and create intuitive digital experiences.
-                    </p>
-                </section>
-
-                <section class="mb-8">
-                    <h2 class="text-lg font-semibold text-gray-700 mb-3">Details</h2>
-                    <div class="text-gray-600">
-                        <div class="flex flex-col space-y-3">
-                            <a href="https://github.com/GabrielBaiano" target="_blank" rel="noopener noreferrer" class="contact-link-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-                                GitHub: GabrielBaiano
-                            </a>
-                            <a href="https://www.linkedin.com/in/gabriel-nascimento-gama-5b0b30185/" target="_blank" rel="noopener noreferrer" class="contact-link-icon">
-                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5"><path d="M13.437 13.437H10.87V9.99c0-.825-.012-1.887-.975-1.887s-1.125.9-1.125 1.837v3.5H6.188V5.962h2.475v1.125h.038c.337-.638.975-1.125 2.062-1.125 2.25 0 2.625 1.488 2.625 3.413v4.062ZM3.75 4.837a1.088 1.088 0 1 1 0-2.175 1.088 1.088 0 0 1 0 2.175Zm1.25 8.6H2.5V5.962h2.5V13.437ZM14.75 0H1.25C.563 0 0 .563 0 1.25v13.5C0 15.438.563 16 1.25 16h13.5c.688 0 1.25-.563 1.25-1.25V1.25C16 .563 15.438 0 14.75 0Z"/></svg>
-                                LinkedIn: Gabriel Nascimento Gama
-                            </a>
-                            <a href="mailto:gabrielngama@gmail.com" class="contact-link-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-5 h-5"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51a.5.5 0 0 0 .652 0l6.598-3.185A2.008 2.008 0 0 0 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Zm0 11.5A1.5 1.5 0 0 0 4 16h8a1.5 1.5 0 0 0 1.5-1.5V7.383l-4.992 2.41a1.5 1.5 0 0 1-1.962 0L2.5 7.383V14.5Z"/></svg>
-                                Email: gabrielngama@gmail.com
-                            </a>
-                        </div>
-                    </div>
-                </section>
-                </div>
-        </main>
-    </div>
+            <div class="card" id="card-projects">
+                <h1>Projects</h1>
+                <p class="projects-intro-text">
+                    Bem-vindo à minha secção de projetos! Aqui pode encontrar uma visão geral do meu trabalho.
+                    Use a navegação à esquerda para explorar os projetos individuais.
+                </p>
+            </div>
+            <div class="card" id="card-project-1">
+                <h1>Projeto Alpha</h1>
+                <p>Este é o Projeto Alpha, focado em desenvolver uma solução inovadora para X, utilizando tecnologias Y e Z.</p>
+                <p>O objetivo principal foi criar uma experiência de utilizador intuitiva e eficiente.</p>
+            </div>
+            <div class="card" id="card-project-2">
+                <h1>Website Beta</h1>
+                <p>O Website Beta é uma plataforma de e-commerce moderna construída com as mais recentes tecnologias front-end e back-end.</p>
+                <p>Inclui funcionalidades como pesquisa avançada, personalização de perfil e um checkout simplificado.</p>
+            </div>
+            <div class="card" id="card-contact">
+                <h1>Contact</h1>
+                <p>Let's connect! Feel free to reach out for collaborations, questions, or just to say hello.</p>
+                <p>You can find me on LinkedIn, GitHub, or send me an email directly.</p>
+            </div>
+        </div>
+    </main>
 
     <script>
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const postsContent = document.getElementById('posts-content');
-        const informationContent = document.getElementById('information-content');
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainNavLinks = document.querySelectorAll('.main-nav > .nav-item > .nav-link');
+            const subNavElement = document.getElementById('projects-sub-nav');
+            const subNavLinks = subNavElement.querySelectorAll('.sub-nav-link');
+            const cardContainer = document.getElementById('cardContainer'); 
+            
+            let currentStack = [
+                document.getElementById('card-home'),
+                document.getElementById('card-projects'),
+                document.getElementById('card-project-1'),
+                document.getElementById('card-project-2'),
+                document.getElementById('card-contact')
+            ].filter(card => card !== null);
 
-        if (tabButtons.length > 0 && postsContent && informationContent) {
-            tabButtons.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabButtons.forEach(t => {
-                        t.classList.remove('tab-active');
-                        t.classList.add('tab-inactive');
-                    });
-                    tab.classList.add('tab-active');
-                    tab.classList.remove('tab-inactive');
+            let isNavigating = false; 
+            const navigationDebounceTime = 700; 
+            let touchStartX = 0;
+            let touchStartY = 0;
+            const swipeThreshold = 50; 
 
-                    if (tab.dataset.tab === 'posts') {
-                        postsContent.classList.remove('hidden');
-                        informationContent.classList.add('hidden');
-                    } else if (tab.dataset.tab === 'information') {
-                        postsContent.classList.add('hidden');
-                        informationContent.classList.remove('hidden');
+            function applyStackStyles() {
+                const totalCards = currentStack.length;
+                const maxVisibleCards = 3; 
+
+                currentStack.forEach((card, index) => {
+                    if (!card) return; 
+
+                    if (index < maxVisibleCards) {
+                        const depth = index; 
+                        const scale = 1 - depth * 0.04; 
+                        const translateX = depth * 30; 
+                        const translateY = depth * 20; 
+                        
+                        card.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                        card.style.opacity = `${1 - depth * 0.25}`; 
+                        card.style.zIndex = totalCards - depth;
+                        card.style.pointerEvents = 'auto'; 
+                    } else {
+                        card.style.transform = `translate(0px, ${index * 10}px) scale(0.8)`; 
+                        card.style.opacity = '0';
+                        card.style.zIndex = totalCards - index; 
+                        card.style.pointerEvents = 'none'; 
                     }
                 });
-            });
-            const defaultActiveTab = document.querySelector('.tab-button[data-tab="posts"]');
-            if (defaultActiveTab) {
-                 defaultActiveTab.click();
+
+                const activeCardId = (currentStack.length > 0 && currentStack[0]) ? currentStack[0].id : null;
+                mainNavLinks.forEach(link => {
+                    let isActive = false;
+                    if (link.dataset.target === activeCardId) isActive = true;
+                    else if (link.dataset.target === 'card-projects' && activeCardId && activeCardId.startsWith('card-project-')) isActive = true; 
+                    link.classList.toggle('active', isActive);
+                });
+                subNavLinks.forEach(link => {
+                    link.classList.toggle('active', link.dataset.target === activeCardId);
+                });
+                const projectsNavLink = document.querySelector('.nav-link[data-target="card-projects"]');
+                if (projectsNavLink && projectsNavLink.classList.contains('active')) {
+                    subNavElement.classList.add('open');
+                } else {
+                    subNavElement.classList.remove('open');
+                }
             }
-        }
+
+            function navigateNext() {
+                if (currentStack.length <= 1) return;
+                const frontCard = currentStack.shift(); 
+                currentStack.push(frontCard); 
+                applyStackStyles();
+            }
+
+            function navigatePrevious() {
+                if (currentStack.length <= 1) return;
+                const backCard = currentStack.pop(); 
+                currentStack.unshift(backCard); 
+                applyStackStyles();
+            }
+            
+            function handleLinkClick(event, targetId) {
+                event.preventDefault();
+                if (isNavigating) return;
+                const targetCardElement = document.getElementById(targetId);
+                if (!targetCardElement || targetCardElement === currentStack[0]) return;
+                const oldFrontCardElement = currentStack[0];
+                const targetCardIndex = currentStack.indexOf(targetCardElement);
+                if (targetCardIndex > -1) currentStack.splice(targetCardIndex, 1); 
+                currentStack.unshift(targetCardElement); 
+                if (oldFrontCardElement !== targetCardElement) {
+                    const oldFrontIndexInNewStack = currentStack.indexOf(oldFrontCardElement);
+                    if (oldFrontIndexInNewStack > -1 && oldFrontIndexInNewStack !== 0) { 
+                         currentStack.splice(oldFrontIndexInNewStack, 1);
+                         currentStack.push(oldFrontCardElement);
+                    } else if (oldFrontIndexInNewStack === -1 && oldFrontCardElement) { 
+                        currentStack.push(oldFrontCardElement);
+                    }
+                }
+                applyStackStyles();
+            }
+
+            mainNavLinks.forEach(link => {
+                link.addEventListener('click', (event) => handleLinkClick(event, link.dataset.target));
+            });
+            subNavLinks.forEach(link => {
+                link.addEventListener('click', (event) => handleLinkClick(event, link.dataset.target));
+            });
+            cardContainer.addEventListener('wheel', (event) => {
+                if (isNavigating) return; 
+                event.preventDefault(); 
+                isNavigating = true;
+                if (event.deltaY > 0) navigateNext();
+                else if (event.deltaY < 0) navigatePrevious();
+                setTimeout(() => { isNavigating = false; }, navigationDebounceTime);
+            });
+            cardContainer.addEventListener('touchstart', (event) => {
+                if (isNavigating) return;
+                touchStartX = event.changedTouches[0].screenX;
+                touchStartY = event.changedTouches[0].screenY;
+            }, { passive: true }); 
+            cardContainer.addEventListener('touchend', (event) => {
+                if (isNavigating) return;
+                const touchEndX = event.changedTouches[0].screenX;
+                const touchEndY = event.changedTouches[0].screenY;
+                handleSwipeGesture(touchEndX, touchEndY);
+            }, { passive: true });
+            function handleSwipeGesture(touchEndX, touchEndY) {
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+                if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > swipeThreshold) {
+                    isNavigating = true;
+                    if (deltaY < 0) { navigateNext(); } else { navigatePrevious(); }
+                    setTimeout(() => { isNavigating = false; }, navigationDebounceTime);
+                }
+            }
+            
+            applyStackStyles(); 
+        });
     </script>
 </body>
 </html>
