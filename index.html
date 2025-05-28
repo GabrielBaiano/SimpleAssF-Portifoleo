@@ -3,341 +3,25 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shotcut icon" href="src/img/" />
     <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     
-    <style>
-        /* Estilos Globais e Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box; 
-            font-family: "Exo 2", sans-serif; 
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column; 
-            align-items: center; 
-            background-color: #1c39b4; 
-            color: #333; 
-            min-height: 100vh;
-            padding: 20px; 
-        }
-
-        a {
-            text-decoration: none;
-            color: black; 
-        }
-
-        ul {
-            list-style: none; 
-        }
-
-        /* Estilos do Cartão Principal */
-        .main-card-page {
-            background-color: white;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: clamp(300px, 90vw, 1200px);
-            min-height: 300px; 
-            height: auto; 
-            max-height: 75vh; 
-            display: flex;
-            flex-direction: row; 
-            overflow: hidden; 
-            padding: 40px 0 0 40px; 
-            margin-bottom: 40px; 
-        }
-
-        .main-card-page .text-content {
-            flex-basis: 55%; 
-            padding-right: 30px; 
-            padding-bottom: 40px; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-            overflow-y: auto; 
-            font-family: 'Inter', sans-serif; 
-        }
-
-        .main-card-page .image-content { 
-            flex-basis: 45%; 
-            display: flex;
-            align-items: center; 
-            justify-content: center; 
-            overflow: hidden; 
-            border-radius: 0 25px 25px 0; 
-            height: 100%; 
-        }
-
-        .main-card-page .image-content img {
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            border-radius: 0 25px 25px 0; 
-        }
-        
-        .main-card-page .text-content h1 { 
-            margin-top: 0; margin-bottom: 5px; margin-left: 0; color: #111; 
-            font-family: 'Hammersmith One', sans-serif; font-size: 102px; 
-            font-weight: 400; line-height: 1.0; 
-        }
-        .main-card-page .text-content .subtitle-jp { 
-            font-family: 'Poppins', sans-serif; font-size: 24px; color: #333; 
-            margin-bottom: 15px; font-weight: 700; line-height: 1.2; 
-            margin-left: 0; 
-        }
-        .main-card-page .text-content .intro-text { 
-            font-family: 'Poppins', sans-serif; font-size: clamp(1em, 1.8vw, 1.1em); 
-            line-height: 1.5; color: #555; margin-bottom: 10px; 
-            font-weight: 400; margin-left: 0;
-        }
-        .main-card-page .text-content .developer-info { 
-            font-family: 'Poppins', sans-serif; font-size: clamp(0.8em, 1.5vw, 0.95em); 
-            color: #666; line-height: 1.6; margin-bottom: 0;
-            margin-left: 0;
-        }
-
-        /* Estilos dos Filtros da Galeria */
-        .filter-controls-container {
-            width: 100%;
-            max-width: 1200px; 
-            display: flex;
-            justify-content: center; 
-            margin-bottom: 2em;
-        }
-
-        .filter-controls {
-            display: inline-flex; 
-            position: relative;
-            background-color: white;
-            border-radius: 30px; 
-            padding: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            overflow: hidden; 
-        }
-
-        .filter-button {
-            background-color: transparent;
-            border: none;
-            padding: 10px 25px; 
-            margin: 0 2px; 
-            cursor: pointer;
-            font-family: "Exo 2", sans-serif;
-            font-size: 1em;
-            font-weight: 600;
-            color: #555; 
-            border-radius: 25px; 
-            position: relative;
-            z-index: 2; 
-            transition: color 0.4s ease;
-        }
-
-        .filter-button.active {
-            color: white; 
-        }
-
-        .filter-pill {
-            position: absolute;
-            top: 8px; 
-            bottom: 8px;
-            background-color: #2962ff; 
-            border-radius: 25px; 
-            z-index: 1; 
-            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-
-        /* Estilos da Galeria de Imagens */
-        .list-container { 
-            width: 100%;
-            max-width: 1200px; 
-            margin-bottom: 40px; 
-        }
-        
-        .list img {
-            width: 100%;
-            border-radius: 12px; 
-            display: block; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .list a:hover img {
-            transform: scale(1.03);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        .list div.gallery-item { 
-            margin-bottom: 1.5em; 
-            break-inside: avoid-column; 
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            display: block; 
-        }
-        .list div.gallery-item.hidden {
-            opacity: 0;
-            transform: scale(0.9);
-            pointer-events: none;
-            height: 0; 
-            margin-bottom: 0;
-            overflow: hidden;
-        }
-
-         .list div.gallery-item p { 
-            color: white;
-            text-align: left; 
-            padding-top: 8px;
-            font-size: 0.9em;
-            font-family: "Exo 2", sans-serif;
-        }
-
-        .list {
-            columns: 300px; 
-            column-gap: 1.5em; 
-            margin: 0 auto; 
-            width: 100%;
-        }
-
-        /* Estilos do Novo Rodapé Flutuante Ajustado */
-        .floating-footer-card {
-            background-color: white;
-            border-radius: 25px; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            width: 320px; 
-            margin-top: 40px; 
-            margin-bottom: 20px; 
-            padding: 20px; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 150px; 
-        }
-
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 10px; 
-            flex-grow: 1; 
-            padding-right: 15px; 
-        }
-
-        .footer-site-name {
-            font-size: 1.5em; 
-            font-weight: 700;
-            color: #333;
-        }
-
-        .footer-credits, .footer-copyright {
-            font-size: 0.75em; 
-            color: #777;
-            line-height: 1.4;
-        }
-        .footer-credits .heart {
-            color: #e74c3c; 
-        }
-
-        .footer-social-icons {
-            display: flex;
-            gap: 10px; 
-            margin-top: 5px;
-        }
-
-        .footer-social-icons a {
-            background-color: #1c39b4; /* Cor de fundo azul */
-            color: white; /* Cor do ícone branca */
-            font-size: 1em; /* Tamanho do ícone ajustado */
-            width: 32px; /* Largura do quadrado */
-            height: 32px; /* Altura do quadrado */
-            border-radius: 8px; /* Cantos arredondados */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .footer-social-icons a:hover {
-            background-color: #2962ff; /* Azul mais claro ao pairar */
-            transform: translateY(-2px);
-        }
-
-        .footer-photo-placeholder {
-            width: 90px; 
-            height: 90px; 
-            border-radius: 20px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7em;
-            color: #fff;
-            text-align: center;
-            flex-shrink: 0; 
-        }
-
-
-        /* Media Queries */
-        @media (max-width: 768px) { 
-            .main-card-page {
-                flex-direction: column; padding: 20px; width: clamp(300px, 90vw, 600px); 
-                max-height: none; height: auto; margin-bottom: 30px;
-            }
-            .main-card-page .text-content {
-                flex-basis: auto; width: 100%; padding: 0 0 20px 0; max-height: none;
-            }
-            .main-card-page .image-content { 
-                flex-basis: auto; width: 80%; height: 500px; 
-                aspect-ratio: 4 / 3; margin: 0 auto 20px auto; 
-                border-radius: 15px; 
-            }
-            .main-card-page .image-content img { border-radius: 15px; }
-            .main-card-page .text-content h1 { font-size: 70px; margin-bottom: 5px; } 
-            .main-card-page .text-content .subtitle-jp { font-size: 20px; margin-bottom: 10px;}
-            .main-card-page .text-content .intro-text { font-size: clamp(0.9em, 3.5vw, 1em); margin-bottom: 10px;}
-            .main-card-page .text-content .developer-info { font-size: clamp(0.85em, 3.2vw, 0.9em); }
-            
-            .filter-controls { flex-wrap: wrap; justify-content: center; padding: 6px; }
-            .filter-button { padding: 8px 15px; font-size: 0.9em; margin: 3px; }
-            .filter-pill { top: 6px; bottom: 6px; }
-            .list { columns: 200px; }
-        }
-
-        @media (max-width: 480px) { 
-            .main-card-page { padding: 15px; margin-bottom: 20px; }
-            .main-card-page .text-content h1 { font-size: 60px; }
-            .main-card-page .text-content .subtitle-jp { font-size: 18px; }
-            .main-card-page .image-content { width: 90%; aspect-ratio: 1 / 1; margin: 0 auto 20px auto; }
-            .filter-button { padding: 6px 12px; font-size: 0.85em; }
-            .list { columns: 1; } 
-            .list div.gallery-item { margin-bottom: 1em; }
-            .floating-footer-card {
-                width: clamp(260px, 90vw, 300px);
-            }
-            .footer-site-name { font-size: 1.3em; }
-            .footer-credits, .footer-copyright { font-size: 0.7em; }
-            .footer-social-icons a { width: 28px; height: 28px; font-size: 0.8em; }
-            .footer-photo-placeholder { width: 70px; height: 70px; }
-        }
-    </style>
-    <title>Portfólio e Galeria com Rodapé (Revertido)</title> 
+    <title>Hi.</title> 
 </head>
 <body>
 
     <div class="main-card-page">
         <div class="text-content">
             <h1>Hi.</h1>
-            <p class="subtitle-jp">叶える力になる会社</p>
+            <p class="subtitle-jp">じぶんのみちをすすむばしょ</p>
             <p class="intro-text">I'm here to help realize your dream.</p>
-            <p class="developer-info">I'm Gabriel Nascimento, a Front-End Developer from SP, Brazil with a passion for design.</p>
+            <p class="developer-info">I'm Gabriel Nascimento, a Front-End Developer from SP, Brazil, with a passion for design, user experience, and building intuitive digital interfaces. I enjoy turning complex problems into simple, beautiful, and functional solutions.</p>
         </div>
         <div class="image-content">
             <img src="https://i.pinimg.com/736x/4d/17/5a/4d175ae84a775871c38071cdbd0d99cd.jpg" alt="Imagem de Perfil Abstrata">
@@ -358,13 +42,14 @@
         <div class="list">
             <div class="gallery-item" data-category="projetos">
                 <a href="#">
-                    <img src="https://placehold.co/300x400/FDEB71/000000?text=Projeto+1" alt="Projeto 1">
-                    <p>Jesus</p>
+                    <img src="https://miro.medium.com/v2/resize:fit:4000/0*kL5YAK5lmPC_8zKG.png" alt="Projeto 1">
+                    <p>Moovie App Concept!</p>
                 </a>
             </div>
-            <div class="gallery-item" data-category="projetos">
-                <a href="#">
-                    <img src="https://placehold.co/300x500/A9A9A9/FFFFFF?text=Projeto+2" alt="Projeto 2">
+            <div class="gallery-item" data-category="postagens">
+                <a href="https://github.com/GabrielBaiano">
+                    <img src="/src/img/mygit.png" alt="Projeto 2">
+                    <p>My github profile</p>
                 </a>
             </div>
             <div class="gallery-item" data-category="contato">
@@ -374,37 +59,26 @@
                 </a>
             </div>
             <div class="gallery-item" data-category="projetos">
-                <a href="#">
-                    <img src="https://placehold.co/300x450/FFC0CB/000000?text=Projeto+3" alt="Projeto 3">
-                    <p>Outro Projeto</p>
+                <a href="https://github.com/GabrielBaiano/Banered">
+                    <img src="/src/img/bannered.png" alt="Projeto 3">
+                    <p>Bannered a simple Banner/icon maker</p>
                 </a>
             </div>
-             <div class="gallery-item" data-category="postagens">
-                <a href="#">
-                    <img src="https://placehold.co/300x300/ADD8E6/000000?text=Postagem+1" alt="Postagem 1">
-                    <p>Ideia Criativa</p>
+            <div class="gallery-item" data-category="projeto">
+                <a href="https://github.com/GabrielBaiano/VOSTOK_OS_TERMINAL">
+                    <img src="https://camo.githubusercontent.com/140524e0061d371203cddf03df52316ff9baec6362bfe298cb9e47dec4a97b79/68747470733a2f2f6d656469612e6c6963646e2e636f6d2f646d732f696d6167652f76322f443444323241514661766547494d43536c63772f6665656473686172652d736872696e6b5f313238302f4234445a6271654a6f514730416b2d2f302f313734373639303439353036303f653d3137353038393630303026763d6265746126743d76325159416e356a4e4d30767063366b7a35522d3150506234576e347a576b586477654a42747464664149" alt="Projeto 4">
+                    <p>VOSTOK_OS_TERMINAL Conpect</p>
                 </a>
             </div>
-             <div class="gallery-item" data-category="projetos">
-                <a href="#">
-                    <img src="https://placehold.co/300x550/90EE90/000000?text=Projeto+4" alt="Projeto 4">
-                    <p>Mais um Trabalho</p>
-                </a>
-            </div>
-            <div class="gallery-item" data-category="postagens">
-                <a href="#">
-                    <img src="https://placehold.co/300x350/FFD700/000000?text=Postagem+2" alt="Postagem 2">
-                    <p>Artigo Interessante</p>
-                </a>
-            </div>
+            
         </div>
     </div>
 
     <div class="floating-footer-card">
         <div class="footer-left">
-            <div class="footer-site-name">CoolSite</div> <div class="footer-credits">Feito com <span class="heart">❤️</span> por Jux</div> <div class="footer-social-icons">
-                <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <div class="footer-site-name">#Cool Dev</div> <div class="footer-credits">Feito com <span class="heart">❤️</span> por mim</div> <div class="footer-social-icons">
+                <a href="https://github.com/GabrielBaiano" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/gabriel-nascimento-gama-5b0b30185/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" target="_blank" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a> </div>
             <div class="footer-copyright">© 2024 Todos os Direitos Reservados</div>
         </div>
@@ -413,46 +87,6 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const filterButtons = document.querySelectorAll('.filter-button');
-            const filterPill = document.querySelector('.filter-pill');
-            const galleryItems = document.querySelectorAll('.gallery-item');
-
-            function setInitialPillPosition() {
-                const activeButton = document.querySelector('.filter-button.active');
-                if (activeButton && filterPill) { 
-                    filterPill.style.left = activeButton.offsetLeft + 'px';
-                    filterPill.style.width = activeButton.offsetWidth + 'px';
-                }
-            }
-
-            if (filterButtons.length > 0 && filterPill) {
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', function () {
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        this.classList.add('active');
-
-                        filterPill.style.left = this.offsetLeft + 'px';
-                        filterPill.style.width = this.offsetWidth + 'px';
-
-                        const filterValue = this.getAttribute('data-filter');
-
-                        galleryItems.forEach(item => {
-                            setTimeout(() => {
-                                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                                    item.classList.remove('hidden');
-                                } else {
-                                    item.classList.add('hidden');
-                                }
-                            }, 50); 
-                        });
-                    });
-                });
-                setInitialPillPosition();
-                window.addEventListener('resize', setInitialPillPosition);
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

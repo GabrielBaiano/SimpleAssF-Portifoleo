@@ -1,0 +1,320 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+            font-family: "Exo 2", sans-serif; 
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            background-color: #1c39b4; 
+            color: #333; 
+            min-height: 100vh;
+            padding: 20px; 
+        }
+
+        a {
+            text-decoration: none;
+            color: black; 
+        }
+
+        ul {
+            list-style: none; 
+        }
+
+        /* Estilos do Cartão Principal */
+        .main-card-page {
+            background-color: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: clamp(300px, 90vw, 1200px);
+            min-height: 300px; 
+            height: auto; 
+            max-height: 75vh; 
+            display: flex;
+            flex-direction: row; 
+            overflow: hidden; 
+            padding: 40px 0 0 40px; 
+            margin-bottom: 40px; 
+        }
+
+        .main-card-page .text-content {
+            flex-basis: 55%; 
+            padding-right: 30px; 
+            padding-bottom: 40px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            overflow-y: auto; 
+            font-family: 'Inter', sans-serif; 
+        }
+
+        .main-card-page .image-content { 
+            flex-basis: 45%; 
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            border-radius: 0 25px 25px 0; 
+            height: 100%; 
+        }
+
+        .main-card-page .image-content img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 0 25px 25px 0; 
+        }
+        
+        .main-card-page .text-content h1 { 
+            margin-top: 0; margin-bottom: 5px; margin-left: 50px; color: #111; 
+            font-family: 'Hammersmith One', sans-serif; font-size: 120px; 
+            font-weight: 400; line-height: 1.0; 
+        }
+        .main-card-page .text-content .subtitle-jp { 
+            font-family: 'Poppins', sans-serif; font-size: 45px; color: #333; 
+            margin-bottom: 15px; font-weight: 700; line-height: 1.2; 
+            margin-left: 20; 
+        }
+        .main-card-page .text-content .intro-text { 
+            font-family: 'Poppins', sans-serif; font-size: clamp(1em, 1.8vw, 1.1em); 
+            line-height: 1.5; color: #555; margin-bottom: 10px; 
+            font-weight: 400; margin-left: 20px;
+        }
+        .main-card-page .text-content .developer-info { 
+            font-family: 'Poppins', sans-serif; font-size: clamp(0.8em, 1.5vw, 0.95em); 
+            color: #666; line-height: 1.6; margin-bottom: 0;
+            margin-left: 20px; height: 180px;
+        }
+
+        .gallery-item p {
+            margin-left: 6px;
+            font-size: 15px;
+        }
+
+        /* Estilos dos Filtros da Galeria */
+        .filter-controls-container {
+            width: 100%;
+            max-width: 1200px; 
+            display: flex;
+            justify-content: center; 
+            margin-bottom: 2em;
+        }
+
+        .filter-controls {
+            display: inline-flex; 
+            position: relative;
+            background-color: white;
+            border-radius: 30px; 
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden; 
+        }
+
+        .filter-button {
+            background-color: transparent;
+            border: none;
+            padding: 10px 25px; 
+            margin: 0 2px; 
+            cursor: pointer;
+            font-family: "Exo 2", sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            color: #555; 
+            border-radius: 25px; 
+            position: relative;
+            z-index: 2; 
+            transition: color 0.4s ease;
+        }
+
+        .filter-button.active {
+            color: white; 
+        }
+
+        .filter-pill {
+            position: absolute;
+            top: 8px; 
+            bottom: 8px;
+            background-color: #2962ff; 
+            border-radius: 25px; 
+            z-index: 1; 
+            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+
+        /* Estilos da Galeria de Imagens */
+        .list-container { 
+            width: 100%;
+            max-width: 1200px; 
+            margin-bottom: 40px; 
+        }
+        
+        .list img {
+            width: 100%;
+            border-radius: 12px; 
+            display: block; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .list a:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .list div.gallery-item { 
+            margin-bottom: 1.5em; 
+            break-inside: avoid-column; 
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            display: block; 
+        }
+        .list div.gallery-item.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            height: 0; 
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+
+         .list div.gallery-item p { 
+            color: white;
+            text-align: left; 
+            padding-top: 8px;
+            font-size: 0.9em;
+            font-family: "Exo 2", sans-serif;
+        }
+
+        .list {
+            columns: 300px; 
+            column-gap: 1.5em; 
+            margin: 0 auto; 
+            width: 100%;
+        }
+
+        /* Estilos do Novo Rodapé Flutuante Ajustado */
+        .floating-footer-card {
+            background-color: white;
+            border-radius: 25px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 320px; 
+            margin-top: 40px; 
+            margin-bottom: 20px; 
+            padding: 20px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 150px; 
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; 
+            flex-grow: 1; 
+            padding-right: 15px; 
+        }
+
+        .footer-site-name {
+            font-size: 1.5em; 
+            font-weight: 700;
+            color: #333;
+        }
+
+        .footer-credits, .footer-copyright {
+            font-size: 0.75em; 
+            color: #777;
+            line-height: 1.4;
+        }
+        .footer-credits .heart {
+            color: #e74c3c; 
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 10px; 
+            margin-top: 5px;
+        }
+
+        .footer-social-icons a {
+            background-color: #1c39b4; /* Cor de fundo azul */
+            color: white; /* Cor do ícone branca */
+            font-size: 1em; /* Tamanho do ícone ajustado */
+            width: 32px; /* Largura do quadrado */
+            height: 32px; /* Altura do quadrado */
+            border-radius: 8px; /* Cantos arredondados */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .footer-social-icons a:hover {
+            background-color: #2962ff; /* Azul mais claro ao pairar */
+            transform: translateY(-2px);
+        }
+
+        .footer-photo-placeholder {
+            width: 90px; 
+            height: 90px; 
+            border-radius: 20px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            color: #fff;
+            text-align: center;
+            flex-shrink: 0; 
+        }
+
+
+        /* Media Queries */
+        @media (max-width: 768px) { 
+            .main-card-page {
+                flex-direction: column; padding: 20px; width: clamp(300px, 90vw, 600px); 
+                max-height: none; height: auto; margin-bottom: 30px;
+            }
+            .main-card-page .text-content {
+                flex-basis: auto; width: 100%; padding: 0 0 20px 0; max-height: none;
+            }
+            .main-card-page .image-content { 
+                flex-basis: auto; width: 80%; height: 500px; 
+                aspect-ratio: 4 / 3; margin: 0 auto 20px auto; 
+                border-radius: 15px; 
+            }
+            .main-card-page .image-content img { border-radius: 15px; }
+            .main-card-page .text-content h1 { font-size: 70px; margin-bottom: 5px; } 
+            .main-card-page .text-content .subtitle-jp { font-size: 20px; margin-bottom: 10px;}
+            .main-card-page .text-content .intro-text { font-size: clamp(0.9em, 3.5vw, 1em); margin-bottom: 10px;}
+            .main-card-page .text-content .developer-info { font-size: clamp(0.85em, 3.2vw, 0.9em); }
+            
+            .filter-controls { flex-wrap: wrap; justify-content: center; padding: 6px; }
+            .filter-button { padding: 8px 15px; font-size: 0.9em; margin: 3px; }
+            .filter-pill { top: 6px; bottom: 6px; }
+            .list { columns: 200px; }
+        }
+
+        @media (max-width: 480px) { 
+            .main-card-page { padding: 15px; margin-bottom: 20px; }
+            .main-card-page .text-content h1 { font-size: 60px; }
+            .main-card-page .text-content .subtitle-jp { font-size: 18px; }
+            .main-card-page .image-content { width: 90%; aspect-ratio: 1 / 1; margin: 0 auto 20px auto; }
+            .filter-button { padding: 6px 12px; font-size: 0.85em; }
+            .list { columns: 1; } 
+            .list div.gallery-item { margin-bottom: 1em; }
+            .floating-footer-card {
+                width: clamp(260px, 90vw, 300px);
+            }
+            .footer-site-name { font-size: 1.3em; }
+            .footer-credits, .footer-copyright { font-size: 0.7em; }
+            .footer-social-icons a { width: 28px; height: 28px; font-size: 0.8em; }
+            .footer-photo-placeholder { width: 70px; height: 70px; }
+        }
